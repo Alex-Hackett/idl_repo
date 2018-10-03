@@ -3,23 +3,20 @@
 ; This Routine Produces a Classic Kippenhan Diagram of Regions of 
 ; convective instability as a function of mass coordinate and age
 ;-
-PRO ah_genec_kip_diag, modelname
+PRO ah_genec_kip_diag, modelname, timeskip=timeskip, TOSAVE = tosave, TOPLOT = toplot
 TIC
+IF KEYWORD_SET(tosave) AND NOT KEYWORD_SET(toplot) THEN BEGIN
+PRINT, 'Can''t Save Without Plotting, So, Will Plot'
+toplot = 1
+ENDIF
+modelname = STRING(modelname)
 ;modelname = 'P100z000S0d040'
-;Build up the model directory string
+;Build up the model directory string1d4
 modeldir = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/geneva_models/' + STRING(modelname) + '/', 2)
 strucFiles = FILE_SEARCH(modeldir, '*Struc*')
-IF N_ELEMENTS(strucFiles) EQ 0 THEN BEGIN
-baddir = STRTRIM('==========='+modeldir + ' Is a Bad Dir' + '==============')
-PRINT, '======================================'
-PRINT, '======================================'
-PRINT, baddir
-PRINT, '======================================'
-PRINT, '======================================'
-STOP
-ENDIF
 
-savfile = STRTRIM(modeldir + 'genData' + STRING(modelname)+'.sav',2)
+
+savfile = STRTRIM('/cphys/ugrad/2015-16/JF/AHACKETT/IDLWorkspace/Default/IDL_saves/new_saves/' + 'genData' + STRING(modelname)+'.sav',2)
 IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
   savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Restoring==============', 2)
   PRINT, '======================================================================================='
@@ -32,7 +29,19 @@ IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
   RESTORE, savfile
 ENDIF
 IF FILE_TEST(savfile) EQ 0 THEN BEGIN
+  IF FILE_TEST(STRTRIM(modeldir+'*Struc*',2)) EQ 0 THEN BEGIN
+    baddir = STRTRIM('==========='+modeldir + ' Is a Bad Dir' + '==============')
+    PRINT, '======================================'
+    PRINT, '======================================'
+    PRINT, baddir
+    PRINT, '======================================'
+    PRINT, '======================================'
+    RETURN
+  ENDIF
+
 genData = ORDEREDHASH()
+cvData = ORDEREDHASH()
+
 PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 PRINT, 'READING STRUC FILES IN' + modeldir
@@ -64,8 +73,9 @@ FOREACH elem, strucFiles, index DO BEGIN
   convectiveParam = nablarad - nabla_ad
   unstablemass = Mint[WHERE(convectiveParam GT 0)] / 2d33
   genData = genData + ORDEREDHASH(age, unstablemass)
-
-  HELP, genData
+  negHeatCapmass = Mint[WHERE(cv LT 0)] / 2d33
+  cvData = cvData + ORDEREDHASH(age, negHeatCapmass)
+  
 
 ENDFOREACH
 savemes = STRTRIM('---------------' + 'Saving Convective Param Hash to ' + savfile + '---------------',2)
@@ -76,29 +86,33 @@ PRINT, savemes
 PRINT, '-----------------------------------------------'
 PRINT, '-----------------------------------------------'
 PRINT, '-----------------------------------------------'
-SAVE, genData, FILENAME = savfile
+SAVE, genData,cvData, FILENAME = savfile
 ENDIF
 
 
 oldtime = 0
 p = list()
 KTITLE = STRTRIM('Kippenhahn Diagram for '+string(modelname), 2)
+IF KEYWORD_SET(toplot) THEN BEGIN
 FOREACH elem, genData, time DO BEGIN
   
-  IF (time - oldtime) GT 1d4 THEN BEGIN
+  IF (time - oldtime) GT timeskip THEN BEGIN
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(elem), VALUE = time), [elem], /OVERPLOT, /SYM_FILLED, $
       XTITLE = 'Age (Yrs)', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE)
       oldtime = time
   ENDIF
-  
 ENDFOREACH
+ENDIF
 ;fig1 = SCATTERPLOT(x / 1d6, y / 2d33, TITLE = KTITLE, XTITLE = 'Age (Myrs)', YTITLE = 'Mass Coordinate ($M_{\odot}$)')
-plotname = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/Kippenhahn_Plots/'+STRING(modelname) + 'Kippenhahn_Plot.pdf')
-sucess_mesg = STRTRIM('GRAPHIC GENNED!' + ' Saving as: ' + plotname,2)
-PRINT, sucess_mesg
-p[-1].Save, plotname, /BITMAP
+IF KEYWORD_SET(tosave) EQ 0 THEN PRINT, 'GRAPHIC GENNED!!'
+IF KEYWORD_SET(tosave) THEN BEGIN
+  plotname = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/Kippenhahn_Plots/'+STRING(modelname) + 'Kippenhahn_Plot.pdf')
+  sucess_mesg = STRTRIM('GRAPHIC GENNED!' + ' Saving as: ' + plotname,2)
+  PRINT, sucess_mesg
+  p[-1].Save, plotname, /BITMAP
 PRINT, 'GRAPHIC SAVED!!'
 windowdeleteall
+ENDIF
 TOC
 END
 
