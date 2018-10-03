@@ -3,6 +3,11 @@
 ; This Proc Produces the classic Kippenhahn
 ; Diagram of convective instability regions as a function
 ; of model age and mass coordinate, based on the hash sav files
+; 
+; In the future, this is to be extended to additionally plot the
+; regions where the temperature is sufficently high to allow the various
+; buring processes to occur (WIP)
+; 
 ;-
 
 PRO ah_kippenhahn_plotter, themodel, timeskip, TOSAVE = tosave
@@ -69,7 +74,6 @@ FOREACH masslist, MintData, time DO BEGIN
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = time), [czs], /OVERPLOT, /SYM_FILLED, $
       XTITLE = 'Age (Yrs)', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE)
       oldtime = time
-      
   ENDIF
 ENDFOREACH
 
