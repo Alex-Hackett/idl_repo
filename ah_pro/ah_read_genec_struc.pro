@@ -30,9 +30,9 @@ IF FILE_TEST(savfiledir, /DIRECTORY) EQ 0 THEN BEGIN
 ENDIF
 savfile = STRTRIM(savfildir + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
 
-;If the .sav file already exists, just read it in
+;If the .sav file already exists, just skip it
 IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
-  savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Restoring==============', 2)
+  savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Skipping==============', 2)
   PRINT, '======================================================================================='
   PRINT, '======================================================================================='
   PRINT, '======================================================================================='
@@ -40,7 +40,6 @@ IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
   PRINT, '======================================================================================='
   PRINT, '======================================================================================='
   PRINT, '======================================================================================='
-  RESTORE, savfile
 ENDIF
 
 
