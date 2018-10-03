@@ -1,0 +1,74 @@
+;         0      1        2       3        4       5        6       7      8      9      10     11     12     13     14     15     16     17     18     19     20
+johnson   u      b        v       
+2         +0.055 +0.034   +0.026  
+cousins   r      i
+1         +0.030 +0.017
+wfpc2     f170w  f255w    f300w   f336w    f380w   f439w    f450w   f467m  f502n  f547m  f555w  f569w  f606w  f656n  f673n  f675w  f702w  f785lp f791w  f814w  f850lp
+10        +0.000 +0.000   +0.000  +0.000   +0.000  +0.000   +0.000  +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000 +0.000
+stisccd   50ccd  f28x50lp
+0         +0.000 +0.000
+stisnuv   25mama f25srf2  f25qtz  f25cn182 f25ciii f25cn270 f25mgii
+0         +0.000 +0.000   +0.000  +0.000   +0.000  +0.000   +0.000  
+stisfuv   f25lya 25mama   f25srf2 f25qtz
+1         +0.000 +0.000   +0.000  +0.000
+acswfc    f435w  f475w    f550m   f555w    f606w   f625w    f775w   f814w  f850lp
+3         +0.000 +0.000   +0.000  +0.000   +0.000  +0.000   +0.000  +0.000 +0.000
+acshrc    f220w  f250w    f330w   f435w    f475w   f550m    f555w   f606w  f625w  f775w  f814w  f850lp
+6         +0.000 +0.000   +0.000  +0.000   +0.000  +0.000   +0.000  +0.000 +0.000 +0.000 +0.000 +0.000
+acssbc    f115lp f122m    f125lp  f140lp   f150lp  f165lp   
+0         +0.000 +0.000   +0.000  +0.000   +0.000  +0.000   
+nicmos    f110w  f160w    f187w   f190n    f205w   f222m
+0         +0.000 +0.000   +0.000  +0.000   +0.000  +0.000
+galex     fuv    nuv
+1         +0.000 +0.000
+stromgren u      v        b       y
+3         +1.432 +0.179   +0.018  +0.014
+tycho     b      v
+1         +0.069 +0.032
+sdss      u      g        r       i        z
+1         +0.042 -0.002   -0.003  -0.016   -0.028
+2mass     j      h        ks
+0         -0.021 +0.009   +0.000
+; These zero points should be used with alpha_lyr_stis_003.fits
+; Zero point(s) for Johnson V from Bohlin & Gilliland (2004) without correction (0.026)
+;   "    "       "     "    B and U from Maíz Apellániz (200
+;                           B = V + (B-V)         = 0.026 + 0.010 +         (-0.004+0.002) = 0.034
+;                           U = V + (B-V) + (U-B) = 0.026 + 0.010 + 0.020 + (-0.003+0.002) = 0.055
+;   "    "       "  Cousins R and I from Holberg & Bergeron (2006)
+;                           R =                   = 0.035 +                 (-0.005      ) = 0.030
+;                           I =                   = 0.028 +                 (-0.011      ) = 0.017
+;   "    "       "  HST systems are 0.000 by definition
+;   "    "       "  GALEX are not checked
+;   "    "       "  Strömgren filters from Maíz Apellániz (2006), y from Holberg & Bergeron (2006)
+;                    b-y =                0.007 + (-0.003           + 0.000) = 0.004
+;                    m1  = (v-b)-(b-y) =  0.154 + (-0.003 + 2*0.003 + 0.000) = 0.157
+;                    c1  = (u-v)-(v-b) =  1.092 + (-0.003 + 2*0.003 - 0.003) = 1.092
+;                                                   y = V - (V-y) = 0.026 - 0.012 = 0.014 without correction
+;                    b-y =                  0.004 ; b = y + (b-y) = 0.018
+;                    v-b = (b-y)+m1      =  0.161 ; v = b + (v-b) = 0.179
+;                    u-b = 2(b-y)+2m1+c1 =  1.414 ; u = b + (u-b) = 1.432
+;                    The equivalent values from Vega magnitudes for (b-y), (v-b), and (u-b)
+;                     in Lausanne database are:  0.003, 0.160, 1.408
+;                     in Matsushima (1969) are: -0.005, 0.163, 1.433
+;   "    "       "  Tycho filters from Maíz Apellániz (2006) and Maíz Apellániz (2007)
+;                    V_T =                   0.039 +- 0.008 +                  (-0.003        ) = 0.036 +- 0.008 \ 0.032 +- 0.006
+;                        = V   + (V_T-V  ) = 0.026 +- 0.008 + 0.000 +- 0.005 + (-0.003 + 0.002) = 0.025 +- 0.010/
+;                    B_T =                   0.078 +- 0.009 +                  (-0.003        ) = 0.075 +- 0.009 \ 0.069 +- 0.006
+;                        = V_T + (B_T-V_T) = 0.032 +- 0.006 + 0.033 +- 0.005 + (-0.003 + 0.003) = 0.065 +- 0.008 /
+;   "    "       "  SDSS are from Holberg & Bergeron (2006) and are unaffected by the new Vega model. 
+;                     u =  0.042
+;                     g = -0.002
+;                     r = -0.003
+;                     i = -0.016
+;                     z = -0.028
+;                    Note that, as in all other cases, Vega magnitudes are assumed. In other to convert from 
+;                    AB magnitudes (the standard for SDSS) to Vega the following corrections are required:
+;                     u_Vega = u_AB - 0.922
+;                     g_Vega = g_AB + 0.106
+;                     r_Vega = r_AB - 0.143
+;                     i_Vega = i_AB - 0.356
+;                     z_Vega = z_AB - 0.518
+;   "    "       "  2MASS filters from Cohen et al. (2003):
+;                    j   = -0.001 - 0.005 = -0.006
+;                    h   = +0.019 - 0.012 =  0.007
+;                    ks  = -0.017 - 0.005 = -0.022

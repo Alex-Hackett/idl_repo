@@ -1,0 +1,51 @@
+#!/bin/csh
+
+limit stacksize unlimited
+setenv model_obs2D /aux/pc20157b/jgroh/backup_20117/cmfgen_models/etacar/mod_111/obs_groh_full3
+setenv model /aux/pc20157b/jgroh/backup_20117/cmfgen_models/etacar/mod_111/
+setenv PROG_2D /aux/pc20157a/jgroh/trans_2d_64/ze_test_select_rhydro_tilted_wind_owocki/sph_obs/obs_frame_2d.exe
+
+# ***********************************************************************
+# Perform soft links so Atomic data files can be accessed.
+# ***********************************************************************
+
+ln -sf $model/RVTJ     RVTJ
+
+ln -sf $model_obs2D/ETA_DATA       ETA_DATA
+ln -sf $model_obs2D/ETA_DATA_INFO     ETA_DATA_INFO
+
+
+ln -sf $model_obs2D/CHI_DATA            CHI_DATA
+ln -sf $model_obs2D/CHI_DATA_INFO       CHI_DATA_INFO
+
+ln -sf $model_obs2D/ES_J_CONV                   RJ_DATA
+ln -sf $model_obs2D/ES_J_CONV_INFO           RJ_DATA_INFO
+ 
+# ***********************************************************************
+# Copy file across with main settings.
+# ***********************************************************************
+
+#cp -f CMF_FLUX_PARAM_INIT CMF_FLUX_PARAM
+
+
+# ***********************************************************************
+
+# Start the job, fist getting the machine name.
+# We first do a full spectrum calculations
+
+rm -f bat2d.log
+
+echo "Machine name is :" > 'bat2d.log'
+uname -a >> 'bat2d.log'
+
+echo " " >> 'bat2d.log'
+echo "Program started on:" >> 'bat2d.log'
+date >> 'bat2d.log'
+echo " " >> 'bat2d.log'
+#
+$PROG_2D  >>& 'bat2d.log'  << END  
+END
+
+#
+echo "Program finished on:" >> 'bat2d.log'
+date >> 'bat2d.log' 

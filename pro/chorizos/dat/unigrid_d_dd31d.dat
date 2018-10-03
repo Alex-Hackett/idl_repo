@@ -1,0 +1,7 @@
+unigrid_orig.fits      ; Input (original) models
+unigrid_d_dd31d.fits   ; Output (processed) models
+def_filt_syst.dat      ; Default filter systems
+1 default              ; First  original parameter (Temperature     ) is variable and uses default scale
+1 default              ; Second original parameter (log(Gravity)    ) is variable and uses default scale
+0 3.1                  ; R_5495                                       is fixed    and equal to 3.1      
+1 default              ; E(4405-5495)                                 is variable and uses default scale

@@ -1,0 +1,8 @@
+yCHIANTI = 1
+yATOMDB = 1
+!CDBDIR = 'emissivity/cont'
+!CHIDIR = '/data/fubar/SCAR/CHIANTI/dbase/'
+!ATOMDB = '/data/fubar/SCAR/atomdb/'
+!APECDIR = '/data/fubar/SCAR/atomdb/apec_v11_idl/'
+!VERBOSE = 10
+!CALDB = '/data/CALDB/ciao/data/chandra/'

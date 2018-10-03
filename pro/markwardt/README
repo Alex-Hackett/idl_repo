@@ -1,0 +1,21 @@
+                                                          December 1999
+                                                          
+This directory contains modifcations by C. Markwardt of the FITS I/O routines
+FXBCLOSE, FXHREAD, FXREAD, FXBREADM, and FXBWRITM to allow them to be used in
+conjunction with his "seekable pipe" software available  available in
+http://cow.physics.wisc.edu/~craigm/idl/io.html#FXGPKG.   These modifications
+allow the FX* software to read gzip'ed files transparently under Unix.
+
+fxgpkg.tar - the "seekable pipe" software, which is a duplicate of the tar
+             file in http://cow.physics.wisc.edu/~craigm/idl/io.html#FXGPKG
+fxbclose.pro, fxhread.pro, fxread.pro, fxbreadm.pro, fxbwritm.pro -- individual
+             ASCII files 
+fxb_filt.tar - a tar file containing the 5 individual procedures above
+
+Revision History:
+
+Prior to 21-Dec-1999, this directory contained "basic upgrades" to the FX* FITS
+I/O package, which mainly concerned increased performance.   These upgrades are
+now part of the standard IDL Astronomy Library distribution, and so are no
+longer included in this directory.
+

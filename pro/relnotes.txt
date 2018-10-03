@@ -1,0 +1,1074 @@
+-------------------------------------------------------
+Release Notes: IDL Version 6.0 and ION Version 2.0
+Last Updated: July 7, 2003
+-------------------------------------------------------
+
+The information found in these release notes is separated into the
+following sections:
+
+  * New Features Added in IDL 6.0
+  * Backward Compatibility Issues in IDL 6.0
+  * Problems Corrected in IDL 6.0
+  * Known Problems in IDL 6.0
+  * Documentation Errata in IDL 6.0
+  * Problems Corrected in ION Script 2.0
+  * Known Problems in ION Script 2.0
+  * Problems Corrected in ION Java 2.0
+  * Known Problems in ION Java 2.0
+  * Platforms Supported in IDL 6.0 and ION 2.0
+
+===============================
+NEW FEATURES Added in IDL 6.0
+===============================
+
+For information on what's new in this release, see the "What's New in
+IDL 6.0" manual located in the /info/docs directory of your CD-ROM, or
+visit the RSI web site at www.ResearchSystems.com. The "What's New"
+manual is also included in the IDL Online Help system. Additional
+information on new features that did not make it into the "What's New
+in IDL 6.0" manual is found in the "Documentation Errata" section in
+this release notes file. 
+
+==========================================
+BACKWARD COMPATIBILITY ISSUES in IDL 6.0
+==========================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+Improvement to GAUSSFIT Handling of Measurement Errors
+------------------------------------------------------
+A new MEASURE_ERRORS keyword has been added to GAUSSFIT, which allows
+you to pass in a vector of standard measurement errors for each data
+point. Prior to IDL6.0, GAUSSFIT would assume measurement errors of
+1.0 for each point. Now, if MEASURE_ERRORS is not specified, the
+measurement errors are assumed to be zero. If MEASURE_ERRORS is not
+specified, the values returned for the SIGMA keyword are now
+multiplied by SQRT(CHISQ/(N-M)), where N is the number of points in X,
+and M is the number of coefficients. See section 15.2 of Numerical
+Recipes in C (Second Edition) for details. If you have existing code
+that calls GAUSSFIT, you may notice different results for the SIGMA
+and CHISQ keywords.
+
+===================================
+PROBLEMS CORRECTED in IDL 6.0
+===================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+15687 - "!C" Text Formatting Code Now Implemented in Object Graphics
+--------------------------------------------------------------------
+You can now use the !C Embedded Formatting Code in the string of an
+IDLgrText object when the ENABLE_FORMATTING property is set to True.
+
+26638 - Aliases Between Views Now Behave Correctly
+--------------------------------------------------
+When aliasing a model between views, changing the data in the source
+model being aliased maintains the same values for RETAIN and RENDERER
+in the aliased model.
+
+26850 - IDLgrAxis Titles Now Behave Properly when Hidden
+--------------------------------------------------------
+The IDLgrAxis draw method now checks to see if the IDLgrText objects
+used for titles and tick text are hidden before drawing them.
+
+27425 - Color Table Now Retained when Clipboard Drawn to PS File
+----------------------------------------------------------------
+If a palette is provided for a clipboard object that has the VECTOR
+and COLOR_MODEL properties set to 1, the palette will be retained if
+the clipboard is drawn to a PostScript file.
+
+27783 - HELP Procedure More Accurate when Used with STRMID
+----------------------------------------------------------
+The HELP procedure now accurately reports the results of the STRMID
+function even if the results are longer than 45 characters.
+
+27825 - CONVOL Functions Now Works with Multiprocessor Systems
+--------------------------------------------------------------
+The CONVOL function would produce different results on multiprocessor
+systems than single processor system. CONVOL has now been updated to
+also work with multiprocessor systems.
+
+28363 - Mapping Routines Now Use Correct Projection Parameters
+--------------------------------------------------------------
+The MAP_SET and MAP_PROJ_INIT would return an "Unmappable limit point"
+error when working with the transverse mercator projection bounded by
+a limit. This error no longer occurs because the routines now use the
+correct parameters for the projection.
+
+28806 - IDL Now Reads All DICOM Files Correctly
+-----------------------------------------------
+Some DICOM files would cause a segmentation fault when accessed from
+IDL. The fault no longer occurs because the data is now padded
+correctly.
+
+28863 - SOCKET Procedure Now Returns Error Code in ERROR Keyword
+----------------------------------------------------------------
+Using the SOCKET procedure with an unknown port will cause an error.
+If the ERROR keyword is used to specify a named variable, the variable
+will now contain the error message and IDL will not be forced to exit.
+
+29367 - The H5_BROWSER Utility Now Works with Long Attribute Names
+------------------------------------------------------------------
+A restriction of 31 characters for attribute names has been removed
+from the H5_BROWSER utility.
+
+29467 - Arrays Contained in Structure Variables Now Behave Correctly
+--------------------------------------------------------------------
+If a single element of an array is accessed, the result is a
+one-element array. The same now applies to a single element accessed
+from an array contained within a structure. In all previous versions
+of IDL, accessing a single element of an array contained within a
+structure would result in a scalar.
+
+=-=-=-=-=-=-=-=-=
+WINDOWS PLATFORM:
+=-=-=-=-=-=-=-=-=
+
+26828 - LOCALE_GET Function Now Resets Locale
+---------------------------------------------
+The LOCALE_GET function now maintains the previous setting of the
+Windows locale.
+
+27570 - WIDGET_CONTROL Now Properly Handles Newline Characters
+--------------------------------------------------------------
+The value returned by the GET_VALUE keyword to WIDGET_CONTROL when the
+USE_TEXT_SELECT keyword is set is now correct for multiline text.
+
+27956 - FILE_SEARCH Function Now Works for UNC Conventions
+----------------------------------------------------------
+UNC conventions can now be used with the FILE_SEARCH function.
+
+28660 - The <Ctrl>+C Now Works with Detached Output Logs
+--------------------------------------------------------
+If the Output Log is detached from the IDL Development Environment,
+the <Ctrl>+C key combination will now allow you to copy from this
+window.
+
+29645 - DEFINE_KEY Works with Windows Function Keys Again
+---------------------------------------------------------
+The Windows function keys are once again mapped to the IDL Development
+Environment allowing them to be used with the DEFINE_KEY function.
+
+=-=-=-=-=-=-=-
+UNIX PLATFORM:
+=-=-=-=-=-=-=-
+
+27512 - Keyword Inheritance Problem Resolved
+--------------------------------------------
+On some platforms, passing a keyword value by reference using the
+_EXTRA keyword would crash IDL. IDL now allows this value to be
+passed.
+
+27536 - License Manager Now Runs on Solaris 9
+---------------------------------------------
+The FLEXlm binaries have now been upgraded to work with Solaris 9.
+
+27630 - Images used with IDLgrSurface Behave Correctly under Linux
+------------------------------------------------------------------
+On Linux systems, some images would be compressed when displayed as
+texture maps on an IDLgrSurface object. This compression was caused by
+a floating-point precision issue that no longer occurs.
+
+28161 - Reload of a Changed Read-Only File Handled Correctly
+------------------------------------------------------------
+IDL *.pro files can be marked as Read-Only within IDL, but can be
+changed outside of IDL. If such file was opened in IDL and changed
+externally, reloading the file would cause IDL to crash. The crash no
+longer occurs.
+
+28532, 29398 - Table Widget Mouse Interaction Now More Robust
+-------------------------------------------------------------
+The Motif event caused by dragging a cell, column header, or row
+header outside of a table widget is now handled by IDL.
+
+28558 - IDL Uses Direct Rendering Infrastructure (if available)
+---------------------------------------------------------------
+On Linux platforms, IDL now uses DRI (Direct Rendering Infrastructure)
+enabled GL to increase IDL Object Graphics performance. In most cases,
+if you have a powerful 3D card, you will need to go to the card
+vendor's website to obtain Linux/XFree86 drivers for your card (if
+they are available). IDL will now automatically use this support if
+installed.
+
+However, RSI cannot control driver quality. Please ensure your driver
+is installed correctly. Test other GL programs if any problems occur.
+
+28651 - WIDGET_CONTROL, /INPUT_FOCUS Now Works with Draw Widgets
+----------------------------------------------------------------
+The INPUT_FOCUS keyword can now be used to change the focus from
+another widget to a draw widget.
+
+28758 - Concatenation of Subscripted Strings No Longer Corrupted in IDL
+-----------------------------------------------------------------------
+Subscripted stores into scalar string variables that contain a string
+constant prior to the subscripted store no longer corrupt the
+subscripted stores.
+
+28956 - 64-bit IDL on AIX Systems No Longer Limited to 2 GB
+------------------------------------------------------------------
+The 2 GB memory allocation limit was imposed for 32-bit and 64-bit IDL
+on AIX system because of AIX's memory allocation system. This limit
+has been removed for 64-bit IDL.
+
+===================================
+KNOWN PROBLEMS in IDL 6.0
+===================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+3820 - DEFAULT_BUTTON and CANCEL_BUTTON Keywords to WIDGET_CONTROL
+------------------------------------------------------------------
+The DEFAULT_BUTTON and CANCEL_BUTTON keywords to WIDGET_CONTROL are
+not currently functional.
+
+5615 - MAP_CONTINENTS, /FILL_CONTINENTS May Cause Error
+-------------------------------------------------------
+Certain values set for the PLat and PLon input arguments to MAP_SET
+cause an "Internal error: Border sort" error when the FILL_CONTINENTS
+keyword to MAP_CONTINENTS is set.
+
+14220 - Using 'Save As' with an IDL Project Causes Problem
+----------------------------------------------------------
+If you save a project in a directory different from the original
+location, the files contained within the IDL Project appear to be
+included in the Save As operation. In reality, the files underneath
+the project still reside in the original location and the IDL Project
+does not resolve the new directory path.
+
+19086 - The FIT_PTS Field in the IDLffDXF Object Returns Null Pointer
+----------------------------------------------------------------------
+The FIT_PTS field of the IDL_DXF_SPLINE structure of the GetEntity
+method of the IDLffDXF object always returns a Null Pointer regardless
+of the value stored in that entity.
+
+20122 - Problems Reading Compressed HDF SD Data Sets
+----------------------------------------------------
+You may encounter intermittent problems reading compressed HDF SD data
+created with HDF version 4.0r2 or earlier.
+
+25785 - MAP_PROJ_FORWARD Does Not Always Clip Polylines Correctly
+-----------------------------------------------------------------
+For some of the oblique Mercator projections, if an input line segment
+happens to cross the back side of the planet, the polylines returned
+will incorrectly clip the projected points, causing points plotted
+using the polylines to indicate segments to be plotted across the
+entire map display.
+
+25927 - Tree Widget Generating Incorrect Selection Events
+---------------------------------------------------------
+If no item is selected in a tree widget and an item is expanded by
+clicking the "plus" icon, the first item in the tree is selected and
+an event is generated for it.
+
+26111 - Incorrect Number of Rows and Columns Displayed When
+WIDGET_TABLE Data is Replaced
+-----------------------------------------------------------
+When the data in a table widget is replaced via the SET_VALUE keyword
+to WIDGET_CONTROL, the data area of the table may not automatically
+display the correct number of rows or columns. To work around this
+problem, use IDL code similar to the following:
+
+  WIDGET_CONTROL, table, SET_VALUE = new_value 
+  WIDGET_CONTROL, table, TABLE_XSIZE = N_ELEMENTS(new_value[*,0]), $
+     TABLE_YSIZE = N_ELEMENTS(new_value[0,*])
+
+27578 - Setting GREYSCALE Property of an IDLgrImage Object to True
+Does Not Always Result in Luminance Image
+-------------------------------------------------------------------
+For both of the following cases, the GREYSCALE property is set to
+True. If the color model of the display (a window object) is set to
+RGB mode (COLOR_MODEL = 0) and palette of the image object is set to a
+non-grayscale color table, the palette is not ignored (the image
+should be shown with a grayscale color table). If the color model of
+the display is set to indexed mode and the palette of the display is
+set to a non-grayscale color table, but the palette of the image
+object is not set, the palette of the display is used (the image
+should be shown with a grayscale color table).
+
+27874 - WIDGET_CONTROL, SENSITIVE=0 has No Effect on Tree Widget Nodes
+----------------------------------------------------------------------
+The nodes of an IDL tree widget cannot be desensitized, but the entire
+tree widget can be made insensitive.
+
+28545 - BASE_ALIGN_* Keywords to a Base Widget are Ignored by Modal
+Widgets Using the XSIZE Keyword
+-------------------------------------------------------------------
+Modal bases cannot be aligned with the BASE_ALIGN_* keywords if the
+XSIZE keyword is also set. However, the XSIZE keyword can be specified
+for a second base inside the top level modal base. Then the
+BASE_ALIGN_* keywords work for the top level modal base.
+
+29419 - Order of Non-rectangular Data is Reversed in SURFACE Display
+--------------------------------------------------------------------
+The SURFACE procedure reverses the order of its display if the data
+provided is not on a rectangular grid.
+
+29660 - Some Routines Cannot be Used with the IDL Virtual Machine
+-----------------------------------------------------------------
+The ANNOTATE, EFONT, READ_INTERFILE, and RESOLVE_ALL routines cannot
+be used with the IDL Virtual Machine.
+
+=-=-=-=-=-=-=-=-=
+WINDOWS PLATFORM:
+=-=-=-=-=-=-=-=-=
+
+319 - IDL Events Not Handled While Dragging Slider Widget
+---------------------------------------------------------
+Due to a Windows limitation, IDL events cannot be handled while a
+scroll widget is being dragged.
+
+3257 - Escape and Enter Key Behavior in Widget Dialog Not as Documented
+----------------------------------------------------------------------
+In the WIDGET_CONTROL description in the IDL Reference Guide, the
+description for the CANCEL_BUTTON keyword states that pressing the
+Escape key is the same as clicking the Cancel button. Similarly, the
+description of the DEFAULT_BUTTON keyword states that pressing the
+Enter key is the same as clicking the default button. Although this is
+the desired behavior, once any widget within a base widget is given
+focus, pressing the Return or Escape keys does not return an event.
+
+20561 - Accessing Corrupt MrSID Files
+-------------------------------------
+IDL will exit unexpectedly when accessing corrupt MrSID files. The
+library used to access this type of file does not report any error
+conditions and just exits unexpectedly, causing IDL to do the same.
+
+27486 - Scroll Bar Drag Events are Queued Up on Windows
+-------------------------------------------------------
+When dragging a scroll bar on Windows for a draw widget, if the mouse
+is over the drawable region, drag events are queued up until the mouse
+is released. When the mouse is anywhere else during the drag, only a
+single event is fired when the mouse is released.
+
+27598 - Separator Causes Invalid Widget ID in Pulldown Menu If Buttons
+in Menu are Deleted
+----------------------------------------------------------------------
+For pulldown menus containing buttons on both sides of a separator, if
+you realize the base containing the menu and then delete all of the
+buttons, one button remains.
+
+29847 - FONT Keyword to WIDGET_COMBOBOX is Ignored If XSIZE
+Keyword is Set
+-----------------------------------------------------------
+If the XSIZE keyword is set for a combobox widget, the FONT keyword is
+ignored and the default font will appear. The FONT keyword is honored
+if the XSIZE keyword is not set.
+
+30026 - X and Y Offsets of Floating Child Bases are Not Updated by
+Mouse Motion Events
+------------------------------------------------------------------
+The values of the XOFFSET and YOFFSET keywords to WIDGET_INFO for
+floating child bases are not updated when the base is moved by
+dragging it with the mouse.
+
+=-=-=-=-=-=-=-=-=-=
+MACINTOSH PLATFORM:
+=-=-=-=-=-=-=-=-=-=
+
+26833 - WIDGET_CONTROL, /SET_BUTTON Cannot Set Exclusive Buttons
+----------------------------------------------------------------
+When an exclusive button is set through WIDGET_CONTROL, /SET_BUTTON,
+the windowing system highlights the button, but it does not appear as
+the active button. Moreover, clicking another button in the exclusive
+base will not make that other button active. However, button bases
+created with the EXCLUSIVE keyword still work correctly.
+
+26883 - Cannot Install in a Directory with Spaces in Its Path
+-------------------------------------------------------------
+If the installation folder or any folder in the path to the
+installation folder contains spaces in its name, the installer will
+not recognize the path. Rename the folder without spaces before you
+install, or use the default "/usr/local/rsi" installation path.
+
+27599 - Extra Widget Tracking Events Generated from Draw Widgets
+-----------------------------------------------------------------
+Mouse clicks in a draw widget window generate tracking exit and entry
+events without ever leaving the draw window on Mac OS X.
+
+Index for PDF Files in the IDL Documentation Set will not Load on
+Macintosh OS X
+--------------------------------------------------------------------
+Like all UNIX versions of IDL, IDL for Mac OS X uses the Adobe Acrobat
+Reader to display online help. The IDL 6.0 CD includes the installer
+for the latest version of the Acrobat Reader software: Adobe Reader 6.
+Adobe Reader 6 for Mac OS X is the first version of the reader
+software that supports the PDF search function in OS X native mode.
+
+To support fast full-text searching of the entire IDL documentation
+set, RSI provides an index (or "catalog") that is used by the Adobe
+reader. Most systems supported by IDL use version 5 of the Acrobat
+Reader, and the index is created using that version of the Acrobat
+catalog software. Unfortunately, Adobe Reader 6 for Mac OS X will not
+read indexes created for version 5.
+
+As a result, the index that is associated with the IDL documentation
+set of PDF files will not load on a Macintosh. A separate index, built
+using version 6 of the Acrobat catalog software, is provided for Mac
+OS X users. To use the version 6 index files, perform the following
+steps:
+
+1) Open one of the PDF files in the IDL documentation set. You can do
+   this by typing ? at the IDL> prompt or by selecting an item from the
+   Help menu. You will see a dialog with the following error message:
+
+   "The index associated with this document (<IDL_DIR>:INDEX.PDX) could
+   not be loaded. You may need to rebuild the index." where <IDL_DIR>
+   represents the full path to your IDL distribution.)
+
+2) Select Search from the Edit menu.
+
+3) Click the "Use Advanced Search Options" link at the bottom of the
+   search pane.
+
+4) Choose "Select Index..." from the "Look In" pulldown menu.
+
+5) Select "INDEX_6.PDX" in the help subdirectory of your IDL 6.0
+   distribution and click "Open".
+
+6) Click "OK" to select the index.
+
+The IDL 6.0 index file is now selected, and will be selected whenever
+you attempt to search in the IDL documentation set.
+
+Adobe Reader 6 required on Mac OS X
+-----------------------------------
+Because Adobe Reader 6 is required to provide the full functionality
+of the IDL online help system under Mac OS X, the IDL installer
+creates a script that references this version. Other versions of
+Acrobat installed on the system will be ignored by IDL.
+
+=-=-=-=-=-=-=-
+UNIX PLATFORM:
+=-=-=-=-=-=-=-
+
+3803, 12625 - TLB_SET_X/YOFFSET Fails Before Widget is Realized
+---------------------------------------------------------------
+The TLB_SET_XOFFSET and TLB_SET_YOFFSET keywords to WIDGET_CONTROL
+do not work unless the widget on which the offsets are being set
+has been realized.
+
+3951 - Children Widgets Limited By Bulletin Board Bases
+-------------------------------------------------------
+Due to a Motif limitation, child widgets placed with offsets must be
+within the parent (bulletin board base) to be displayed.
+
+7419 - Table Widget Row Labels Can be Truncated
+-----------------------------------------------
+In table widgets, the width of the column containing row labels may
+not be wide enough to accommodate the longest row label. For example,
+the following code causes the first row label to be truncated:
+
+   PRO row_labels
+      base = WIDGET_BASE()
+      values = INDGEN(2,4)
+      rLabels = ['This is a long row label','Two','Three','Four']
+      wTable = WIDGET_TABLE(base, ROW_LABELS = rLabels, VALUE = values)
+      WIDGET_CONTROL, base, /REALIZE
+   END
+
+To change the size of the row label column, use the COLUMN_WIDTH and
+USE_TABLE_SELECT keywords to WIDGET_CONTROL, as shown in the following
+example:
+
+   PRO row_labels
+      base = WIDGET_BASE()
+      values = INDGEN(2,4)
+      rLabels = ['This is a long row label', 'Two', 'Three', 'Four']
+      wTable = WIDGET_TABLE(base, ROW_LABELS = rLabels, VALUE = values)
+      WIDGET_CONTROL, base, /REALIZE
+      WIDGET_CONTROL, wTable, USE_TABLE_SELECT = [-1,0,-1,3], $
+         COLUMN_WIDTH = 150
+   END
+
+See WIDGET_CONTROL in the IDL Reference Guide for more information on
+the COLUMN_WIDTH and USE_TABLE_SELECT keywords.
+
+14241 - Project->Export Path/Project Name Cannot Contain Spaces
+---------------------------------------------------------------
+When using the Project->Export feature or make_rt script on UNIX, the
+export operation will fail if either the name of the .prj file or the
+name of the directory to which the project is being exported contains
+any spaces.
+
+17648 and 17971 - IDL Requires a Patch for Solaris OS
+-----------------------------------------------------
+The Motif library supplied by Sun in Solaris 8 requires a patch,
+available at:
+
+   http://www.sunsolve.sun.com
+
+before it will work properly with IDL. Without this patch, editable
+text and table widgets may cause the IDL program to crash. The patch
+to use depends on the hardware architecture on which you are running
+Solaris. For Sparc hardware (both 32- and 64-bit), the patch number is
+108940-23.
+
+19976 - IDLgrWindow Does Not Minimize in Linux Red Hat 7.1 with KDE
+Desktop Running the Kwin Window Manager
+-------------------------------------------------------------------
+On Intel Linux Red Hat 7.1 using the KDE desktop with kwin window
+manager, the minimize action for stand-alone object graphics windows
+in IDL is inactive.
+
+20064 - Shortcut Menu Limited by Two-button Mouse on Solaris
+------------------------------------------------------------
+A known problem exists with shortcut menu functionality (otherwise
+known as context sensitive or pop-up menus) and a two-button mouse.
+Under Solaris, a right mouse button click cannot be simulated with a
+two-button mouse.
+
+20320 - EOS_EH_CONVANG fails on some 64-bit platforms
+-----------------------------------------------------
+The EOS_EH_CONVANG functions fails on some 64-bit platforms because of
+a bug in the HDF-EOS library.
+
+22329 - HDF NetCDF Support Fails on 64-bit Platforms
+----------------------------------------------------
+Attempting to access a NetCDF file with IDL's HDF routines generates
+an error "HDF_SD_START: Unable to start the HDF-SD interface". Note:
+On 64-bit platforms, NetCDF files can be accessed through the NetCDF
+routines.
+
+26569 - Table Widget Not Generating Disjointed De-selection Events
+------------------------------------------------------------------
+Beginning with IDL 5.6, the table widget generates a new event type,
+WIDGET_TABLE_CELL_DESEL, when the table is in disjoint selection mode
+and group of selected cells are selected again. This event is
+identical to the WIDGET_TABLE_CELL_SEL event except for the name and
+the TYPE value. On UNIX platforms, events of type
+WIDGET_TABLE_CELL_SEL are erroneously generated when the table is in
+disjoint selection mode and a group of selected cells are selected
+again. Selecting the cells a third time generates an erroneous
+WIDGET_TABLE_CELL_DESEL event.  Until this problem is corrected, RSI
+suggests checking the selection mode of the table (using the
+TABLE_DISJOINT_SELECTION keyword to WIDGET_INFO) when processing
+events of type WIDGET_TABLE_CELL_SEL.
+
+27237 - IDL Cannot Handle 15-bit Color Depth on Some Linux Systems
+------------------------------------------------------------------
+When IDL tries to initialize a window on some Linux systems with
+15-bit color depth, an "Unsupported X Windows visual" error message is
+displayed and the window will not initialize. However, this issue can
+be resolved by calling the DEVICE command with the TRUE_COLOR keyword
+set to 15.
+
+27393 - Last Item of Context Menu is Not Displayed If It Represents a
+Sub-menu
+--------------------------------------------------------------------
+If the top level base containing a context menu has already been
+realized and if the last item in the context menu is a sub-menu then
+this last item is not displayed.
+
+27931 - Combobox in a Modal Dialog Freezes the Motif Desktop
+------------------------------------------------------------
+Selecting an item from a WIDGET_COMBOBOX that has a modal base widget
+as its parent will cause the Motif desktop to stop responding; in some
+cases only a reset of the window manager solves the problem.
+
+28711 - Table Widget Event Structure WIDGET_TABLE_CELL_SEL is
+Incorrect for Right-to-Left Events
+-------------------------------------------------------------
+If you select multiple columns in a table widget from right to left,
+or multiple rows from bottom up, by holding down the button and
+dragging along the column or row headers, the selection is incorrectly
+reported in the event structure.
+
+29251 - IDLDE Editor Window Only Prints in Landscape Mode on RedHat 8
+----------------------------------------------------------------------
+On RedHat 8, printing from the IDLDE Editor Window always comes out
+landscape, even if portrait is specified in the print dialog.
+
+29333 - IDL Help System Does Not Work on RedHat 8 and 9
+-------------------------------------------------------
+The new internationalization support included in RedHat 8.0 and 9.0
+causes conflicts with the version of Adobe Acrobat that ships on the
+IDL 6.0 CD. To use the Online Help with the IDLDE, launch IDL with the
+"env LANG=C idlde" command. See techtip Article 3402:
+
+   http://www.rsinc.com/services/techtip.asp?ttid=3402 
+
+for additional details.
+
+29400- RedHat 9 Reports XLib/XFree86 Errors After the IDLDE or iTools
+are launched
+--------------------------------------------------------------------
+When starting the IDLDE or any iTool on Linux RedHat 9, a "Xlib:
+extension "XFree86-DRI" missing on display ":0.0"." error message is
+displayed. However, IDL is not stopped, the IDLDE or iTool will
+appear, and work as expected. This error message can be ignored. See
+techtip Article 3497:
+
+   http://www.rsinc.com/services/techtip.asp?ttid=3497 
+
+for additional details.
+
+29669 - Starting "FLEXlm 8.1b lmgrd/idl_lmgrd" on RedHat 9 Causes
+Continuously-repeated Error Message
+-----------------------------------------------------------------
+When trying to start "FLEXlm 8.1b lmgrd/idl_lmgrd" (which is shipped
+with IDL 6.0) on RedHat 9, an error message is continuously repeated
+while the license manager is running. If the bin.linux.x86 lmgrd
+binary is replaced with lmgrd version 9.0 (labeled on the FLEXlm site
+as: "Intel Linux Glibc 2.3, Redhat v5.x"), the above error message is
+still thrown when the license manager is started, but only twice and
+the license manager administers the available licenses correctly. The
+lmgrd 9.0 binary can be obtained from:
+
+   http://www.macrovision.com/solutions/esd/flexlm/lmgrd.shtml#unixdownload
+
+See techtip Article 3496: 
+
+   http://www.rsinc.com/services/techtip.asp?ttid=3496
+
+for additional details.
+
+29703 - Linux Window Manager Focus Must be Set to "Click" for Pulldown
+Menus to Work in Property Sheet Widgets
+--------------------------------------------------------------------
+The focus behavior of some Linux window managers is set to
+"enter-exit" or "enter-only" by default. The pulldown menus provided
+in IDL property widgets do not work with these settings. However, the
+pulldown menus will work if you change the focus behavior of the Linux
+window manager to "click".
+
+29771 - Not Able to Use AWT or Swing Objects in the IDL-Java Bridge on
+Linux
+--------------------------------------------------------------------
+AWT and Swing object classes cannot be created by the IDL-Java bridge
+on Linux systems. This issue is a known problem in Java:
+
+   http://developer.java.sun.com/developer/bugParade/bugs/4638291.html
+
+If the application (IDL) that loads JNI uses X, Java does not load the
+AWT library correctly. Swing depends upon AWT and is also crippled.
+
+30752 - No 64-bit Java Virtual Machine for Solaris 8
+----------------------------------------------------
+Sun does not provide a 64-bit Java Virtual Machine for Solaris 8.
+Because the IDL-Java bridge uses the JVM, this means that the IDL-Java
+bridge will not run under Solaris 8 in 64-bit mode.
+
+In order to use the IDL-Java bridge under Solaris, do one of the
+following:
+
+- Run IDL in 32-bit mode by specifying the '-32' switch at startup:
+  idl -32
+- Upgrade to Solaris 9, which includes a 64-bit JVM.
+
+Index of the IDL Documentation Set will not Automatically Associate
+with the PDF Files on Solaris
+--------------------------------------------------------------------
+Like all UNIX versions of IDL, IDL for Solaris uses the Adobe Acrobat
+Reader to display online help. The IDL 6.0 CD includes the installer
+for the latest version of the Acrobat Reader software: Adobe Acrobat
+Reader 5.0.6.
+
+To support fast full-text searching of the entire IDL documentation
+set, RSI provides an index (or "catalog") that is used by the Adobe
+reader. This index is associated with the individual PDF files that
+make up the IDL documentation set, and should be available
+automatically when you select Edit->Search->Query in the Acrobat
+Reader.
+
+Unfortunately, a known problem in version 5.0.x of the Acrobat Reader
+software for Solaris prevents the index file from being attached to
+the PDF file automatically. As a result, you must manually attach the
+index file before you will be able to use the Acrobat search function.
+To attach the index, perform the following steps:
+
+1) Open one of the PDF files in the IDL documentation set. You can do
+   this by typing ? at the IDL> prompt or by selecting an item from the
+   Help menu.
+
+2) Select Edit->Search->Query, or click the "Search" button on the
+   toolbar. The "Find" and "Search" options are different features. The
+   Adobe Acrobat Search dialog will appear, with a message that "No
+   selected indexes are available for search". 
+
+3) Click "Indexes...".  The Index Selection dialog appears.
+
+4) Click "Add...". The Add Index dialog appears.
+
+5) Select <IDL_DIR>/help/INDEX.PDX and click "OK" where <IDL_DIR>
+   represents the full path to your IDL distribution.
+
+6) The INDEX.PDX file will be selected in the Index selection dialog.
+   Click "OK".
+
+7) The Adobe Acrobat Search dialog will now indicate that you are
+   "Searching in the IDL 6.0 index."
+
+=-=-=-=
+iTools:
+=-=-=-=
+
+28128, 28138, 28139, 28925, 30092 - Resizing, Copying, and Zooming
+iTool Text Annotations Produces Unexpected Results
+------------------------------------------------------------------
+In any iTool, when text annotations (including contour labels) are
+either resized, copied, or zoomed on, the size and font of the
+resulting text maybe different than expected.
+
+29825 - Line Profile Manipulations Cannot be Undone in the iImage Tool
+----------------------------------------------------------------------
+If a line for a profile is added to the iImage tool, any manipulation
+performed on that line cannot be undone.
+
+29878 - Rotating an Image While in iImage's Data Range Mode Causes
+Unexpected Zooming
+-------------------------------------------------------------------
+If an image displayed in iImage's data range mode is rotated any angle
+other than a multiple of 180, the display will either zoom in further
+or zoom out to contain the entire image depending on whether the image
+was rotated before the data range mode was activated.
+
+30113 - Image Color Adjustments are not Preserved
+-------------------------------------------------
+If the brightness of an image displayed in an iImage tool is adjusted
+using the data window on the iImage panel, the adjustment is not
+preserved when an operation is applied. To work around this problem,
+perform operations before scaling the brightness of the image.
+
+30151, 30152 - Horizontal iTool Panels are Not Properly Laid Out
+----------------------------------------------------------------
+Horizontal panels can be created with the PANEL_LOCATION keyword set
+to 0 or 1 when an iTool is created with the IDLITSYS_CREATETOOL
+routine. However, the initial layout of these panels is wrong. The
+panels should be row bases, but they are not.
+
+30162 - Edit -> Select All or Box Selection Options in iImage Tool Do
+Not Select ROIs
+---------------------------------------------------------------------
+Any ROIs (Regions Of Interest) in the iImage tool are not selected
+when either the selection rubberband box or the Edit -> Select All
+option are used to try to select all the objects within the tool's
+display. However, the ROIs can be selected by multi-selecting with the
+combination of the <Ctrl> key and a left mouse button click on each
+ROI.
+
+30351 - User-defined iTool Visualizations Persist in System
+Preferences
+-----------------------------------------------------------
+When registering a user-defined iTool visualization with ITREGISTER,
+the visualization will persist in the preferences (and also will be
+available from the Insert->Visualization window) even if the
+visualization's name changes or the visualization is deleted.
+
+30467 - Changes in iTools Print Preview do Not Persist
+------------------------------------------------------
+Any changes made in the iTool print preview dialog to center the
+display or modify the margins will only appear on the printed page if
+you print from the print preview dialog. If you close the dialog and
+print through the File->Print dialog, the changes will not be
+persisted. The changes will not appear on the printed page.
+
+===================================
+DOCUMENTATION ERRATA in IDL 6.0
+===================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+Required argument to the IDLitUI::Init method
+---------------------------------------------
+The PDF version of the IDL Reference Guide incorrectly states
+that the Init method to the IDLitUI object takes no arguments.
+In fact, the method requires that you specify the oTool argument.
+The updated documentation reads as follows:
+
+Syntax
+   Obj = OBJ_NEW('IDLitUI', oTool)
+   or
+   Result = Obj -> [IDLitUI::]Init(oTool)
+
+Arguments
+   oTool
+   An object reference to the IDLitTool object with which the user
+   interface object is associated.
+
+The Windows online help file includes the correct syntax defintion.
+
+
+13113 - Using XOR with PLOT Displays in PseudoColor Description
+---------------------------------------------------------------
+In PseudoColor, using XOR with PLOT displays red polygons as white for
+the Rainbow (#13) color table. This result is caused by PLOT initially
+erasing the display. The PLOT routine actually erases the current
+window display before drawing a PLOT. The erasing process is actually
+filling the current window with pixels. These pixels throw off the XOR
+calculations. A possible work around is to set the NOERASE keyword
+when calling PLOT. On color-indexed devices (PseudoColor), the pixel
+values are actually indices into a color table. Logical functions
+applied to these pixel values affect them as indices into a color
+table and not as the RGB color values themselves. Also, on most
+color-indexed devices, the IDL pixel values are mapped into a system
+palette, which results in a translation of the pixel value as it is
+stored into the frame buffer. The translated pixel values already
+written to the frame buffer may have unexpected effects on graphical
+operations performed with functions involving the destination pixel
+value (e.g., GXxor). This use of pixel values as color table indices
+and system-specific palette translations make it extremely difficult
+to get predictable results with SET_GRAPHICS_FUNCTION on color-indexed
+devices.
+
+===================================================================
+ION Script
+===================================================================
+
+=====================================
+PROBLEMS Corrected in ION Script 2.0
+=====================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+28673 - Ion-p No Longer Fails When Using a Very Large Set of Data and
+Subsequently Accessing via $FormURL
+--------------------------------------------------------------------
+Some cases of retrieving a string variable's representation could
+cause a buffer overflow. Now the buffer is re-allocated in these
+cases.
+
+=-=-=-=-=-=-=-=-=
+WINDOWS PLATFORM:
+=-=-=-=-=-=-=-=-=
+
+26979 - On Windows XP with IIS 5.1, the IDL Code within an
+<ION_DATA_OUT> Now Works Every Time
+----------------------------------------------------------
+The IONDataOut read code was reworked to depend upon the
+Content-Length sent by ion-i and not use ioctlsocket to determine the
+number of bytes.
+
+28755 - Sometimes the Socket Write Buffer can Overflow Causing Ion-p
+to Lock
+--------------------------------------------------------------------
+The socket write buffer is now maintained to insure it will not
+overflow.
+
+===================================
+KNOWN PROBLEMS in ION Script 2.0
+===================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+Using LM_LICENSE_FILE with the Apache Web Server
+------------------------------------------------
+The preferred method of licensing ION Script is to place your
+license.dat file in the default location, which is the license
+subdirectory of the directory in which you installed ION Script. If
+you need to use LM_LICENSE_FILE to point to a license file in a
+different location, you must modify your httpd.conf file, located in
+the conf subdirectory of your Apache installation. Add the following
+line to your httpd.conf file:
+
+   Windows: setenv LM_LICENSE_FILE C:\somewhere\mylicense.dat
+   UNIX: setenv LM_LICENSE_FILE /somewhere/mylicense.dat
+
+where C:\somewhere\mylicense.dat or /somewhere/mylicense.dat is the
+path to your license file. After modifying the httpd.conf file, you
+must restart the Apache server.
+
+If You Are Using Microsoft IIS or Apache 2
+-------------------------------------------
+If you are using Microsoft IIS or Apache 2, the .exe extension must be
+included in URLs that point to executables. If you get an error
+informing you that the file or script you requested cannot be found,
+you may need to use ion-p.exe instead of ion-p in any URLs in your
+HTML and ION Script pages, or in the location field of your browser
+when requesting a URL.
+
+=-=-=-=-=-=-=-=-=
+WINDOWS PLATFORM:
+=-=-=-=-=-=-=-=-=
+
+Configuring IIS for Use with ION
+--------------------------------
+For help in configuring IIS on WIN 2000 or XP refer to techtip Article 3133: 
+
+   http://www.rsinc.com/services/output.cfm?tip_id=3133
+
+21585 - Process ID is Not Unique as Extension to Log File Names
+---------------------------------------------------------------
+Consider an ION Script page containing multiple ION_DATA_OUT sections.
+Each ION_DATA_OUT within the page may create an ion-out###.txt file in
+the cgi-bin directory if the DEBUG option is on. The ### value is the
+ID of the new ion-p.exe process. Under certain load conditions, a
+series of a small number of pool process IDs may be reused for each
+ion-p.exe process, thereby overwriting the previous log file with the
+same ID extension.
+
+===================================================================
+ION Java
+===================================================================
+
+====================================
+PROBLEMS CORRECTED in ION Java 2.0
+====================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+18998, 28346 - Java Problems No Longer Hinder Multiple Connections
+------------------------------------------------------------------
+The Java problems have been circumvented to allow multiple connections.
+
+=-=-=-=-=-=-=-=-=-
+WINDOWS PLATFORMS:
+=-=-=-=-=-=-=-=-=-
+
+27903 - ION Java Applets Will Now Load Even If the Path of IDL
+Distribution Contains a Space
+--------------------------------------------------------------
+A space in the path of the IDL distribution no longer stops ION Java
+Applets from being loaded.
+
+===================================
+KNOWN PROBLEMS in ION Java 2.0
+===================================
+
+=-=-=-=-=-=-=-
+ALL PLATFORMS:
+=-=-=-=-=-=-=-
+
+ION Java Tunnel Broker and Netscape 6
+-------------------------------------
+ION servers configured with the ION Java Tunnel Broker are
+incompatible with Netscape 6 browser due to a bug in the Sun Java
+Virtual Machine versions 1.3 and 1.4. Protocol information is not sent
+correctly, causing a client/server deadlock.
+
+15312 - IONGraphicsClient Not Working With Decomposed (True) Color
+------------------------------------------------------------------
+The IONGraphicsClient class does not register decomposed color. The
+setDecomposed(true) method (which should be the default) does not set
+the decomposed color. Applications based on IONGraphicsClient objects
+must work with IDL's 8-bit color tables. 
+
+=-=-=-=-=-=-=-=-=-
+WINDOWS PLATFORMS:
+=-=-=-=-=-=-=-=-=-
+
+Configuring IIS for Use with ION
+--------------------------------
+For help in configuring IIS on WIN 2000 or XP refer to techtip Article
+3133:
+
+   http://www.rsinc.com/services/output.cfm?tip_id=3133
+
+Using LM_LICENSE_FILE Does not Work on Windows Platforms
+--------------------------------------------------------
+Since Web Servers do not read any system environment variables, you
+cannot use the LM_LICENSE_FILE environment variable to point to where
+you have located your license file. When licensing ION Java, you must
+place your license file in the default location
+
+   RSI-DIR\license\license.dat
+
+where RSI-DIR is the name of the main installation directory you
+selected to install ION Java. On UNIX, if you have a network license
+that you wish your ION installation to use, you can copy the network
+license file to the default location
+
+   RSI-DIR\license\license.dat
+
+on the machine on which you are running ION.
+
+============================================
+PLATFORMS SUPPORTED in IDL 6.0 and ION 2.0
+============================================
+
+Hardware Requirements for IDL 6.0
+---------------------------------
+The following table describes the supported platforms and operating
+systems for IDL 6.0:
+
+                      Operating    Supported
+Vendor     Hardware   System       Versions
+------     --------   ---------    ---------
+              Platform: UNIX*
+              --------------
+Compaq     Alpha      Tru64 UNIX   5.1
+
+HP         PA-RISC    HP-UX        11.0
+
+IBM        RS/6000    AIX          5.1
+
+Intel      Intel x86  Linux        Red Hat 
+                                   7.1, 8, 9**
+
+SGI        Mips       IRIX         6.5.1
+
+SUN        SPARC      Solaris      8, 9
+
+              Platform: Windows
+              -----------------
+Microsoft  Intel x86  Windows      NT 4.0,
+                                   2000, XP
+
+              Platform: Macintosh
+              -------------------
+Apple     PowerMAC    MacOS X      10.2.x*
+          G4
+
+On platforms with both 32-bit and 64-bit support, both versions are
+installed, and the 64-bit version is the default. The 32-bit version
+can be run by specifying the -32 switch at the command line:
+% idl -32
+
+*  For UNIX (including Mac OS X), the supported versions indicate
+that IDL was either built on (the lowest version listed) or tested on
+that version. You can install and run IDL on other versions that are
+binary compatible with those listed.
+
+**  IDL 6.0 was built on the Linux 2.4 kernel with glibc 2.2 using
+Red Hat Linux 7.1. If your version of Linux is compatible with these,
+it is possible that you can install and run IDL on your version.
+
+Software Requirements for IDL 6.0
+-----------------------------------
+The following table describes the software requirements for IDL 6.0:
+
+Platform Software Requirements
+------------------------------
+Windows: Internet Explorer 5.0 or higher.
+Macintosh: Mac OS X X11 which can be obtained at 
+http://www.apple.com/macosx/x11
+
+Hardware Requirements for ION 2.0
+---------------------------------
+The following platforms are supported by ION 2.0. For UNIX, the
+supported versions indicate that ION was either built on the lowest
+version listed or tested on that version. You can install and run ION
+on other versions that are binary compatible with those listed.
+
+Platform  Vendor    Hardware       Operating       Supported
+                                   System          Versions
+--------  ------    --------       -------------   --------------
+Windows   Microsoft Intel x86      Windows NT      4.0, 2000, XP
+
+UNIX*     Intel     Intel x86      Linux           Redhat 7.1, 8, 9**
+          SGI       Mips 32-bit    IRIX            6.5.1
+          SUN       SPARC 32-bit   Solaris         8, 9
+                                                                      
+*  - For UNIX, the supported versions indicate that ION was either 
+     built on the lowest version listed or tested on that version. 
+     You can install and run ION on other versions that are binary 
+     compatible with those listed.
+
+** - ION 2.0 was built on the Linux 2.4 kernel with glibc 2.2 using
+     Red Hat Linux. If your version of Linux is compatible with 
+     these, it is possible that you can install and run ION on your
+     version.
+

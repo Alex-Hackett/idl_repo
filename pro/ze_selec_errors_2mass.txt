@@ -1,0 +1,58 @@
+close,/all
+;defines file input from 2MASS
+input='/home/groh/WRA751_2MASSphotometry_JHKs_magerror.txt'
+openu,1,input    ; open file without writing
+
+;defines file output.txt ;
+output='/home/groh/WRA751_2MASSphotometry_JHKs_colors_temp.txt'  
+openw,2,output     ; open file to write
+linha=''
+
+;finds the i number of depth points in input
+i=0.
+while not eof(1) do begin
+readf,1,linha
+if linha eq '' then begin
+goto,skip1
+endif
+i=i+1
+skip1:
+endwhile
+close,1
+
+
+;declares the arrays
+j=dblarr(i) & jerr1=j & jerr2=j & h=j & herr1=j & herr2=j & ks=j & kserr1=j & kserr2=j & ra_deg=j & dec_deg=j
+
+;reads input
+openu,1,input
+for k=0.,i-1 do begin
+readf,1,ra_degt,dec_degt,jt,jerr1t,jerr2t,ht,herr1t,herr2t,kt,kserr1t,kserr2t
+j[k]=jt & jerr1[k]=jerr1t & jerr2[k]=jerr2t & h[k]=ht & herr1[k]=herr1t & herr2[k]=herr2t
+ks[k]=kt & kserr1[k]=kserr1t & kserr2[k]=kserr2t & ra_deg[k]=ra_degt & dec_deg[k]=dec_degt
+endfor
+close,1
+
+;convert RA from deg to decimal hours
+ra_deg_hour=ra_deg/15.
+
+;set reference RA and DEC
+ra_ref_deg=167.16692 & dec_ref_deg=-60.71436
+ra_ref_hour=0.0000001
+ra_ref_hour=167.16692/15.
+
+;computes colors
+hminusks=h-ks
+jminush=j-ks
+
+;computes distances
+gcirc,1,ra_deg_hour,dec_deg,ra_ref_hour,dec_ref_deg,dis
+
+;general printing routine to output.txt, mainly for debugging purposes.
+for k=0., i-1 do begin
+if ((dis[k] lt 420.) and (jerr2[k] lt 0.04) and (herr2[k] lt 0.04) and (kserr2[k] lt 0.04)) then begin
+printf,2,FORMAT='(F10.6,2x,F10.6,2x,F9.4,2x,F6.3,2x,F5.3,2x,F5.3,2x,F6.3,2x,F5.3,2x,F5.3,2x,F6.3,2x,F5.3,2x,F5.3,2x,F6.3,2x,F6.3)',ra_deg[k],dec_deg[k],dis[k],j[k],jerr1[k],jerr2[k],h[k],herr1[k],herr2[k],ks[k],kserr1[k],kserr2[k],jminush[k],hminusks[k]
+endif
+endfor
+close,2
+end

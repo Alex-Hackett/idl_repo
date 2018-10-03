@@ -1,0 +1,59 @@
+PRO ZE_EVOL_PLOT_WG_FILE,dir,model,x,y,xtitle,ytitle,label, $
+                         z=z,labelz=labelz,ct=ct,minz=minz,maxz=maxz,rebin=rebin,_EXTRA=extra
+                         
+;routine to produce XY plots of the .wg files from the Geneva Stellar Evolution code Origin2010 
+;if Z is specified, curve will be color coded acording to the Z values (only linear scaling supported so far)
+
+ZE_EVOL_CONST,pi,cst_c,cst_G,cs,t_h,cst_k,cst_a,rgaz,cst_sigma,cst_me,cst_avo,cst_u,cst_mh,cst_thomson,cst_e,cst_ecgs,qapicg,cst_K1, $
+                  lgpi,cstlg_c,cstlg_G,cstlg_h,cstlg_k,cstlg_a,rgazlg,cstlg_sigma,cstlg_me,cstlg_avo,cstlg_u,cstlg_mh,cstlg_thomson,cstlg_e, $
+                  lgqapicg,cstlg_K1,Msol,Rsol,Lsol,xlsomo,uastr,year,lgMsol,lgRsol,lgLsol,Q_H,Q_He,Q_C,convMeVerg
+                  
+;wgfile='/Users/jgroh/evol_models/Z0004/P085zm4S0/P085zm4S0.wg'
+dir='/Users/jgroh/evol_models/Z014/'
+;model='P010z14S4'
+model='P010z14S4nomagbreaking'
+;model='P010z14S4magbreaking200G'
+;model='P010z14S4_1G_RSG'
+
+wgfile=dir+'/'+model+'/'+model+'.wg' ;assumes medel directory name and .wg files have the same name 
+;wgfile='/Users/jgroh/evol_models/Z014/P010z14S4nomagbreaking/P010z14S4nomagbreaking.wg'
+;wgfile='/Users/jgroh/evol_models/Z014/P010z14S4_1G_RSG/P010z14S4_1G_RSG.wg'
+;wgfile='/Users/jgroh/evol_models/Z014/P010z14S4magbreaking200G/P010z14S4magbreaking200G.wg'
+
+ZE_EVOL_READ_WG_FILE_FROM_GENEVA_ORIGIN2010,wgfile,data_wgfile,header_wgfile,count_wgfile
+
+ZE_EVOL_LOAD_WGFILE_VARIABLE_NAMES, wgfile_variables
+
+zams_timestep=findel(data_wgfile.field001[21,0]*0.997D,REFORM(data_wgfile.field001[21,0:1000])) 
+timestep_ini=zams_timestep
+timestep_fin=n_elements(REFORM(data_wgfile.field001[21,*])) -1
+data_wgfile_cut=data_wgfile.field001[*,timestep_ini:timestep_fin]
+nmodels=timestep_fin-timestep_ini +1 
+
+ZE_EVOL_COMPUTE_QUANTITIES_FROM_WGFILE,data_wgfile_cut,rstar,logg,vesc,vinf,eta_star,Bmin,Jdot
+
+
+!P.Background = fsc_color('white')
+;lineplot,u1,xmdot 
+;lineplot,xt,xl
+;lineplot,xmr,alog10(j)
+
+label=model
+
+ZE_EVOL_PLOT_XY_GENERAL_EPS,xtt,xl,SCOPE_VARNAME(xtt),SCOPE_VARNAME(xl),label,z=rot1,labelz=SCOPE_VARNAME(rot1),/rebin,XRANGE=[max(xtt)*1.02,min(xtt)*0.98]
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,u1,eta_star,SCOPE_VARNAME(u1),SCOPE_VARNAME(eta_star),label,z=u1,/rebin
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,logg,veq,SCOPE_VARNAME(logg),SCOPE_VARNAME(veq),label,z=u15,/rebin,XRANGE=[4.3,3.2],YRANGE=[0,200]
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,u1,bmin,SCOPE_VARNAME(u1),SCOPE_VARNAME(bmin),label
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,u1,jdot,SCOPE_VARNAME(u1),SCOPE_VARNAME(jdot),label,z=u1,/rebin
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,u1,rot1,SCOPE_VARNAME(u1),SCOPE_VARNAME(rot1),label,z=u15,labelz=SCOPE_VARNAME(u15),/rebin
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,u1,rotm,SCOPE_VARNAME(u1),SCOPE_VARNAME(rotm),label,z=u15,labelz=SCOPE_VARNAME(u15),/rebin
+
+
+eta_star_array=[0,0.01,0.1,0.5,0.7,0.9,1.0,1.2,1.5,2,5,10,20,50,100,200,500,1000]
+Jdot_as_a_function_eta_Star=(0.29+(eta_star_array+0.25)^0.25)^2
+
+;ZE_EVOL_PLOT_XY_GENERAL_EPS,eta_star_array,Jdot_as_a_function_eta_Star,SCOPE_VARNAME(eta_star_array),SCOPE_VARNAME(Jdot_as_a_function_eta_Star),'',XRANGE=[1e-2,1e3],/xlog
+
+
+
+END

@@ -1,0 +1,62 @@
+#!/bin/csh
+
+#    $Id: start_acs,v 1.3 2002/03/12 18:43:10 mccannwj Exp $
+#
+#    ACS IDL library setup template for Unix workstation distributions.
+#
+#    We suggest you use the following template to define the Unix 
+#       environmental variables for use with the ACS software.
+#
+#    NOTE: You MUST modify this file to reflect your installation.
+#
+#    The variables include:
+#       JDATA   	- Location of ACS data files.
+#	JARCHIVE	- Location of ACS archive
+#				(contains subdirectories for each ARCDISK)
+#       JDOC    	- location of help files for ACS procedures.
+#       IDL_PATH    	- IDL search path. See note below.
+#       ZDBASE  	- location of ACS databases.
+#
+#    Note: Do not place any other procedure directories ahead of the
+#    ACS procedures n $IDL_PATH or a name/version conflict may result.
+#    ----------------------------------------------------------------
+#    Modify the following variable to point to the directory where
+#    you un-tarred the IDL procedure TAR files (acs.tar.gz, etc.)
+
+setenv ACS_DIR /acs/instrument/calibration/software/idl/acs
+
+#    Set the following to where your data (FITS, SDI, etc.) files
+#    are kept.
+
+setenv JDATA /cdrom/cdrom0
+
+#    Set the following to where your data (FITS, SDI, etc.) files
+#    are kept in archive form.  For example, if you set
+#    JARCHIVE to /acs/data/archive that directory would contain:
+#    subdirectories 001, 002, etc.
+
+setenv JARCHIVE /acs/jdata
+
+#    Set the following to where the acs_log database files are
+#    stored. 
+
+setenv ZDBASE ${ACS_DIR}/var
+
+setenv ACS_LIB_DIR ${ACS_DIR}/lib
+setenv ACS_BIN_DIR ${ACS_DIR}/bin
+setenv ACS_DOC_DIR ${ACS_DIR}/doc
+
+# It shouldn't be necessary to modify anything below this line
+# ------------------------------------------------------------
+
+source /usr/local/rsi/idl/bin/idl_setup
+
+setenv JAUX ${ACS_DIR}/etc
+
+# if your idl_setup file does not include the astronomy library
+#  you will have to add it to the following line
+setenv IDL_PATH +${ACS_LIB_DIR}:${IDL_PATH}
+setenv JDOC ${ACS_DOC_DIR}
+setenv IDL_STARTUP ${ACS_BIN_DIR}/acs_startup.pro
+${IDL_DIR}/bin/idl $1 $2 $3 $4 $5
+

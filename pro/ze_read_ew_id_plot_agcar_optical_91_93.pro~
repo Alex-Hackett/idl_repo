@@ -1,0 +1,178 @@
+PRO ZE_PRINT_EWDATA_SCREEN,ewdata,lambdamin,lambdamax,ewmin
+
+;print ew for a range of lambdas
+t=SIZE(ewdata.lambda) & i=t[1]
+for l=0, i-1 do begin
+if (ewdata.lambda[l] gt lambdamin) and (ewdata.lambda[l] lt lambdamax) and (abs(ewdata.ew[l]) gt ewmin) then begin
+print,l,ewdata.lambda[l],ewdata.ew[l],'   ', ewdata.sob[l]
+endif
+endfor
+
+END
+;--------------------------------------------------------------------------------------------------------------------------
+
+Angstrom = '!6!sA!r!u!9 %!6!n'
+close,/all
+
+;defining observations
+obsdir='/aux/pc20072b/jgroh/espectros/agcar/'
+obs86jun1='/aux/pc20072b/jgroh/espectros/agcar/agc86jun18_all.txt'
+obs87jan1='/aux/pc20072b/jgroh/espectros/agcar/agc87jan00_58.txt'
+obs87jan2='/aux/pc20072b/jgroh/espectros/agcar/agc87jan05_66_new_es.txt'
+obs87jun1='/aux/pc20072b/jgroh/espectros/agcar/agc87jun10_39.txt'
+obs87jun2='/aux/pc20072b/jgroh/espectros/agcar/agc87jun10_66_new_es.txt'
+obs89mar1='/aux/pc20072b/jgroh/espectros/agcar/agc_89mar26_38a49_OBzoo.txt'
+obs90jun2='/aux/pc20072b/jgroh/espectros/agcar/agc90jun18_66_n_ze.txt'
+obs90jun1='/aux/pc20072b/jgroh/espectros/agcar/agc90jun18l_48_n_ze.txt'
+obs90jun3='/aux/pc20072b/jgroh/espectros/agcar/agc90jun16_100c.asc'
+obs90dec1='/aux/pc20072b/jgroh/espectros/agcar/agc90dec28_66_new_es.txt'
+obs90dec2='/aux/pc20072b/jgroh/espectros/agcar/agc90dez22_100.txt'
+obs91jan1='/aux/pc20072b/jgroh/espectros/agcar/ag_car_21jan91.txt'
+obs91may1=obsdir+'agc91may25_108.txt'
+obs91ago1='/aux/pc20072b/jgroh/espectros/agcar/agc91aug15_66n.txt'
+obs91ago2=obsdir+'agc91ago15_100nv21.txt'
+obs91oct1=obsdir+'agc91oct22_66.txt'
+
+;defining models
+model223narv='/aux/pc20072b/jgroh/espectros/agcar/223_narv2.txt'
+model362narv='/aux/pc20072b/jgroh/espectros/agcar/362_narv2.txt'  
+model348narv='/aux/pc20072b/jgroh/espectros/agcar/348_cpnv_optn.txt'
+model223narv='/aux/pc20072b/jgroh/espectros/agcar/348_cpnv_optn.txt'
+model223narv='/aux/pc20072b/jgroh/espectros/agcar/408_optn.txt'
+model363narv='/aux/pc20072b/jgroh/espectros/agcar/363_narv2.txt'  
+;model358narv='/aux/pc20072b/jgroh/espectros/agcar/358_narv2.txt'
+model358narv='/aux/pc20072b/jgroh/espectros/agcar/397_redmaxrmd_optn.txt'
+model358narv='/aux/pc20072b/jgroh/espectros/agcar/405_optn.txt'
+;model358narv='/aux/pc20072b/jgroh/espectros/agcar/348_cpnv_optn.txt'
+;model358narv='/aux/pc20072b/jgroh/espectros/agcar/270_narv2.txt'
+model358narv='/aux/pc20072b/jgroh/espectros/agcar/402_optn.txt'
+model389narv='/aux/pc20072b/jgroh/espectros/agcar/389_optn.txt'
+model395narv='/aux/pc20072b/jgroh/espectros/agcar/395_optn.txt'
+obsdir='/aux/pc20072b/jgroh/espectros/agcar/'
+sufixa='_narv2.txt'
+sufixo='_optn.txt'
+
+;reading observations
+;ZE_READ_SPECTRA_COL_VEC, obs86jun1,lambda86jun1,flux86jun1
+;ZE_READ_SPECTRA_COL_VEC, obs87jan1,lambda87jan1,flux87jan1
+;ZE_READ_SPECTRA_COL_VEC, obs87jan2,lambda87jan2,flux87jan2
+;ZE_READ_SPECTRA_COL_VEC, obs87jun1,lambda87jun1,flux87jun1
+;ZE_READ_SPECTRA_COL_VEC, obs87jun2,lambda87jun2,flux87jun2
+;ZE_READ_SPECTRA_COL_VEC, obs89mar1,lambda89mar1,flux89mar1
+;ZE_READ_SPECTRA_COL_VEC, obs90jun1,lambda90jun1,flux90jun1
+;ZE_READ_SPECTRA_COL_VEC, obs90jun2,lambda90jun2,flux90jun2
+;ZE_READ_SPECTRA_COL_VEC, obs90jun3,lambda90jun3,flux90jun3
+;ZE_READ_SPECTRA_COL_VEC, obs90dec1,lambda90dec1,flux90dec1
+;ZE_READ_SPECTRA_COL_VEC, obs90dec2,lambda90dec2,flux90dec2
+;ZE_READ_SPECTRA_COL_VEC, obs91jan1,lambda91jan1,flux91jan1
+
+ZE_READ_SPECTRA_COL_VEC, obs91may1,lambda91may1,flux91may1
+ZE_READ_SPECTRA_COL_VEC, obs91ago1,lambda91ago1,flux91ago1
+ZE_READ_SPECTRA_COL_VEC, obs91ago2,lambda91ago2,flux91ago2
+ZE_READ_SPECTRA_COL_VEC, obs91oct1,lambda91oct1,flux91oct1
+
+
+;reading models
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'93_narv3.txt',l93narv,f93narv        ;model 91 may steady 
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'362_narv2.txt',l93narv,f93narv  
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'191'+sufixa,l191narv,f191narv      ;model 91 aug steady 
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'198'+sufixa,l198narv,f198narv      ;model 91 oct steady 
+ZE_READ_SPECTRA_COL_VEC,obsdir+'417'+sufixo,l198narv,f198narv
+
+;ZE_READ_SPECTRA_COL_VEC,model223narv,l223narv,f223narv
+;ZE_READ_SPECTRA_COL_VEC,model358narv,l358narv,f358narv
+;ZE_READ_SPECTRA_COL_VEC,model362narv,l362narv,f362narv
+;ZE_READ_SPECTRA_COL_VEC,model363narv,l363narv,f363narv
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'358'+sufixa, l392narv,f392narv   
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'411'+sufixa, l367narv,f367narv
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'408'+sufixa, l223narv,f223narv   
+;ZE_READ_SPECTRA_COL_VEC,model389narv,l389narv,f389narv            ;TEFF=19500   MDOT 1.5
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'390'+sufixo,l390narv,f390narv      ;TEFF=20500  MDOT 1.5   
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'405'+sufixo,l392narv,f392narv      ;TEFF=19500  MDOT 1.9 
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'270'+sufixa,l392narv,f392narv      ;TEFF=21300  MDOT 1.5 
+;ZE_READ_SPECTRA_COL_VEC,obsdir+'392'+sufixo,l392narv,f392narv      ;TEFF=22000  MDOT 1.5 
+;ZE_READ_SPECTRA_COL_VEC,model395narv,l395narv,f395narv
+
+
+;defines ewdata for reading, as generated by CMF_FLUX (including header)
+;ewdata_file='/aux/pc20072b/jgroh/espectros/agcar/ewdata_fin_271ed'  
+ewdata_file='/aux/pc20072a/jgroh/cmfgen_models/agcar/291b/obs_fuv/ewdata_fin'
+
+ZE_READ_EWDATA,ewdata_file,ewdata,ewnlines
+;ZE_PRINT_EWDATA_SCREEN,ewdata,4070,4400,0.1
+
+;final redenning in model and continuum
+;minusebv=-0.47
+;a=4.0
+;fm_unred, lambdamod, fluxmodesc, minusebv, fluxmodescd, R_V = a
+;fm_unred, lambdacont, fluxcontesc, minusebv, fluxcontescd, R_V = a
+
+;set plot range
+x1l=5865. & x1u=5887.
+x2l=6550. & x2u=6575.
+x3l=3917.3 & x3u=3940.
+x4l=1080. & x4u=1180.
+
+ZE_PRINT_SPECTRA_EPS_OPT_91_93,lambda91may1,flux91may1,lambda91ago1,flux91ago1,lambda91ago2,flux91ago2,lambda91oct1,flux91oct1,$
+l191narv,f191narv,l93narv,f93narv,l198narv,f198narv,ewdata
+
+
+res90dec=1.
+lambda_val=6562.8
+
+
+;ZE_SPEC_CNVL,l389narv,f389narv,res90dec,lambda_val,f389cnvl
+;ZE_SPEC_CNVL,l390narv,f390narv,res90dec,lambda_val,f390cnvl
+;ZE_SPEC_CNVL,l391narv,f391narv,res90dec,lambda_val,f391cnvl
+;ZE_SPEC_CNVL,l392narv,f392narv,res90dec,lambda_val,f392cnvl
+;ZE_SPEC_CNVL,l395narv,f395narv,res90dec,lambda_val,f395cnvl
+;
+;
+;
+;window,0
+;plot,lambda90dec1,flux90dec1*1.03,xstyle=1,ystyle=1, yrange=[0,13]
+;plots,l389narv,f389narv,color=fsc_color('red'),linestyle=0,thick=2
+;plots,l390narv,f390cnvl,color=fsc_color('blue'),linestyle=1,thick=2
+;plots,l391narv,f391cnvl,color=fsc_color('orange'),linestyle=1,thick=2
+;plots,l395narv,f395cnvl,color=fsc_color('green'),linestyle=1,thick=2
+;
+;window,1
+;plot,lambda91jan1,flux91jan1,xstyle=1,ystyle=1, yrange=[0.6,2]
+;;plots,l389narv,f389narv,color=fsc_color('red'),linestyle=0,thick=2
+;;plots,l390narv,f390narv,color=fsc_color('blue'),linestyle=1,thick=2
+;plots,l389narv,(f389narv-1.06)/1.06 + 1.,color=fsc_color('red'),linestyle=0,thick=2 ;rescaled
+;plots,l390narv,(f390narv-1.03)/1.03 + 1.,color=fsc_color('blue'),linestyle=1,thick=2
+;plots,l391narv,f391cnvl,color=fsc_color('orange'),linestyle=1,thick=2
+;plots,l395narv,f395cnvl,color=fsc_color('green'),linestyle=1,thick=2
+;x1l=4855. & x1u=4870.
+;
+;
+;res89mar=1.5
+;lambda_val=4685.8
+;ZE_SPEC_CNVL,l389narv,f389narv,res89mar,lambda_val,f389cnvl
+;ZE_SPEC_CNVL,l390narv,f390narv,res89mar,lambda_val,f390cnvl
+;ZE_SPEC_CNVL,l391narv,f391narv,res89mar,lambda_val,f391cnvl
+;ZE_SPEC_CNVL,l392narv,f392narv,res89mar,lambda_val,f392cnvl
+;ZE_SPEC_CNVL,l397narv,f397narv,res89mar,lambda_val,f397cnvl
+;ZE_SPEC_CNVL,l395narv,f395narv,res89mar,lambda_val,f395cnvl
+;
+;x2l=4555. & x2u=4770.
+;window,2
+;plot,lambda89mar1,flux89mar1,xstyle=1,ystyle=1, yrange=[0.6,2],xrange=[x2l,x2u]
+;plots,l389narv,f389cnvl,color=fsc_color('red'),linestyle=0,thick=2
+;plots,l390narv,f390cnvl,color=fsc_color('blue'),linestyle=1,thick=2
+;plots,l391narv,f391cnvl,color=fsc_color('orange'),linestyle=1,thick=2
+;plots,l397narv,f397cnvl,color=fsc_color('magenta'),linestyle=1,thick=2
+;plots,l392narv,f392cnvl,color=fsc_color('green'),linestyle=1,thick=2
+;
+;
+;x3l=6525. & x3u=6670.
+;window,12
+;plot,lambda87jun2,flux87jun2,xstyle=1,ystyle=1, yrange=[0.6,13],xrange=[x3l,x3u]
+;plots,l389narv,f389narv,color=fsc_color('red'),linestyle=0,thick=2
+;;plots,l390narv,f390narv,color=fsc_color('blue'),linestyle=1,thick=2
+;;plots,l391narv,f391narv,color=fsc_color('orange'),linestyle=1,thick=2
+;plots,l397narv,f397narv,color=fsc_color('magenta'),linestyle=1,thick=2
+;plots,l392narv,f392narv,color=fsc_color('green'),linestyle=1,thick=2
+
+end

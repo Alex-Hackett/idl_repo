@@ -1,0 +1,26 @@
+simimg
+  set image size
+  set number of simulated image
+
+  allocsimimg
+
+  set manually key parameters
+
+  setparsimimg
+    set pixsize, and other parameters
+    see this file for definition of each parameter
+
+  setvalsimimg
+    calculate simulated images for each case
+
+  setvisimg
+    calcvisamp
+      fft
+
+  setvis1d
+    conversion of spatical freq to baseline 
+
+mkmodelplot
+
+printparsimimg
+  

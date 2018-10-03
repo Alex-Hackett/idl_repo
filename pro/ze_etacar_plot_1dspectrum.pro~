@@ -1,0 +1,21 @@
+Angstrom = '!6!sA!r!u!9 %!6!n'
+model='/aux/pc20117a/jgroh/cmfgen_models/etacar/mod_111/obs/etacar_mod111_john_narv2.txt'
+;ZE_READ_SPECTRA_COL_VEC,model,lm,fm,nrecm
+
+window,0,XSIZE=900,YSIZE=400
+xmin=21580
+xmax=21730
+ymin=0.
+ymax=6.
+lambda0=21661.
+plot,lm,fm,xstyle=1,ystyle=1,xrange=[xmin,xmax],yrange=[ymin,ymax],/NODATA,xtitle='Wavelength [ '+Angstrom+' ]',ytitle='F/F!Ic',$
+XTICKFORMAT='(I7.0)'
+plots,lm,fm,color=fsc_color('red'),noclip=0,clip=[xmin,ymin,xmax,ymax]
+
+
+;plot,ZE_LAMBDA_TO_VEL(lm,lambda0),fm,xstyle=1,ystyle=1,xrange=[-800,500], /NODATA
+;plots,ZE_LAMBDA_TO_VEL(lm,lambda0),fm,color=fsc_color('red')
+
+
+
+END

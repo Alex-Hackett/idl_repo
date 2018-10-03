@@ -1,0 +1,8 @@
+kurucz_orig.fits           ; Input (original) models
+kurucz_d_dmsm10dd.fits     ; Output (processed) models
+def_filt_syst.dat          ; Default filter systems
+1 default                  ; First  original parameter (Temperature     ) is variable and uses default scale
+0 main_sequence_kurucz(v1) ; Second original parameter (log(Gravity)    ) is fixed    and corresponds to main sequence stars
+0 -1.0                     ; Third  original parameter (log(Metallicity)) is fixed    and equal to -1.0      
+1 default                  ; R_5495                                       is variable and uses default values
+1 default                  ; E(4405-5495)                                 is variable and uses default values

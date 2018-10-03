@@ -1,0 +1,71 @@
+close,/all
+;defines arcturus spectrum for reading
+spectrum='/home/groh/espectros/arcturus_ir_atlas/ab9250'  
+openu,1,spectrum     ; open file without writing
+
+;le fits
+flux=mrdfits('/home/groh/espectros/camiv/w26_204spdmn.fits',0,header)
+;obsflux=mrdfits('/home/groh/espectros/agcar/agc89dec23_swp37882_merge.fits',0,header2)
+crval1=fxpar(header,'CRVAL1')
+cdelt1=fxpar(header,'CDELT1')
+;crval2=fxpar(header2,'CRVAL1')
+;cdelt2=fxpar(header2,'CDELT1')
+;t=size(obsflux)
+s=size(flux)
+lambda=dblarr(s[1]) & fluxd=lambda & lambda2=lambda
+for k=0., s[1]-1 do begin
+lambda[k]=crval1 + (k*cdelt1)
+endfor
+
+linha=''
+
+;finds the i number of points in ewdata
+i=0
+while not eof(1) do begin
+readf,1,linha
+if linha eq '' then begin
+goto,skip1
+endif
+i=i+1
+skip1:
+endwhile
+close,1
+
+
+;declare arrays
+obs1=dblarr(i) & tel1=obs1 & ratio1=obs1 & obs2=dblarr(i) & tel2=obs1 & ratio2=obs1 & wavenumber=obs1
+
+obs1c=0. & tel1c=0. & ratio1c=0. & obs2c=0. & tel2c=0. & ratio2c=0. & wavenumberc=0.
+
+;read file
+openu,1,spectrum
+for k=0, i-1 do begin
+readf,1,wavenumberc,obs1c,tel1c,ratio1c,obs2c,tel2c,ratio2c
+wavenumber[k]=wavenumberc & obs1[k]=obs1c & tel1[k]=tel1c & ratio1[k]=ratio1c & obs2[k]=obs2c & tel2[k]=tel2c & ratio2[k]=ratio2c
+endfor
+close,1
+
+;lambda=[10780.,10792.1,10830.3]
+lambdavac=1.0e+8/wavenumber
+lambdaair=lambdavac
+vactoair,lambdaair
+print,lambdaair
+
+; plot spectrum
+window,0,xsize=900,ysize=400,retain=2
+plot,lambdaair,ratio1,xstyle=1,ystyle=1,xtitle='wavelength (air Angstrom)',$
+ytitle='Flux Normalized'
+plots,lambda,flux,color=255
+;plots,lambdaair,obs2,color=255
+;for l=0, i-1 do begin
+;if (lambdac[l] gt x1l) and (lambdac[l] lt x1u) and (abs(ew[l]) gt 0.03) then begin
+;xyouts,lambdac[l],1e-11,'!3'+string(45B)+sob[l],alignment=0.5,orientation=90
+;endif
+;endfor
+
+window,1,xsize=900,ysize=400,retain=2
+plot,wavenumber,ratio2,xstyle=1,ystyle=1,xtitle='wavelength (air Angstrom)',$
+ytitle='Flux Normalized'
+
+
+end

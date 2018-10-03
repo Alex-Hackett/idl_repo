@@ -1,0 +1,7 @@
+lambdaair=[10780.,10792.1,10830.3]
+lambdavac=lambdaair
+airtovac,lambdavac
+wavenumber=1.0e+08/lambdavac
+print,lambdaair,lambdavac,wavenumber
+
+end

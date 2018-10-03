@@ -1,0 +1,7 @@
+FUNCTION ZE_EVOL_WGFILE_FIELD001_INDEX_TO_VARIABLE,index_varname_wgfile
+
+ZE_EVOL_LOAD_WGFILE_VARIABLE_NAMES, wgfile_variables
+varname=wgfile_variables[index_varname_wgfile]
+return,varname
+
+END

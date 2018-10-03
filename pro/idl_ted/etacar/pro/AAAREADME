@@ -1,0 +1,21 @@
+#
+# ETACAR_ECHELLE - location of the extended source echelle extractions
+# ETACAR_HIRES_1 - location of CCD HIRES extended source files in 
+#			ETACAR_HIRES_1/*/HIRES/save_calstis_*.bin
+# ETACAR_HIRES_2 - alternate location of CCD HIRES extended source files
+# ETACAR_MIRES_1 - location of CCD MIRES extended source files
+#			ETACAR_MIRES_1/*/MIRES/save_calstis_*.bin
+# ETACAR_MIRES_2 - alternate location of CCD MIRES extended source files
+# ETACAR_LORES_1 - location of CCD LORES extended source files
+#			ETACAR_LORES_1/*/LORES/save_calstis_*.bin
+# ETACAR_LORES_2 - alternate location of CCD LORES extended source files
+# 
+setenv ETACAR_ECHELLE /home/lindler/STIS_SCIENCE/eta_car/echelle/
+setenv ETACAR_HIRES_1 /stis0/data64/collins/etacar/
+setenv ETACAR_HIRES_2 /stis0/data46/gull/etacar/ETA_DB/
+setenv ETACAR_MIRES_1 /stis0/data64/collins/etacar/
+setenv ETACAR_MIRES_2 /stis0/data46/gull/etacar/ETA_DB/
+setenv ETACAR_LORES_1 /stis0/data64/collins/etacar/
+setenv ETACAR_LORES_2 /stis0/data46/gull/etacar/ETA_DB/
+setenv ETACAR_UMN /home/gull/
+setenv ETACAR_ESO /home/gull/eso/

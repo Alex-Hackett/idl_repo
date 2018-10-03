@@ -1,0 +1,596 @@
+<html>
+<head>
+<title>Buie IDL v7.0 Library changes</title>
+</head>
+<body>
+<h1>Changes to 
+<a href="idl.html">Buie IDL v7.0 Library</a></h1>
+<p>This is a reverse chronological list of changes to all
+library routines since the switch-over from the previous
+version of IDL.</p>
+<p>
+<a href="pro/rastr.html">
+rastr</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+</p>
+<p>
+<a href="pro/raparse.html">
+raparse</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+</p>
+<p>
+<a href="pro/hastr.html">
+hastr</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+</p>
+<p>
+<a href="pro/haparse.html">
+haparse</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+</p>
+<p>
+<a href="pro/decstr.html">
+decstr</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+pro decstr, declination, places, str, $
+SEPCHAR=sepchar, DEGREES=degrees, ERROR=error  if n_params() ne 3 then begin
+Display the calling sequence. print, 'decstr, declination, places, str' return
+endif  self='DECSTR: ' 
+if badpar(declination,[2,3,4,5],[0,1],CALLER=self+'(declination) ') then return
+if badpar(places,[2,3],0,CALLER=self+'(places) ') then return
+if badpar(sepchar,[0,7],0,CALLER=self+'(SEPCHAR) ',default=':') then return 
+cvtsixty,declination,-0.5d0*!dpi,0.5d0*!dpi,0,['+','-'],str, $
+error=error,degrees=degrees,places=places,sepchar=sepchar  end
+</p>
+<p>
+<a href="pro/decparse.html">
+decparse</a>: 
+2009/04/26, MWB, converted to use new CVTSIXTY routine
+</p>
+<p>
+<a href="pro/cvtsixty.html">
+cvtsixty</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2009/04/24
+This is created from a large suite of independent but very similar
+routines with the intent of removing all duplicate code and having
+the independent routines call this master routine.
+</font>
+</p>
+<p>
+<a href="pro/decstr.html">
+decstr</a>: 
+2009/04/02, MWB, added NOLIMIT keyword
+</p>
+<p>
+<a href="pro/addslash.html">
+addslash</a>: 
+2009/02/27, MWB, upgraded to handle vector input.
+</p>
+<p>
+<a href="pro/angsep.html">
+angsep</a>: 
+2009/02/26, MWB, added protection against round off error generating NaN
+</p>
+<p>
+<a href="pro/fourfit.html">
+fourfit</a>: 
+2009/02/12, MWB, found and fixed a serious bug that caused the chisq
+value to be WRONG.  The old value was basically a reduced chisq
+as if the number of free parameters were zero.   Ouch.
+</p>
+<p>
+<a href="pro/avger.html">
+avger</a>: 
+2009/02/12, MWB, fixed error in DATAERR calculation.
+</p>
+<p>
+<a href="pro/safesalb.html">
+safesalb</a>: 
+<font color="#d822c6">
+2009/02/01, Written by Marc W. Buie, Southwest Research Institute
+</font>
+</p>
+<p>
+<a href="pro/render.html">
+render</a>: 
+2009/02/01, MWB, improved parameter validation and some documentation
+</p>
+<p>
+<a href="pro/colcob.html">
+colcob</a>: 
+2009/02/01, MWB, nearly a total rewrite both in documentation, coding, and
+operation.  This new version is NOT compatible with the old. 
+</p>
+<p>
+<a href="pro/plotglob.html">
+plotglob</a>: 
+2009/01/16, MWB, added LINESTYLE keyword
+</p>
+<p>
+<a href="pro/cie2rgb.html">
+cie2rgb</a>: 
+2009/01/16, MWB, added D65 keyword
+</p>
+<p>
+<a href="pro/cie2rgb.html">
+cie2rgb</a>: 
+2009/01/15, MWB, added NORMALIZED keyword
+</p>
+<p>
+<a href="pro/setcolor.html">
+setcolor</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2009/01/13
+</font>
+</p>
+<p>
+<a href="pro/digit.html">
+digit</a>: 
+2009/01/13, MWB, changed to use READ_IMAGE to read external file.
+</p>
+<p>
+<a href="pro/spec2cie.html">
+spec2cie</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2009/01/05
+</font>
+</p>
+<p>
+<a href="pro/cie2rgb.html">
+cie2rgb</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2009/01/05
+</font>
+</p>
+<p>
+<a href="pro/lcfit.html">
+lcfit</a>: 
+2008/11/20, MWB, fixed bug that could cause returned value of CHISQ to be bad
+</p>
+<p>
+<a href="pro/wrref.html">
+wrref</a>: 
+<font color="#d822c6">
+Written 2008/10/31 by Marc W. Buie, Southwest Research Institute.
+</font>
+</p>
+<p>
+<a href="pro/showsrc.html">
+showsrc</a>: 
+2008/10/31, MWB, changed to use rdref
+</p>
+<p>
+<a href="pro/rdref.html">
+rdref</a>: 
+<font color="#d822c6">
+Written 2008/10/31 by Marc W. Buie, Southwest Research Institute.
+</font>
+</p>
+<p>
+<a href="pro/mosplot.html">
+mosplot</a>: 
+2008/10/31, MWB, changed to use rdref
+</p>
+<p>
+<a href="pro/astrom.html">
+astrom</a>: 
+2008/10/31, MWB, fixed a minor problem affecting astrom.inf information
+when the frame is really close to 0h RA (more likely at higher Dec).
+</p>
+<p>
+<a href="pro/qinput.html">
+qinput</a>: 
+2008/10/30, MWB, slight rewrite of internals for robust state structure.
+Also, now exclusively returns a scalar regardless of type.
+</p>
+<p>
+<a href="pro/starcprmt.html">
+starcprmt</a>: 
+2008/10/21, MWB, added SILENT keyword 
+</p>
+<p>
+<a href="pro/rdstarc.html">
+rdstarc</a>: 
+2008/10/21, MWB, added SILENT keyword
+</p>
+<p>
+<a href="pro/reduc.html">
+reduc</a>: 
+2008/09/15, MWB, image list broken for roboccd, fixed mysql query 
+</p>
+<p>
+<a href="pro/photcal.html">
+photcal</a>: 
+2008/08/07, MWB, added MAXSEP, UNIQUE, and NODISPLAY keywords
+</p>
+<p>
+<a href="pro/moschipcal.html">
+moschipcal</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2008/08/07
+</font>
+</p>
+<p>
+<a href="pro/mosphot.html">
+mosphot</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Southwest Research Institute, 2008/07/31
+</font>
+</p>
+<p>
+<a href="pro/findsrc.html">
+findsrc</a>: 
+2008/07/25, MWB, add flux to output results structure.  Impose minimum
+sigma and flux values to 1 in CRS calculation 
+</p>
+<p>
+<a href="pro/seeing.html">
+seeing</a>: 
+2008/07/23, MWB, added keyword for initial FWHM guess
+</p>
+<p>
+<a href="pro/mkrundate.html">
+mkrundate</a>: 
+<font color="#d822c6">
+2008/06/22, Written by Marc W. Buie, Southwest Research Institute
+</font>
+</p>
+<p>
+<a href="pro/reduc.html">
+reduc</a>: 
+2008/06/19, MWB, repaired a logic problem with 'sl' rule display information.
+Remember, there may be more in phot.data than what comes from this program!
+</p>
+<p>
+<a href="pro/msrcor.html">
+msrcor</a>: 
+<font color="#d822c6">
+2008/06/18, Written by Marc W. Buie with algorithmic input from Leslie Young,
+Southwest Research Institute.
+</font>
+</p>
+<p>
+<a href="pro/astrom.html">
+astrom</a>: 
+2008/06/17, MWB, FNSRC input was being ignored, fixed.
+Also modified to use rdstarc (which will modify .cat files)
+</p>
+<p>
+<a href="pro/jitter.html">
+jitter</a>: 
+<font color="#d822c6">
+2008/04/22, Written by Marc W. Buie, Lowell Observatory
+</font>
+</p>
+<p>
+<a href="pro/hstjit.html">
+hstjit</a>: 
+2008/04/22, MWB, added support for compressed data files.  Fixed
+bug on reading wrong input quantity from jitter files.
+</p>
+<p>
+<a href="pro/disphase.html">
+disphase</a>: 
+2008/04/12, MWB, slight change to deal with bogus values for G
+</p>
+<p>
+<a href="pro/stats.html">
+stats</a>: 
+MWB, 2008/04/09, added CHARSIZE keyword pass through to plot
+</p>
+<p>
+<a href="pro/lstlim.html">
+lstlim</a>: 
+2008/04/08, MWB, modified formatting of printed output.
+</p>
+<p>
+<a href="pro/basphote.html">
+basphote</a>: 
+2008/03/25, MWB, fixed minor bug related to an aperture that falls off chip
+</p>
+<p>
+<a href="pro/lcfit.html">
+lcfit</a>: 
+2008/03/16, MWB, added some keywords
+</p>
+<p>
+<a href="pro/year2jd.html">
+year2jd</a>: 
+<font color="#d822c6">
+Written by Marc Buie, Lowell Observatory, 2008/02/03
+</font>
+</p>
+<p>
+<a href="pro/windstr.html">
+windstr</a>: 
+2008/02/03, MWB, changed to allow reverse transformation.
+</p>
+<p>
+<a href="pro/mon2num.html">
+mon2num</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Lowell Observatory, 2008/02/03
+</font>
+</p>
+<p>
+<a href="pro/fitsedit.html">
+fitsedit</a>: 
+2008/02/01, MWB, Added missing tool, "Add Integer Keyword" and fixed
+some problems with the force tools.
+</p>
+<p>
+<a href="pro/roboccdload.html">
+roboccdload</a>: 
+2008/1/25, PLC, add support for runs with 1000+ frames.
+</p>
+<p>
+<a href="pro/numtoflist.html">
+numtoflist</a>: 
+<font color="#d822c6">
+Written by Peter L. Collins, Lowell Observatory, 2008/01/25
+</font>
+</p>
+<p>
+<a href="pro/autocal.html">
+autocal</a>: 
+2008/01/22, MWB, added RDNOISE keyword.
+</p>
+<p>
+<a href="pro/mysqldocscan.html">
+mysqldocscan</a>: 
+2007/12/09, MWB, added missing test for master database documentation
+</p>
+<p>
+<a href="pro/starcprmt.html">
+starcprmt</a>: 
+2007/11/30, PLC, modified for validity checking and new READCOL keywds.
+</p>
+<p>
+<a href="pro/refext.html">
+refext</a>: 
+2007/11/30, MWB, changed to support the new binary file formats.
+</p>
+<p>
+<a href="pro/frmdxyr.html">
+frmdxyr</a>: 
+<font color="#d822c6">
+2007/11/28, Written by Marc W. Buie, Lowell Observatory
+</font>
+</p>
+<p>
+<a href="pro/rdstarc.html">
+rdstarc</a>: 
+2007/11/23- Peter L. Collins, Lowell Observatory,
+convert to v1.0 binary fmt and add promote call.
+</p>
+<p>
+<a href="pro/starcprmt.html">
+starcprmt</a>: 
+<font color="#d822c6">
+2007/11/21, Written by Peter L. Collins, Lowell Observatory
+</font>
+</p>
+<p>
+<a href="pro/frmdxdy.html">
+frmdxdy</a>: 
+2007/11/21, MWB, merged with alternate code buried in astrom.pro
+</p>
+<p>
+<a href="pro/findobj.html">
+findobj</a>: 
+2007/11/07, MWB, added NOSCALE keyword, fixed a problem with the binfac keyword
+</p>
+<p>
+<a href="pro/astrom.html">
+astrom</a>: 
+2007/11/07, MWB, added NOSTRICTAPER keyword for photographic plate data
+</p>
+<p>
+<a href="pro/showsrc.html">
+showsrc</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Lowell Observatory, 2007/11/06
+</font>
+</p>
+<p>
+<a href="pro/astrom.html">
+astrom</a>: 
+2007/11/06, MWB, fixed bug with partial solutions where you have to help
+with a two star solution.  Problem if help led to a
+significant change in rotation.
+</p>
+<p>
+<a href="pro/photphot.html">
+photphot</a>: 
+2007/10/29, MWB, integrated into library 
+</p>
+<p>
+<a href="pro/flx2mag.html">
+flx2mag</a>: 
+2007/10/29, MWB, modifications to make it more error tolerant
+</p>
+<p>
+<a href="pro/findsrc.html">
+findsrc</a>: 
+2007/10/29, MWB, added PHOTOGRAPIC keyword for scanned plate data.
+</p>
+<p>
+<a href="pro/astrom.html">
+astrom</a>: 
+2007/10/29, MWB, added PHOTOGRAPIC keyword on scanned plate data (incomplete)
+added TWEAKOBJ keyword
+</p>
+<p>
+<a href="pro/hstjit.html">
+hstjit</a>: 
+2007/10/24, SDK, conversion of undistorted/distorted coordinates,
+output in pixels
+</p>
+<p>
+<a href="pro/jitterk.html">
+jitterk</a>: 
+<font color="#d822c6">
+Written by Marc W. Buie, Lowell Observatory, 2007/10/23
+</font>
+</p>
+<p>
+<a href="pro/photphot.html">
+photphot</a>: 
+2007/10/21, MWB, converted to use IDL builtin, gaussfit
+</p>
+<p>
+<a href="pro/hstjit.html">
+hstjit</a>: 
+2007/10/18, SDK, added support for camera specifics ACS, WFPC2
+</p>
+<p>
+<a href="pro/photphot.html">
+photphot</a>: 
+2007/10/16,  add SKY keyword and input vectors of source positions.
+</p>
+<p>
+<a href="pro/loadkeys.html">
+loadkeys</a>: 
+2007/10/02, MWB, changed DATETMPL in default list.
+</p>
+<p>
+<a href="pro/pc2model.html">
+pc2model</a>: 
+2007/09/12, PLC, provide DISTORT flag to use undistorted input x,y
+to generate psf's in the usual distorted (instrumental) frame. 
+</p>
+<p>
+<a href="pro/stacker.html">
+stacker</a>: 
+2007/09/07, MWB, incorporate into library to be consistent with newest
+avgclip and medarr_mwb, STACK keyword renamed to IMAGESTACK
+</p>
+<p>
+<a href="pro/medarr_mwb.html">
+medarr_mwb</a>: 
+2007/09/07, MWB & PLC, added BAD keyword support
+</p>
+<p>
+<a href="pro/avgclip.html">
+avgclip</a>: 
+2007/09/07, MWB, fixed more errors with handling of incoming bad arrays
+also added the NONEWBADFLAGS keyword and pass BAD through to medarr_mwb
+</p>
+<p>
+<a href="pro/openmysql.html">
+openmysql</a>: 
+2007/09/06, MWB, added HOST/USER keywords
+</p>
+<p>
+<a href="pro/pc2model.html">
+pc2model</a>: 
+2007/09/05, MWB, changed to permit multiple calls on same output image.
+Added pixel response function.
+</p>
+<p>
+<a href="pro/avgclip.html">
+avgclip</a>: 
+2007/09/04, MWB, fixed problem with CLEANMEAN and CLEANSIG
+</p>
+<p>
+<a href="pro/stacker.html">
+stacker</a>: 
+2007/08/30, Peter L. Collins, Lowell Observatory, allow data cube as
+variant of fnlist, and fits file as variant of BAD. Add
+SUPERFRAME support and associated keywords.
+</p>
+<p>
+<a href="pro/badpar.html">
+badpar</a>: 
+2007/08/14, MWB, fixed bug with returning DIMEN on defaulted variable.
+</p>
+<p>
+<a href="pro/pc2model.html">
+pc2model</a>: 
+2007/08/08, MWB, fixed minor bug when pasting psf near top and right edge
+</p>
+<p>
+<a href="pro/avgclip.html">
+avgclip</a>: 
+2007/08/08, MWB, added BAD keyword
+</p>
+<p>
+<a href="pro/p6model.html">
+p6model</a>: 
+2007/07/25, PLC, propagate changes made to pc2model 2007/07/08 by Marc Buie.
+Z4 keyword left out for now (pending hstpsf test).
+</p>
+<p>
+<a href="pro/p6model.html">
+p6model</a>: 
+2007/07/24, PLC, add some changes made earlier to pc2model.
+</p>
+<p>
+<a href="pro/mysqlquery.html">
+mysqlquery</a>: 
+2007/07/15, MWB, added NGOOD output keyword  BUGS/WISH LIST:
+Ought to verify connection to MySQL server.
+Does nothing helpful with SQL command results.
+Does nothing helpful to identify/report bad SQL syntax.
+</p>
+<p>
+<a href="pro/stacker.html">
+stacker</a>: 
+2007/07/09, MWB, added JUSTMEDIAN and STACK keywords
+</p>
+<p>
+<a href="pro/stacker.alt.html">
+stacker.alt</a>: 
+2007/07/09, MWB, added JUSTMEDIAN and STACK keywords
+</p>
+<p>
+<a href="pro/pc2model.html">
+pc2model</a>: 
+2007/07/08, MWB, psf placement reworked (was busted from long ago).
+</p>
+<p>
+<a href="pro/ccdphot.html">
+ccdphot</a>: 
+2007/06/27, MWB, change header on output FITS to set BSCALE=1,BZERO=0
+</p>
+<p>
+<a href="pro/pc2model.html">
+pc2model</a>: 
+2007/6/26, PLC, add keywords GRID, PSFSIZE, Z4. Rename x,y inputs
+to xsrc, ysrc, to avoid JITTER clobbering.
+</p>
+<p>
+<a href="pro/hstpsf.html">
+hstpsf</a>: 
+2007/06/24,PLC, add .par file check for WFPC2, along with keywords
+NOCHECKPAR and MISSING. 
+</p>
+<p>
+<a href="pro/findmax.html">
+findmax</a>: 
+2007/06/21, MWB, promote x,y inputs to float (internally only).
+</p>
+<p>
+<a href="pro/mkbias.html">
+mkbias</a>: 
+2007/06/20, MWB, fixed minor bug with image list for start
+</p>
+<p>
+<a href="pro/rdplast.html">
+rdplast</a>: 
+2007/06/19, MWB, added special case for P objects (must be in file with
+lower case p).  This triggers JPL ephemeris object.
+</p>
+<p>
+<a href="pro/hstpsf.html">
+hstpsf</a>: 
+2007/06/15,PLC, the subdirectory below WFPC2 is now PC instead of PC6,
+which continues to be used for WFPC.
+</p>
+<hr>
+<address>
+Created by modupdate.pro 2009/04/27 11:19:44 MST
+</address>
+</body>
+</html>

@@ -1,0 +1,43 @@
+The ACS IDL library is a collection of routines written to support the
+ACS IDT Calibration effort.
+
+
+Minimum requirements
+
+    * IDL Astronomy Users library
+    * IDL 5.4 or above
+
+Installation
+
+UNIX
+
+    * Ensure you meet the minimum requirements.
+    * Download the entire library.
+
+    * Uncompress and extract the archive into your installation directory.
+
+        % cd [install_dir]
+        % gunzip -c acs_idl.tar.gz | tar -xvf -
+
+    * Edit acs/bin/start_acs to customize for your site.
+
+    * Download the following database files into the var subdirectory:
+      acs_log.dbd,
+      acs_log.dbh,
+      acs_log.dbf,
+      acs_log.dbx
+
+    * Optionally add the bin subdirectory to your path.
+
+The software may now be started by the bin/start_acs script.
+
+
+Note: If you pulled the source only version you will have to build the pdecomp
+executable in order to decompress compressed ACS frames.
+
+    * Modify src/pdecomp/Makefile if necessary
+    * Make the binary:
+       % make
+    * Install the binary somewhere in your IDL_PATH:
+       % cp pdecomp ../../lib/acquisition
+

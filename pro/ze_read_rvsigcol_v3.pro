@@ -1,0 +1,10 @@
+PRO ZE_READ_RVSIGCOL_V3,frvsig,r,v,sigma,rvsig
+;frvsig='/aux/wcs6a/jgroh/cmfgen_models/agcar/1_red_maxr_moredepth_bound/RVSIG_COL'
+rvsig=read_ascii(frvsig, DATA_START=0, COMMENT_SYMBOL='!',MISSING_VALUE=0.)
+
+r=dblarr((SIZE(rvsig.field1))[2]) & v=r & sigma=r
+r[*]=rvsig.field1[0,*]
+v[*]=rvsig.field1[1,*]
+sigma[*]=rvsig.field1[2,*]
+
+END

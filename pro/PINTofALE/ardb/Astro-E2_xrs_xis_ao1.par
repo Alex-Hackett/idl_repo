@@ -1,0 +1,407 @@
+;+
+;Astro-E2_xrs_xis_ao1.par
+;	generate simulated ASTRO-E2, XIS, and XRS spectra 
+;	for a coronal source using a specified multi-temperature DEM
+;	with the option of normalizing to a Chandra/ACIS-I count rate. 
+;
+;description
+;	http://hea-www.harvard.edu/PINTofALE/doc/EXAMPLE_Astro-E2.html
+;
+;calling sequence
+;	.run initale
+;	@Astro-E2_xrs_xis_ao1.par
+;
+;(LL/VK;Aug04)
+;
+; bug fix. DEM re-normalization was not applied 
+; properly. No re-normalization was done. (LL/VK;Oct04) 
+;
+; added more analysis parameters to handle possible discrepancies 
+; concerning bandpasses and CHANDRA/ACIS-I count rate. (LL/VK;Oct04) 
+;
+;-
+;
+;--------------------------------------------------------------------------
+;	control variables
+;--------------------------------------------------------------------------
+;	Local Environment We will set up the pathnames specific to
+;	the local installation here
+
+ !LDBDIR = '$SPEX'		; Atomic Line Database
+	        ; choose from the predefined '$CHIANTI', '$SPEX', '$APED',
+		; or specify the full path name to the line database
+
+;	Source We will characterize our model source by the following:
+
+ !NH           = 3e20			 ; H column density [cm^-2]
+ !EDENS        = 1.0e9   		 ; electron number density [cm^-3]
+ !ABUND        = getabund('grevesse et al.') ; element abundances
+					     ;(SEE: getabund())
+ T_components  = [6.1, 6.8, 7.2]		; log(T[K]) components in EM
+ EM_components = [6.1d11, 6.1d11, 7.1e11]	; Emission Measure [cm^-3]
+
+;	Observation The observation can be described by:
+
+ EXPTIME       =  70.			   ; nominal exposure time [ks]
+ obs_rate      =  0.1                      ; Chandra/ACIS-I count rate [ct/s]
+					   ; (set to 0 or less to be ignored)
+ ACIS_ARF      =  'acisi_aimpt_cy06.arf'   ; Chandra/ACIS-I ARF 
+
+ xrs_ARF        = 'xrs_onaxis_open_ao1.arf'; XRS ARF filename or 'none'
+ xisFI_ARF      = 'xis_FI_onaxis_ao1.arf'  ; XIS FI ARF filename or 'none'
+ xisBI_ARF      = 'xis_BI_onaxis_ao1.arf'  ; XIS BI ARF filename or 'none'
+ xrs_RMF        = 'xrs_ao1.rmf'	     	   ; XRS RMF filename
+ xisFI_RMF      = 'xis_FI_ao1.rmf'  	   ; XIS FI RMF filename
+ xisBI_RMF      = 'xis_BI_ao1.rmf'         ; XIS BI RMF filename
+ 
+;	NOTE: the standard XIS response are not OGIP compliant but can still be 
+;	handeled using rd_ogip_rmf(). 
+
+;	Analysis Parameters 
+;       We may restrict the analysis to the wavelength ranges of interest.
+;       Here we set the CHANDRA/ACIS-I passband used to measure obs_rate,
+;       the desired Astro-E2 output passband, and the wavelength grid
+;       for the idealized model spectrum. The output spectra will be        
+;       defined on the default response energy grids restricted to 
+;       the ranges defined here. 
+
+ emin_chandra = 0.2	; minimum energy in CHANDRA/ACIS-I passband [keV]
+ emax_chandra = 2.5	; maximum energy in CHANDRA/ACIS_I passband [keV] 
+ emin_astroe2 = 0.2	; minimum energy in Astro-E2 passband [keV]
+ emax_astroe2 = 8.0	; maximum energy in Astro-E2 passband [keV]
+ wmin_chandra = !fundae.kevang/emax_chandra ; convert to [Ang]
+ wmax_chandra = !fundae.kevang/emin_chandra ; convert to [Ang]
+ wmin_astroe2 = !fundae.kevang/emax_astroe2 ; convert to [Ang]
+ wmax_astroe2 = !fundae.kevang/emin_astroe2 ; convert to [Ang]
+ !WMIN = wmin_chandra < wmin_astroe2 ; minimum wavelength for model [Ang]
+ !WMAX = wmax_chandra > wmax_astroe2 ; maximum wavelength for model [Ang]
+ nwbin   =  10000L ; number of bins in model spectrum 
+
+;--------------------------------------------------------------------------
+;	do not edit anything below unless you know what you are doing
+;--------------------------------------------------------------------------
+
+;2.Define a DEM
+
+;	A Differential Emission Measure (DEM) is required to estimate the
+;	amount of emission at various temperatures. Typically, a 2-temperature
+;	model is used. Here we will use PINTofALE's mk_dem(), which constructs
+;	a DEM array given a temperature grid and emission measure components.
+;	We use as the temperature grid !LOGT. The emission measure components
+;	are T_components and EM_components as defined above
+
+!DEM=mk_dem('delta', logT = !LOGT, pardem=T_components, indem=EM_components)
+
+;	We will assume that a Chandra/ACIS-I  count rate is available,
+;	and that the simulation will match this rate.  We will assume
+;	a count rate of 0.1 cts/s .  Data from other missions such
+;	as ROSAT, ASCA, BeppoSAX, etc. can be dealt with in the same manner.
+
+;	First find and read in the Chandra/ACIS-I effective area
+;       together with the energy grid on which it is defined. 
+
+acisi_effar=rdarf(ACIS_ARF,arstr)
+elo=arstr.ELO & ehi=arstr.EHI & wlo=12.3985/ehi & whi=12.3985/elo
+
+;	Now convert grid to wavelength grid and reverse such that 
+;       wavelengths are in increasing order.
+
+wlo=reverse(wlo) & whi=reverse(whi) & acisi_effar=reverse(acisi_effar)
+wgrid=[wlo,max(whi)] & acisi_wvlar=0.5*(wgrid+wgrid[1:*])
+ 
+
+;	The following is similar to the process described in the detailed
+;	example thread (see Section 1 and Section 2)
+
+;A] Read in line cooling emissivities and calculate line intensities
+
+;	Read line cooling emissivities of all possible lines in the
+;	Chandra/ACIS-I wavelength range from the atomic data base.
+
+;	NOTE: To avoid multiple reads of the line emissivity database, we
+;	shall read in the emissivities over the entire range of interest
+
+lconf=rd_line(atom,n_e=!EDENS,$
+	wrange=[MIN(acisi_wvlar)<!WMIN,MAX(acisi_wvlar)>!WMAX],$
+	dbdir=!LDBDIR,verbose=!VERBOSE,wvl=LWVL,logT=LLOGT,Z=Z,$
+	ion=ION,jon=JON,fstr=lstr)
+
+;	The output of rd_line() will only include level population,
+;	and not ion balances. We will use fold_ioneq() to fold ion balances.
+;	NOTE: This step should not be performed if !LDBDIR is set to APED,
+;	which already includes ion balances and abundances.
+
+if strpos(strlowcase(!LDBDIR),'aped',0) lt 0 then lconf=$
+	fold_ioneq(lconf,Z,JON,chidir=!CHIDIR,$
+	logT=LLOGT,eqfile=!IONEQF,verbose=!VERBOSE)
+
+;	And now calculate line intensities using lineflx().
+
+v_ABUND = !ABUND
+;	NOTE: If !LDBDIR is set to APED, Anders & Grevesse abundances
+;	are already included in the emissivities.  In such cases, either
+;	leave out the atomic numbers (Z) in the call to LINEFLX() below,
+;	or redfine the abundance array to be relative to the APED values,
+;	e.g.,
+if strpos(strlowcase(!LDBDIR),'aped',0) ge 0 then $
+	v_ABUND = !ABUND/getabund('anders & grevesse')
+
+linint=lineflx(lconf,!LOGT,LWVL,Z,DEM=!DEM,abund=v_ABUND) ;[ph/s]
+
+
+;B] Read in continuum emissivities and calculate continuum intensities
+
+;	We can read in continuum emissivities using rd_cont().
+;	It is important to note that the output emissivities of rd_cont()
+;	are in [1e-23 erg cm^3/s/Ang] and not [1e-23 erg cm^3/s] as with rd_line()
+
+;	NOTE: To avoid multiple reads of the continuum emissivity database,
+;	we shall read in the emissivities over the entire range of interest
+
+cconf=rd_cont(!CEROOT,n_e=!EDENS,$
+	wrange=[min(acisi_wvlar)<!WMIN,max(acisi_wvlar)>!WMAX],$
+	dbdir=!CDBDIR,abund=!ABUND,verbose=!VERBOSE,$
+	wvl=CWW,logT=ClogT)
+
+;	The continuum intensities per angstrom can be calculated again using
+;	lineflx(). Note that CWW contains the wavelength bin boundaries for
+;	the emissivity array.
+
+CWVL=0.5*(CWW[1:*]+CWW)
+conint=lineflx(cconf,!LOGT,CWVL,DEM=!DEM)   ;[ph/s/Ang]
+
+;	Now to get just continuum intensity, we must multiply by an array
+;	containing the bin widths. If we define this array simply
+;	with:  CDW=CWW[1:*]-CWW, we will get an ugly 'saw-toothed' figure.
+;	(a side-effect of the way the data-base is constructed) To work
+;	around this, we can use CWVL, the mid-bin values, and mid2bound(),
+;	which gives intelligent bin-boundary values given mid-bin values:
+
+CWB=mid2bound(CWVL) & CDW=CWB[1:*]-CWB
+conint=conint*CDW	;[ph/s/Ang]*[Ang]
+
+
+;C] Correct for inter-stellar absorption
+
+;	Derive ISM absorptions using ismtau()
+ltau=ismtau(LWVL,NH=!NH,fH2=!fH2,He1=!He1,HeII=!HeII,$
+	Fano=Fano,wam=wam,/bam,abund=!ABUND,verbose=!VERBOSE)
+ctau=ismtau(CWVL,NH=!NH,fH2=!fH2,He1=!He1,HeII=!HeII,$
+	Fano=Fano,wam=wam,/bam,abund=!ABUND,verbose=!VERBOSE)
+ltrans=exp(-ltau) & ctrans=exp(-ctau)
+
+;	Derive theoretical line fluxes
+linflx = linint * ltrans	;[ph/s/cm^2]
+
+;	Derive theoretical continuum fluxes
+conflx = conint * ctrans	;[ph/s/cm^2]
+
+
+;D] Bin spectra and fold in effective area
+
+;	make input theoretical spectrum grid    
+nwbin_pspc = n_elements(acisi_effar)
+dwvl=float((max(acisi_wvlar)-min(acisi_wvlar))/nwbin_pspc)
+wgrid=findgen(nwbin+1L)*dwvl+min(acisi_wvlar)
+
+;	Rebin to form theoretical line spectrum using hastrogram()
+linspc = hastogram(abs(LWVL),wgrid,wts=linflx)	;[ph/s/cm^2/bin]
+
+;	Rebin to form theoretical continuum spectrum using rebinw()
+conspc = rebinw(conflx,CWVL,wgrid,/perbin)	;[ph/s/cm^2/bin]
+
+;	Derive predicted flux spectrum.
+WVLS=0.5*(WGRID[1:*]+WGRID)
+newEffAr=(interpol(acisi_effar,acisi_wvlar,WVLS) > 0) < (max(acisi_effar))
+flxspc = (linspc + conspc) * newEffAr
+
+;	Derive predicted counts spectrum.
+flxspc=flxspc*EXPTIME*1e3		;[ct/bin]
+
+;       Restrict the counts spectrum to the specified ACIS-I range 
+oo = where(wgrid ge wmin_chandra and wgrid le wmax_chandra)
+flxspc = flxspc(oo)
+
+;	Now get the total count rate and renormalize the DEM to the
+;	observed rate of 0.1 ct/s.
+
+pred_rate = total(flxspc/EXPTIME/1e3)       ;[ct/s]
+print,''
+if obs_rate gt 0 then $
+	print,'Rescaling input DEM by a factor '+strtrim(obs_rate/pred_rate,2)
+print,''
+rescale_factor=1.0
+if obs_rate gt 0 then rescale_factor = obs_rate/pred_rate
+!DEM = !DEM * rescale_factor
+ linint = linint * rescale_factor
+ conint = conint * rescale_factor
+ linflx = linflx * rescale_factor
+ conflx = conflx * rescale_factor
+
+;4. Construct ASTRO-E2 Spectrum 
+
+;       To construct the ASTRO-E2  spectra, we use the line and continuum
+;	emissivities read in above (LCONF and CCONF), the line and
+;	continuum intensities (LININT and CONINT) and fluxes (LINFLX
+;	and CONFLX) computed above, and recompute the predicted fluxes
+;	using ASTRO-E2  ARFs, and finally compute the observed spectra by
+;	convolving with the RMFs.
+
+
+;A] Read in line cooling emissivities and calculate line intensities
+
+	help,lconf,linint
+       
+
+;B] Read in line cooling emissivities and calculate line intensities
+
+	help,cconf,conint
+
+
+;C] Correct for inter-stellar absorption
+
+	help,ltau,ltrans,linflx,ctau,ctrans,conflx
+
+;D] Bin spectra and fold in effective area
+
+        EMAX = !fundae.kevang/!WMIN & EMIN = !fundae.kevang/!WMAX
+        dnrg   = float((EMAX-EMIN)/nwbin)     ;  bin size
+        egrid  = findgen(nwbin+1L)*dnrg+EMIN  ;  bin boundaries [keV]
+        emid   = 0.5*(egrid[1:*]+egrid)       ;  mid-bin values [keV]
+        wvls   = !fundae.kevang/emid          ;  [ang]         
+
+        linspc  = hastogram(!fundae.kevang/abs(LWVL),egrid,wts=linflx)  ; [ph/s/cm^2/bin]
+        conspc  = rebinw(conflx,!fundae.kevang/CWB,egrid,/perbin)      ; [ph/s/cm^2/bin]
+
+        ;Read in the effective areas using rdarf()
+
+        if strlowcase(xrs_ARF) eq 'none' then effar_xrs=0*emid+1. else $
+                effar_xrs  = rdarf(xrs_ARF,xrs_ARF_str)
+        if strlowcase(xisFI_ARF) eq 'none' then effar_xisFI=0*emid+1. else $
+                effar_xisFI = rdarf(xisFI_ARF,xisFI_ARF_str)
+        if strlowcase(xisBI_ARF) eq 'none' then effar_xisBI=0*emid+1. else $
+                effar_xisBI = rdarf(xisBI_ARF,xisBI_ARF_str)
+
+        ;figure out the wavelength grid for effective areas
+
+        if n_tags(xrs_ARF_str) eq 0 then nrgar_xrs=emid else $
+          nrgar_xrs = (0.5*(xrs_ARF_str.ELO +xrs_ARF_str.EHI))
+        if n_tags(xisFI_ARF_str) eq 0 then nrgar_xisFI=emid else $
+          nrgar_xisFI  = (0.5*(xisFI_ARF_str.ELO+xisFI_ARF_str.EHI))
+        if n_tags(xisBI_ARF_str) eq 0 then nrgar_xisBI=emid else $
+          nrgar_xisBI  = (0.5*(xisBI_ARF_str.ELO+xisBI_ARF_str.EHI))
+
+        ;interpolate to put effective area on binned spectra grids
+
+        new_effar_xrs   = (interpol(effar_xrs  ,nrgar_xrs  ,EMID) > 0) < (max(effar_xrs))
+        new_effar_xisFI = (interpol(effar_xisFI,nrgar_xisFI,EMID) > 0) < (max(effar_xisFI))
+        new_effar_xisBI = (interpol(effar_xisBI,nrgar_xisBI,EMID) > 0) < (max(effar_xisBI))
+
+        ;[ct/s/bin] (if DEM is [cm-5]: [ct/s/cm2/bin])
+
+        flxspc_xrs   = (linspc + conspc) * new_effar_xrs
+        flxspc_xisFI = (linspc + conspc) * new_effar_xisFI
+        flxspc_xisBI = (linspc + conspc) * new_effar_xisBI
+
+        ;Derive predicted counts spectrum
+
+        flxspc_xrs    = flxspc_xrs   *EXPTIME*1e3      ;[ct/bin]
+        flxspc_xisFI  = flxspc_xisFI *EXPTIME*1e3      ;[ct/bin]
+        flxspc_xisBI  = flxspc_xisBI *EXPTIME*1e3      ;[ct/bin]
+
+
+;E] Convolve with RMF using 
+
+;	read in RMFs
+xrs_RMF_str=rd_ogip_rmf(xrs_RMF)
+xisFI_RMF_str=rd_ogip_rmf(xisFI_RMF)
+xisBI_RMF_str=rd_ogip_rmf(xisBI_RMF)
+
+conv_rmf, egrid, flxspc_xrs,   CHAN_xrs,   CTSPC_xrs,   xrs_RMF_str
+conv_rmf, egrid, flxspc_xisFI, CHAN_xisFI, CTSPC_xisFI, xisFI_RMF_str
+conv_rmf, egrid, flxspc_xisBI, CHAN_xisBI, CTSPC_xisBI, xisBI_RMF_str
+
+;	Get co-added XIS spectrum. We take into account here that there are 2 XIS
+;       front side illuminated CCDs and 2 XIS back-side illuminated CCDs.
+
+CHAN_xis   = CHAN_xisFI                        ;[keV]
+CTSPC_xisFI= 2*CTSPC_xisFI                     ;[ct/bin]
+CTSPC_xisBI= 2*CTSPC_xisBI                     ;[ct/bin]
+CTSPC_xis  = CTSPC_xisFI + CTSPC_xisBI         ;[ct/bin] valid grids same
+flxspc_xis = flxspc_xisFI + flxspc_xisBI       ;[ct/bin] (if sperate ARF)
+
+;       Restrict the XIS and XRS spectra to the specified range 
+oo_xis = where(CHAN_xis gt emin_astroe2 and CHAN_xis lt emax_astroe2)
+oo_xrs = where(CHAN_xrs gt emin_astroe2 and CHAN_xrs lt emax_astroe2) 
+
+CTSPC_xisFI = CTSPC_xisFI(oo_xis) & CHAN_xisFI  = CHAN_xisFI(oo_xis)
+CTSPC_xisBI = CTSPC_xisBI(oo_xis) & CHAN_xisBI  = CHAN_xisBI(oo_xis)
+CTSPC_xis   = CTSPC_xis(oo_xis)   & CHAN_xis    = CHAN_xis(oo_xis)  
+CTSPC_xrs   = CTSPC_xrs(oo_xrs)   & CHAN_xrs    = CHAN_xrs(oo_xrs)
+
+;5. Obtain Poisson deviates
+
+;	The final step is a simulation of counts based on the spectrum
+;	predicted above
+
+nbin_xrs  = n_elements(CTSPC_xrs) &  CTSIM_xrs  = intarr(nbin_xrs) 
+nbin_xis = n_elements(CTSPC_xis) &  CTSIM_xis = intarr(nbin_xis) 
+
+for i=0L,nbin_xrs-1L  do if CTSPC_xrs[i]  gt 0 then $
+	CTSIM_xrs[i] =randomu(seed,poisson=CTSPC_xrs[i])
+for i=0L,nbin_xis-1L do if CTSPC_xis[i] gt 0 then $
+	CTSIM_xis[i]=randomu(seed,poisson=CTSPC_xis[i])
+
+;	The results of the calculations are plotted below
+
+;	The xrs model (in white) and simulated counts (in red)
+window, 0
+plot,   CHAN_xrs, CTSPC_xrs, title='ASTRO-E2  XRS MODEL SPECTRUM',$
+        xtitle='[keV]', ytitle='[ct]', ystyle=1, xstyle = 1,$
+        xrange=[emin_astroe2,emax_astroe2],$
+        yrange=[0.5,1.1*max(CTSPC_xrs)], /xlog
+oplot,  CHAN_xrs, CTSIM_xrs ,color = 2, psym=10,  thick=2   
+
+;       Do a /noerase /nodata plot to ensure tickmarks are visible
+plot,   CHAN_xrs, CTSPC_xrs, title='ASTRO-E2  XRS MODEL SPECTRUM',$
+        xtitle='[keV]', ytitle='[ct]', ystyle=1, xstyle = 1,$
+        xrange=[emin_astroe2,emax_astroe2],$
+        yrange=[0.5,1.1*max(CTSPC_xrs)], /xlog, /nodata, /noerase
+stample
+
+;	The XIS model (in white) and simulated counts (in red).  Also shown
+;	are the model counts from XISFI (yellow) and XISBI (green)
+window, 2
+plot,   CHAN_xis, CTSIM_xis, title='ASTRO-E2  XIS MODEL SPECTRUM',$
+        xtitle='['+!AA+']', ytitle='[ct]', ystyle=1, xstyle=1, /nodata,$
+        xrange=[emin_astroe2,emax_astroe2],$
+	yrange=[0,1.1*max(CTSIM_xis)],/xlog
+oplot,  CHAN_xis, CTSIM_xis, color=2, psym=10, thick=2
+oplot,  CHAN_xisFI, CTSPC_xisFI, color=3, psym=10, thick=2
+oplot,  CHAN_xisBI, CTSPC_xisBI, color=4, psym=10, thick=2
+plot,   CHAN_xis, CTSIM_xis, title='ASTRO-E2  XIS MODEL SPECTRUM',$
+        xtitle='['+!AA+']', ytitle='[ct]', ystyle=1, xstyle=1,$
+        xrange=[emin_astroe2,emax_astroe2],$
+	yrange=[0,1.1*max(CTSIM_xis)],/xlog, /nodata, /noerase
+stample
+
+;       We may summarize results as follows:
+;
+; Simulated counts spectra are in:
+;    CTSIM_xrs(chan_xrs),CTSIM_xis(CHAN_xis) [ct/bin]  
+;
+; Redistributed counts spectra are in: 
+;    CTSPC_xrs(chan_xrs),CTSPC_xis(CHAN_xis) [ct/bin]
+;
+; Predicted counts spectra are in: 
+;    FLXSPC_xrs(wvls), FLXSPC_xis(wvls) [ct/bin]
+;
+;    Note: Standard XIS response matrices include the effective area, so, unless
+;    a seperate rmf and effective area files are used, FLXSPC_xis will
+;    NOT contain predicted counts spectra.  
+;
+; Theoretical line fluxes are in: 
+;    linspc(lwvl) [ph/s[/cm^2]]
+;
+; Theoretical continuum fluxes are in: 
+;    conspc(cwvl) [ph/s[/cm^2]]

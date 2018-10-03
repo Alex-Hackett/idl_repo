@@ -1,0 +1,213 @@
+Annual Meteor Showers data
+ 
+Meteor stream activity. 1. The annual streams.
+  Jenniskens P. <Astron. Astrophys. 287, 990 (1994)>
+ 
+Note: coordinates are 1950.0
+ 
+----- Shower -----
+CODE = 3 character shower code
+NAME = Full shower name
+ 
+----- Radiant ------
+L_S = Solar Longitude.
+RA = RA of radiant at Solar Longitude L_S.
+DEC = Dec of radiant at Solar Longitude L_S.
+DRA = radiant drift in degrees of arc/degrees of solar longitude.
+DDEC = radiant drift in degrees of arc/degrees of solar longitude.
+VI = geocentric entry velocity of meteoroids in the atmosphere,
+     which includes the Earth's gravitational acceleration.
+CHI = Magnitude distribution index.
+F1 = CHI flag: * means CHI varies with L_S.
+ 
+<------- Shower ----------> <--------- Radiant ----------->
+CODE NAME                   L_S RA  DEC DRA  DDEC VI CHI F1
+  S    S                     F   F   F   F    F    F  F  S 
+---- ---------------------- --- --- --- ---- ---- -- --- --
+ Boo Bootids                282 232 +45 +0.6 -0.3 43 2.5 * 
+ gVe gamma Velids           287 125 -47 +0.5 -0.2 35 3.0   
+ aCu alpha Crucids          295 192 -63 +1.1 -0.4 50 2.9   
+ aHy alpha Hydrusids        294 133 -11 +0.7 -0.3 44 2.8   
+ aCa alpha Carinids         301  95 -54 +0.4 +0.0 25 2.5   
+ dVe delta Velids           325 131 -52 +0.5 -0.3 35 3.0   
+ aCe alpha Centaurids       319 209 -58 +1.3 -0.3 57 2.3   
+ oCe o Centaurids           325 177 -56 +0.9 -0.4 51 2.8   
+ tCe theta Centaurids       325 210 -41 +1.1 -0.4 60 2.6   
+ dLe delta Leonids          326 160 +19 +1.0 -0.3 23 3.0   
+ Vir Virginids              354 177  +6 +0.9 -0.2 26 3.0   
+ gNo gamma Normids          325 249 -51 +1.3 -0.2 56 2.4   
+ dPa delta Pavonids           9 308 -63 +1.6 -0.2 60 2.6   
+ Lyr Lyrids                  31 272 +33 +1.2 +0.2 49 2.7   
+ mVi mu Virginids            35 227  -7 +0.5 -0.3 30 3.0   
+ eAq eta Aquarids            45 338  -1 +0.9 +0.3 66 2.7   
+ CAu beta Corona Australids  56 284 -40 +1.3 +0.1 45 3.1   
+ Sco alpha Scorpiids         45 240 -25 +1.1 -0.2 35 2.5   
+ oSc omega Scorpiids         71 239 -20 +1.0 -0.1 21 3.0   
+ Ari daytime Arietids        75  45 +23 +0.7 +0.6 38 2.7   
+ Sag gamma Sagitarids        76 271 -26 +1.1 +0.1 29 2.9   
+ Cet tau Cetids              96  24 -12 +0.9 +0.4 66 2.5   
+ Oph theta Ophiuchids        59 249 -15 +1.1 +0.1 27 2.8   
+ tAq tau Aquarids            98 342 -12 +1.0 +0.4 63 2.5   
+ uPh upsilon Phoenicids     105  21 -43 +1.0 +0.5 48 3.0   
+ oCy o Cygnids              116 305 +47 +0.6 +0.2 37 2.7   
+ Cap Capricornids           126 305  -9 +0.9 +0.3 25 2.0   
+ dAN delta Aquarids North   139 339  -5 +1.0 +0.2 42 3.3   
+ PAu Pisces Australids      123 337 -33 +1.0 +0.4 42 3.2   
+ dAZ delta Aquarids South   125 339 -17 +0.8 +0.2 43 3.3   
+ iAZ iota Aquarids South    135 338 -14 +1.0 +0.3 36 3.3   
+ Per Perseids               139  46 +58 +1.3 +0.1 61 2.5   
+ kCy kappa Cygnids          145 289 +52 +0.6 +0.3 27 2.2   
+ eEr pi Eridanids           154  52 -15 +0.8 +0.3 59 2.8   
+ gDo gamma Doradids         157  61 -50 +0.5 +0.2 41 2.8   
+ Aur Aurigids               158  72  43 +1.0 +0.2 69 2.7   
+ kAq kappa Aquarids         176 338  -5 +0.9 +0.4 19 2.8   
+ Eps epsilon Geminids       206 103 +28 +0.7 +0.1 71 3.0   
+ Ori Orionids               208  95 +16 +0.7 +0.1 67 3.1   
+ LMi Leo Minorids           211 162 +37 +1.0 -0.4 61 2.7   
+ Tau Taurids                220  48 +18 +0.3 +0.1 30 2.3   
+ dEr delta Eridanids        230  55  -2 +0.9 +0.2 31 2.8   
+ zPu zeta Puppids           231 117 -42 +0.7 -0.2 41 3.4   
+ Leo Leonids                234 153 +22 +1.0 +0.4 71 3.4   
+ PuV Puppids/Velids         260 135 -46 +0.8 -0.4 40 2.9   
+ Pho Phoenicids             252  18 -58 +0.8 +0.4 18 2.8   
+ Mon Monocerotids           261 100 +14 +1.0 -0.1 43 3.5   
+ Gem Geminids               261 112 +32 +1.0 +0.1 36 2.6 * 
+ sHy sigma Hydrusids        259 127  +2 +0.9 -0.3 59 3.0   
+ Urs Ursids                 270 223 +78 -0.2 -0.3 35 3.4   
+ 
+ 
+----- Activity curve: Main peak -----
+L_MAX = Solar Longitude of peak position.
+F2 = L_MAX flag: * means the values are for an assumed semi-major axis.
+ELMX = Error in L_MAX (0 means not available).
+F3 = limit flag on ZMAX.
+ZMXP = Main peak Zenith Hourly Rates max.
+F4 = ZMAX flag: * means the values are for an assumed semi-major axis.
+EZMXP = Error in ZMXP (0 means not available).
+BP1 = Main peak slope of ascending branch.
+BP2 = Main peak slope of descending branch.
+F5 = BP flag: * means the values are for an assumed semi-major axis.
+EBP1 = Error in main peak ascending slope.
+EBP2 = Error in main peak descending slope.
+ 
+<---------- Activity curve: Main peak -------------------->
+L_MAX  F2 ELMX F3 ZMXP  F4 EZMXP  BP1   BP2  F5 EBP1  EBP2 
+  F    S   F   S    F   S    F     F     F   S    F     F  
+------ -- ---- -- ----- -- ----- ----- ----- -- ----- -----
+282.62    0.03    110.     20.   2.5   2.5      0.5   0.5               
+285.0     1.0       2.4     0.4  0.12  0.12     0.03  0.03
+294.7  *            3.0 *   0.8  0.11  0.11  *  0.03  0.03
+299.           <    2.
+310.5     0.7       2.3     0.6  0.16  0.16     0.03  0.03
+317.   *       <    1.3
+318.7     0.5       7.3     1.5  0.18  0.18     0.03  0.03
+322.7     0.4       2.2     0.3  0.15  0.15     0.02  0.02
+333.   *       <    4.5
+334.      3.        1.1     0.3  0.049 0.049    0.015 0.015
+339.   *       <    1.5
+352.3     0.5       5.8     1.0  0.19  0.19     0.03  0.03
+370.4     1.5       5.3     0.7  0.075 0.075    0.015 0.015
+ 31.7     0.3      12.8     0.7  0.22  0.22     0.01  0.01
+ 39.      2.        2.2     0.5  0.045 0.045    0.008 0.008
+ 45.8     0.5      36.7     5.0  0.080 0.080    0.014 0.014
+ 55.   *       <    3.0
+ 55.2     0.9       3.2     0.4  0.13  0.13     0.03  0.03
+ 71.9     0.4       5.2     1.4  0.15  0.15     0.04  0.04
+ 76.      1.       54.     12.   0.10  0.10     0.03  0.03
+ 88.5     1.1       2.4     0.5  0.037 0.037    0.005 0.005
+ 95.0     0.7       3.6     1.1  0.18  0.18     0.04  0.04
+ 97.   *            2.3 *        0.037 0.037 *
+ 97.3     0.5       7.1     1.6  0.24  0.24     0.05  0.05
+110.5     0.5       5.0     1.9  0.25  0.25     0.05  0.05
+116.0     0.5       2.5     0.8  0.13  0.13     0.03  0.03
+121.7     0.9       2.2     0.3  0.041 0.041    0.007 0.007
+123.4     1.0       1.0     0.2  0.063 0.063    0.020 0.020
+123.7     0.7       2.0 *   0.5  0.40  0.40  *  0.05  0.05 
+124.9     0.3      11.4     1.2  0.091 0.091    0.010 0.010
+131.0     1.0       1.5     0.3  0.070 0.070    0.015 0.015
+139.44    0.04     70.      5.   0.35  0.35     0.03  0.03 
+146.0     0.8       2.3     0.4  0.069 0.069    0.005 0.005
+152.   *       <   40.
+155.0     0.5       4.8     1.6  0.18  0.18     0.06  0.06
+157.5  *  0.5       9.  *   3.   0.19  0.19     0.04  0.04
+176.5     0.8       2.7     0.5  0.11  0.11     0.04  0.04
+206.0     1.0       2.9     0.6  0.082 0.082    0.008 0.008
+207.9     0.4      25.  *   4.   0.12  0.12     0.02  0.02
+209.0     0.7       1.9     0.7  0.14  0.14     0.05  0.05
+222.9     1.0       7.3     1.0  0.026 0.026    0.003 0.003
+228.   *       <    0.9
+231.5     0.5       3.2     0.4  0.13  0.13     0.03  0.03
+234.4     0.3      19.      6.   0.55  0.55     0.15  0.15 
+251.      1.        4.5     0.7  0.034 0.034    0.006 0.006
+251.7     0.5       2.8     0.8  0.30  0.30     0.16  0.16
+260.2     0.6       2.0     0.4  0.25  0.25     0.10  0.10
+261.4     0.1      74.      4.   0.59  0.81     0.07  0.10 
+264.8     0.8       2.5     0.5  0.10  0.10     0.03  0.03
+270.3     0.3      10.  *   3.   0.9   0.9   *  0.4   0.4  
+ 
+----- Activity curve:Background ----
+ZMXB = Background Zenith Hourly Rates max.
+EZMXB = Error in ZMXB (0 means not available).
+BB1 = Background slope of ascending branch.
+BB2 = Background slope of descending branch.
+F6 = BB2 flag: limit flag on the slope BB2.
+EBB1 = Error in background peak ascending slope.
+EBB2 = Error in background peak descending slope.
+ 
+<----- Activity curve:Background ---->
+ZMXB EZMXB BB1    BB2   F6 EBB1  EBB2
+ F    F      F      F   S    F     F
+---- ----- ------ ----- -- ----- -----
+20.    4.   0.37  0.45  ~  0.10
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.9   0.1  0.03  0.10  ~  0.01
+ 0.
+ 0.
+23.    2.   0.050 0.092    0.005 0.009
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 0.
+ 4.    1.   0.025 0.15  >  0.006
+ 0.
+ 0.
+ 0.
+18.    2.   0.09  0.31     0.03  0.12
+ 0.
+ 2.0   0.5  0.08  0.2      0.03  0.1
+  
+ 
+Mass data will go next.

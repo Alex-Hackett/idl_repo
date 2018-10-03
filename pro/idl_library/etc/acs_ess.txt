@@ -1,0 +1,612 @@
+   1   1  12   JFWMVEL    Filter Wheel Mtr VEL
+   1  13  12   JCORMVEL   CORrector Motor VELo
+   2   9  16   JCSMEM01   CS MEMory monitor 1 
+   3   9  16   JCSMEM07   CS MEMory monitor 7 
+   4   9  12   JFW1AI     FltW 1 mtr phase A I
+   5   5  12   JFW1BI     FltW 1 mtr phase B I
+   6   1  12   JFW2AI     FltW 2 mtr phase A I
+   6  13  12   JFW2BI     FltW 2 mtr phase B I
+   7   9  16   JCURMAC    CUR lowlevel MACro  
+   8   9  12   JFWSBCAI   FW SBC mtr phase A I
+   9   5  12   JFWSBCBI   FW SBC mtr phase B I
+  10   7  26   JIMGINSP   IMaGe INSert Pointer
+  12   1  12   JCDOORAI   Cal DOOR mtr pha A I
+  12  13  12   JCDOORBI   Cal DOOR mtr pha B I
+  13   9   1   JSBEWRAP   Sin Bit Err tbl WRAP
+  13  10   1   JNEDCOLL   Nrm Eng Data COLLctn
+  13  11   1   JLIMCKEN   LIMit ChecKing ENab 
+  13  12   1   JELOGWRP   Error LOG WRaParound
+  13  13   1   JEDACREF   EDAC REFresh        
+  13  14   2   JDMPSTAT   DuMP STATus         
+  13  16   1   JCHKSUM    CHecKSUM in progress
+  14   5   1   JCMPRESS   CoMPRESSion in prog 
+  14   6   1   JDERDIAG   DERived DIAG coll on
+  14   7   1   JALGDIAG   AnaLoG DIAG collectn
+  14   8   1   JDIGDIAG   DIGital DIAG coll on
+  14   9  12   JHFCSPOS   Hrc corctr FoCuS POS
+  15   5  12   JHSHMVEL   H SHutter Motor VELo
+  16   1  16   JDMPWAIT   DuMP WAIT time      
+  17   1  16   JNUMLINE   NUMber of sdf LINEs 
+  18   1  12   JWSHTERR   W SHuTter ERRor dac 
+  18  13  12   JHSHTERR   H SHuTter ERRor dac 
+  19   9   8   JHDRCNT    HeaDeR CouNT        
+  20   1   8   JIMGCNT    IMaGe CouNT         
+  20   9   8   JLOOPCNT   LOOP CouNTer        
+  21   1   8   JMBITERR   edac MultiBIT ERR ct
+  21   9  12   JWFCSPOS   Wfc corctr FoCuS POS
+  22   5  12   JWSHMVEL   Wfc SHutter Mtr VELo
+  23   1  12   JDLMPIND   Deut LaMP v INDicatr
+  23  13  12   J10VREF    ses adc 10 Volt REF 
+  24   9  12   JCLM5VI    Cal Lamp -5V I      
+  25   5  12   JCL30VI    Cal Lamp +30 V I    
+  26   1  16   JCSMEM02   CS MEMory monitor 2 
+  27   1  16   JCSMEM08   CS MEMory monitor 8 
+  28   1  12   JHTECINV   Hrc TEC INput Voltag
+  28  13  12   JHTECTCT   H TEC Temp Ctrl Temp
+  28  13  12   JHTECTCV   H TEC Temp Ctrl Volt
+  29   9  12   JWTECINV   Wfc TEC INput Voltag
+  30   5  12   JWTECTCT   W TEC Temp Ctrl Temp
+  30   5  12   JWTECTCV   W TEC Temp Ctrl Volt
+  31   1  16   JLASTNRM   LAST NoRMal cmd     
+  32   1   8   JTLMPIND   Tung LaMP v INDicatr
+  32   9  16   JCSMEM03   CS MEMory monitor 3 
+  33   9  16   JCSMEM09   CS MEMory monitor 9 
+  34   9  16   JLASTREF   LAST REFresh addr hi
+  35  10   3   JCMDFIFO   CMD FIFO status     
+  35  14   3   JSDFFIFO   SDF FIFO flag status
+  36   1   1   JHDRHRC    HeaDeR allocated-HRC
+  36   2   1   JHDRWFC    HeaDeR allocated-WFC
+  36   3   1   JIMGALLO   IMAge ALLOction stat
+  36   4   1   JHRESORT   Hrc data RESORT sta 
+  36   5   1   JTCUERR    Time Code Update ERR
+  36   6   1   JDUMPTO    DUMP Time Out indctr
+  36   7   1   JSDRESTR   Sci Data bffr RESToR
+  36   8   1   JMACINHB   MACro prcsng INHiBit
+  36   9  16   JMAJFCNT   MAJor Frame CNT     
+  37   9   8   JCL5V      Cal Lamp +5 V       
+  38   1   8   JCLM5V     Cal Lamp -5 V       
+  38   9   8   JCL30V     Cal Lamp +30 V      
+  39   1   8   JNRCMDAC   NoRmal CMD Accpt Cnt
+  39   9   8   JNRCMDPC   NoRmal CMD Proc Cnt 
+  40   1   8   JNRMQUE    NoRMal cmd QUE depth
+  40   9   8   JIMCMDAC   IMmed CMD Accept Cnt
+  41   1   8   J5VMEC     meb / ses +5V MECh  
+  41   9   8   J15VMEC    meb/ ses +15V MECh  
+  42   1   8   J30VMEC    meb/ ses +30V MECh  
+  42   9   8   JSBITERR   edac Sin BIT ERR cnt
+  43   1   8   JMINFCNT   MINor Frame CNT     
+  43   9   8   JELOGIND   Error LOG INDex     
+  44   2   1   JEDACDET   EDAC DETection stat 
+  44   3   1   JEDACSBC   EDAC SingleBitCorr  
+  44   4   1   JDMODE0    Diag MODE 0 pin ctrl
+  44   5   1   JDMODE1    Diag MODE 1 pin ctrl
+  44   6   1   JCODEID0   CODE ID 0 pin ctrl  
+  44   7   1   JCODEID1   CODE ID 1 pin ctrl  
+  44   8   1   JLEDIAG    LEDIAG pin ctrl     
+  44   9   8   JM15VOP    -15V OPer mode reg  
+  45   1   8   J15VOP     +15V OPer mode reg  
+  45   9   8   JWCALBXT   Wfc Calib elec BoX T
+  46   1   8   JHC15VA    Heat Ctrl 15V zone A
+  46   9   8   JHC15VB    Heat Ctrl 15V zone B
+  47   1   8   JMEB1RT    MEB 1 Radiator Temp 
+  47   9   8   JMEB2RT    MEB 2 Radiator Temp 
+  48   1   8   JO3FPANT   Out v3 For PANel Tmp
+  48   9  16   JCSMEM04   CS MEMory monitor 4 
+  49   9  16   JCSMEM10   CS MEMory monitor 10
+  50   9  16   JLSTCKSM   LaST cmputd ChecKSuM
+  51   9   8   JO2FPANT   Out v2 For PANel Tmp
+  52   1   8   JHCBRADT   Hrc CeB RADiator Tmp
+  52   9   8   JO2APANT   Out v2 Aft PANel Tmp
+  53   1   8   J2SPR60    2nd SPaRe 60 sec    
+  53   9   8   JWCBRADT   Wfc CeB RADiator Tmp
+  54   1   8   JHSHMTRT   H SHutter MoToR Temp
+  54   9  16   JCSMEM05   CS MEMory monitor 5 
+  55   9  16   JCSMEM06   CS MEMory monitor 6 
+  56   9   8   JHFCSTMP   Hrc corr FCS mtr TMP
+  57   1   8   JHINNTMP   Hrc corr INN Mtr TMP
+  57   9   8   JHOUTTMP   Hrc corr OUT Mtr TMP
+  58   1   8   JWSHMTRT   W SHutter MoToR Tmp 
+  58   9   8   JWFCSTMP   Wfc corr FCS mtr TMP
+  59   1   8   JWINNTMP   Wfc corr INN mtr TMP
+  59   9   8   JWOUTTMP   Wfc corr OUT mtr TMP
+  60   1   8   JCSTMP     CS board TeMP       
+  60   9   8   JMIETMP    MIE board TeMP      
+  61   1   8   JERRCNT    fsw ERRor CouNT     
+  61  10   1   JBUSWAIT   BUS WAIT state      
+  61  11   1   JEDACMBR   EDAC MultiBitReset  
+  61  12   1   JDOGTIME   WatchDOG TIMEr stat 
+  61  13   1   JINPCLK    timer INPut CLocK   
+  61  14   1   JTIMGAT2   extrnal TIMer GATe 2
+  61  15   1   JTIMGAT1   extrnal TIMer GATe 1
+  61  16   1   JTIMGAT0   extrnal TIMer GATe 0
+  62   1   8   JCMDATAC   CMd DATa Accpt Cnt  
+  62   9   8   JDATQUE    parameter DATa QUEue
+  63   1   8   JFW1MTRT   Filt Wheel 1 MoToR T
+  63   9   8   JFW2MTRT   Filt Wheel 2 MoToR T
+  64   1   8   JFWSMTRT   Fil Wh Sbc MoToR Tmp
+  64   9   8   JFMMTRT    Fold Mech MoToR T   
+  65   1   8   JCDMTR1T   Cal Door MoToR 1 Tmp
+  65   9   8   JCDMTR2T   Cal Door MoToR 2 Tmp
+  66   1   8   JIMCMDPC   IMmed CMD Prcssd Cnt
+  66   9   8   JOBSNUM    OBServation NUMber  
+  67   1   8   JLASTIMM   LAST IMMediate cmd  
+  67   9   8   JMACDONE   num of MACros DONE  
+  68   1   8   JFITATMP   FITting A TeMP      
+  68   9   8   JFITBTMP   FITting B TeMP      
+  69   1   8   JFITCTMP   FITting C TeMP      
+  69  13   1   JSESDATA   SES DATA fifo empty 
+  69  14   1   JSESEMPT   SES addrs fifo EMPTy
+  69  15   1   JSESFULL   SES addrss fifo FULL
+  69  16   1   JSESINT    SES hwed data INTrpt
+  70   1  16   JELOGMSG   Error LOG MeSsaGe   
+  71   1   8   JAFTENCT   AFT ENC bulkhead T  
+  71   9   8   JIN3PANT   Inboard v3 PANel Tmp
+  72   1   8   JIN2PANT   INboard v2 PANel Tmp
+  72   9   8   J1SPR60    1st SPaRe 60 sec    
+  73   1   8   JFW2TMP    Filter Wheel 2 TMP  
+  73   9   8   JFWSBCT    Filter Wheel SBC Tmp
+  74   1   8   JOPBFWT    OPt Bnch FW pltfrm T
+  74   9   8   JOPBHRCT   OPtical Bench HRC T 
+  75   1   8   JWCALCVT   Wfc CALib CoVer Tmp 
+  75   9   8   JHCALCVT   Hrc CALib CoVer Tmp 
+  76   1   8   JWTLAMPT   Wfc Tungsten LAMP T 
+  76   9   8   JHTLAMPT   Hrc Tungsten LAMP T 
+  77   1  16   JCSMEM11   CS MEMory monitor 11
+  78   1  16   JCSMEM12   CS MEMory monitor 12
+  79   1   8   JD2LAMPT   Deuterium LAMP Temp 
+  79   9   8   J5VHOLD    +5V HOLD mode reg   
+  80   1   8   J15VHLD    +15V HolD mode conv 
+  80   9   8   JM15VHLD   -15V HolD mode conv 
+  81   1  16   JELOGNUM   Error LOG NUMber    
+  82   7  26   JIMGEXTP   IMaGe EXTract Pntr  
+  84   1   1   JMGLBMON   Mama GLoBal MON stat
+  84   2   3   JMEVTYPE   Mama EVent TYPE     
+  84   5  12   JMGLEVIP   Mama GLob EVnt InPer
+  85   1   8   JHVDDCD    Hrc ceb VDD CD      
+  85   9   1   JMSLOSUS   Mama SLOw SUSpd init
+  85  10   1   JMCOMTSK   Mce COMm TaSK active
+  85  11   1   JRSTFAIL   mce forced RSeT FAIL
+  85  12   1   JMINITTO   Mce INIT TimeOut    
+  85  13   1   JMCIMCER   Ma Cmd Inhb MCE Rset
+  85  14   1   JMCIHVOF   Ma Cmd Inhb Hi V OFf
+  85  15   5   JMROWCFG   Mama ROW decode CnFG
+  86   4   5   JMCOLCFG   Mama COL decode CnFG
+  86   9   8   JMCMDAC    Mce CoMmanDs ACcpted
+  87   1   8   JHSWDLO    Hrc Sum Well D LOw  
+  87   9   8   JHRGCDHI   Hrc Reset Gate CD HI
+  88   1   8   JHS1DHI    Hrc Serial 1 D HIgh 
+  88   9   8   JHS1DLO    Hrc Serial 1 D LOw  
+  89   1  12   JMMCPV     Mama MCP Voltage    
+  89  13  12   JMFIELDV   Mama FIELD Voltage  
+  90  11   6   JWSHCOMM   Wfc SHutter mtr COMM
+  91   2   1   JWCSOVER   W shut CS OVERride  
+  91   4   1   JWPRMLSB   W shutter PRoM LSB  
+  91   5   1   JWSHLTCH   Wfc SHutr LaTCH used
+  91   7   1   JWSHENAB   Wfc SHut mtr ENABle 
+  91   8   1   JWSHSLEP   Wfc SHutter SLEePing
+  91  11   2   JFMCMDP    Fold Mech CMDed Pos 
+  91  13  11   JFMSTEPS   Fold Mec cmded STEPS
+  92   9  12   JMP8AMPV   Mama +8V AMPlif Volt
+  93   5  12   JMP8AMPI   Mama +8v AMPlifier I
+  94   1  12   JMP15V     Mama +15V voltage   
+  94  13  12   JMP15VI    Mama +15V I         
+  95   9   4   JWEXPSTA   Wfc cs EXPosure STAt
+  95  13   4   JHEXPSTA   Hrc cs EXPosure STAt
+  96   1   1   JCD2OVR    Cal Door mtr 2 OVrRd
+  96   2   1   JCD2OVH    Cal Door mtr 2 OVrHt
+  96   3   1   JCD1OVR    Cal Door mtr 1 OVrRd
+  96   4   1   JCD1OVH    Cal Door mtr 1 OVrHt
+  96   7   2   JCMDEDOS   fm/cd CMmDED Opt Swt
+  96   9   8   JWVDDAB    Wfc ceb VDD AB      
+  97   1   8   JWAS2P15   Wfc ceb ASpc 2 +15 v
+  97  12   1   JLASTCO    LAST fm/cd COinciden
+  97  13   2   JCDPOS     Cal Door sw POSition
+  97  15   2   JFMPOS     Fold Mec sw POSition
+  98   1  12   JHCMDPOS   H shutter CMDed POS 
+  98  13  12   JWCMDPOS   W shutter CMDed POS 
+  99   9  12   JMHVPST    Mama HVPS pwb Temp  
+ 100   5  12   JMP8VREF   Mama +8V REF voltage
+ 101   3   1   JCD2INHB   Cal Door mtr 2 INHiB
+ 101   4   1   JCD1INHB   Cal Door mtr 1 INHiB
+ 101   5   1   JFMINHB    Fold Mech mtr INHiBt
+ 101   6   1   JFWSINHB   Fil Wh Sbc mtr INHiB
+ 101   7   1   JFW2INHB   Filt Wh 2 mtr INHiB 
+ 101   8   1   JFW1INHB   Filt Wh 1 mtr INHiB 
+ 101   9   8   JUPSETCT   mce ser i/f UPSET CT
+ 102   5   1   JMIEEXPO   MIE EXPOsure in prog
+ 102   6   1   JDMATO     mie DMA TimeOut     
+ 102   7   1   JMIEWAIT   MIE WAIT state      
+ 102   8   1   JMIEINIT   MIE INITialize stat 
+ 102   9   8   JBANKNUM   memory mon BANK NUM 
+ 103   1  16   J1SPR10    1st SPaRe 10 sec    
+ 104   1  16   J2SPR10    2nd SPaRe 10 sec    
+ 105   1  24   JCCDWDSR   CCD WorDS Remaining 
+ 106   9   1   JWAIT      WAIT in progress    
+ 106  10   1   JTIMECOD   TIME CODe update flg
+ 106  11   1   JTDF       Take Data Flag      
+ 106  12   1   JSLEWCON   SLEW CONfirmation   
+ 106  13   1   JTESTRES   selfTEST RESult     
+ 106  14   1   JSLFTEST   SeLFTEST in progress
+ 106  15   1   JCSPAGE    CS PAGE             
+ 106  16   1   JTDFRESP   Take Dat Fl RESPonse
+ 107   3   6   JHSHCOMM   Hrc SHutter mtr COMM
+ 107  10   1   JHCSOVER   H shut CS OVERride  
+ 107  12   1   JHPRMLSB   H shutter PRoM LSB  
+ 107  13   1   JHSHLTCH   Hrc SHutr LaTCH used
+ 107  15   1   JHSHENAB   Hrc SHut mtr ENABle 
+ 107  16   1   JHSHSLEP   Hrc SHutter SLEePing
+ 108   1  12   JWOFFSTA   Wfcceb aspc OFFSeT A
+ 108  13  12   JWOFFSTB   Wfcceb apsc OFFSeT B
+ 109   9  12   JHRESPOS   H shut RESolver POS 
+ 110   5  12   JWRESPOS   W shut RESolver POS 
+ 111   1   4   JFW2STAT   Filt Whl 2 sw STATus
+ 111   5   4   JFW1STAT   Filt Whl 1 sw STATus
+ 111   9  12   JWOFFSTC   Wfcceb aspc OFFSeT C
+ 112   5  12   JWOFFSTD   Wfcceb aspc OFFSeT D
+ 113   1   4   JWINNSTA   Wfc corr INN sw STAt
+ 113   5   4   JFWSSTAT   Fil Wh Sbc sw STATus
+ 113   9   4   JHINNSTA   Hrc corr INN sw STAt
+ 113  13   4   JWOUTSTA   Wfc corr OUT sw STAt
+ 114   1   4   JWFCSSTA   Wfc corr FCS sw STAt
+ 114   5   4   JHOUTSTA   Hrc corr OUT sw STAt
+ 114   9   4   JCD1STAT   Cal Door 1 sw STATus
+ 114  13   4   JHFCSSTA   Hrc corr FCS sw STAt
+ 115   1  12   JHOFFSTA   Hrcceb aspc OFFSeT A
+ 115  13  12   JHOFFSTB   Hrcceb apsc OFFSeT B
+ 116   9   4   JFMSTAT    Fold Mech sw STATus 
+ 116  13   4   JCD2STAT   Cal Door 2 sw STATus
+ 117   1   4   JHSHSTAT   Hrc SHuttr sw STATus
+ 117   5   4   JWSHSTAT   Wfc SHuttr sw STATus
+ 117   9  16   JWOUTPOS   Wfc corctr OUTer POS
+ 117   9  16   JWOUTSTP   Wfc corctr OUT STePs
+ 118   9  12   JHOFFSTC   Hrcceb aspc OFFSeT C
+ 119   5  12   JHOFFSTD   Hrcceb aspc OFFSeT D
+ 120   2   2   JWFCSCOM   Wfc cor FCS COMm st 
+ 120   4   2   JWOUTCOM   Wfc corr OUT COMm st
+ 120   6   2   JWINNCOM   Wfc corr INN COMm st
+ 120  12   1   JWCORINT   Wfc CORctr INTerrupt
+ 120  13   2   JWCORSEL   Wfc CORctr mtr SELct
+ 121   7   1   JSCIDATA   ceb SCI DATA select 
+ 121   8   1   JTLMPSEL   Tungsten LaMP SELect
+ 121  13   1   JCLCSEL    Cal Lmp Cntr meb SEL
+ 121  14   1   JDLAMPEN   Deuterium LAMP ENab 
+ 121  15   1   JTL34EN    Tun Lmp 3 and 4 Enab
+ 121  16   1   JTL12EN    Tun Lmp 1 and 2 ENab
+ 122   1  12   JWRGABLO   Wfc Reset Gate AB LO
+ 122  13  12   JWP1ABHI   Wfc Parallel 1 AB HI
+ 123   9  16   JWINNPOS   Wfc corctr INNer POS
+ 123   9  16   JWINNSTP   Wfc corctr INN STePs
+ 124   9  16   JHOUTPOS   Hrc corctr OUTer POS
+ 124   9  16   JHOUTSTP   Hrc corctr OUT STePs
+ 125   9  12   JWP2ABHI   Wfc Parallel 2 AB HI
+ 126   5  12   JWRGCDLO   Wfc Reset Gate CD LO
+ 127   1  16   JHINNPOS   Hrc corctr INNer POS
+ 127   1  16   JHINNSTP   Hrc corctr INN STePs
+ 128   1  16   JFW1POS    Filt Wh 1 reslvr POS
+ 128   1  16   JFW1STP    Fil Wh 1 motor STePs
+ 129   1  12   JWP1CDHI   Wfc Parallel 1 CD HI
+ 129  13  12   JWP2CDHI   Wfc Parallel 2 CD HI
+ 130   9  16   JFW2POS    Filt Wh 2 reslvr POS
+ 130   9  16   JFW2STP    Fil Wh 2 motor STePs
+ 131   9  16   JFWSPOS    Fil Wh Sbc rslvr POS
+ 131   9  16   JFWSSTP    Fil Wh Sbc mtr STePs
+ 132   9  16   J1SPR30    1st SPaRe 30 sec    
+ 133   9   1   JHFCSENA   Hrc corrctr FCS ENAb
+ 133  10   1   JHOUTENA   Hrc cor OUT mtr ENAb
+ 133  11   2   JHFCSIS    Hrc cor FCS I Selctd
+ 133  13   2   JHOUTIS    Hrc cor OUT I Selctd
+ 133  15   2   JHINNIS    Hrc cor INN I Selctd
+ 134   1   1   JHINNENA   Hrc cor INN mtr ENAb
+ 134   9   8   J2SPR30    2nd SPaRe 30 sec    
+ 135   1   8   JHS3DHI    Hrc Serial 3 D HIgh 
+ 135   9   8   JHS3DLO    Hrc Serial 3 D LOw  
+ 136   1   8   JHSWCHI    Hrc Sum Well C HIgh 
+ 136   9   8   JHSWCLO    Hrc Sum Well C LOw  
+ 137   1  16   JCHBXSUM   tar acq CHeckBoX SUM
+ 138   1   8   J3SPR30    3rd SPaRe 30 sec    
+ 138   9   8   J4SPR30    4th SPaRe 30 sec    
+ 139   1  16   J8SPR60    8th SPaRe 60 sec    
+ 140   1   8   J5SPR30    5th SPaRe 30 sec    
+ 140   9  16   JMEVENTS   Mama EVENTS counter 
+ 141  10   2   JMBUSERR   Mie BUS ERRor count 
+ 141  12   2   JMLOCEXC   Mama LOCal thr EXCdd
+ 141  14   1   JMEVTERR   Mie EVnT check ERRor
+ 141  15   1   JMOVRFLW   Mie scidata OVeRFLoW
+ 141  16   1   JMIETLM    MIE TeLeMtry enabled
+ 142   1   1   JMIEPAGE   MIE PAGing status   
+ 142   2   1   JMEVTCHK   Mie EVnT CHK in prog
+ 142   3   2   JMIEMODE   MIE fsw MODE        
+ 142   5   4   JMEXPSTA   cs Mama EXPosre STAt
+ 142   9   8   JHSWDHI    Hrc Sum Well D HIgh 
+ 143   1   8   JLASTMIE   LAST MIE cmd procssd
+ 143   9   3   JMLSTERR   Mie LaST ERRor      
+ 143  12   3   JMIEERRC   MIE ERRor Counter   
+ 143  15   4   JMIECNTR   MIE reset CouNTeR   
+ 144   3   6   JMIERSET   MIE reason for ReSET
+ 144   9  16   J10SPR60   10th SPaRe 60 sec   
+ 145   9  16   JTRGTROW   TaRGeT ROW coordinat
+ 146   9   8   JWLGATAB   Wfc ceb Last GATe AB
+ 147   1   8   JWVDDCD    Wfc ceb VDD CD      
+ 147   9   8   JHVODCD    Hrcceb Vlt Out Di CD
+ 148   1  12   JMMCPI     Mama MCP I          
+ 148  13  12   JMTHRSV    Mama THReShold Volt 
+ 149  11   2   JFWSMCOM   Fil Wh Sbc Mtr COMm 
+ 149  13   2   JFW2MCOM   Fil Wh 2 Mtr COMm   
+ 149  15   2   JFW1MCOM   Fil Wh 1 Mtr COMm   
+ 150   1   2   JWNDBSEL   Wfc Nrm Drk Bias SEL
+ 150   3   2   JHNDBSEL   Hrc Nrm Drk Bias SEL
+ 150   5   2   JWEXPTYP   Wfc EXPosure TYPe   
+ 150   7   2   JHEXPTYP   Hrc EXPosure TYPe   
+ 150   9   1   JWPWRSTA   Wfc cs PoWeR STAtus 
+ 150  10   1   JHPWRSTA   Hrc cs PoWeR STAtus 
+ 150  11   1   JMPWRSTA   Mama cs PoWeR STAtus
+ 150  13   1   JWFCPROT   WFC PROTection stat 
+ 150  14   1   JHRCPROT   HRC PROTection stat 
+ 150  15   1   JWSHTTDF   Wfc SHuTter TDF     
+ 150  16   1   JHSHTTDF   Hrc SHuTter TDF     
+ 151   1  12   JMP5DISC   Mama+5v DISCrim volt
+ 151  13  12   JMP5VDI    Mama +5V Discrim I  
+ 152   9  12   JMM15V     Mama -15V Voltage   
+ 153   5  12   JMM15VI    Mama -15V Current   
+ 154   1   8   JWVODCD    Wfcceb Vlt Out Di CD
+ 154  10   2   JHFCSCOM   Hrc corr FCS COMm st
+ 154  12   2   JHOUTCOM   Hrc corr OUT COMm st
+ 154  14   2   JHINNCOM   Hrc corr INN COMm st
+ 155   4   1   JHCORINT   Hrc CORctr INTerrupt
+ 155   5   2   JHCORSEL   Hrc CORctr mtr SELct
+ 155  12   1   JCORESIN   COrrctr RESlvr INhib
+ 155  13   1   JFWRESIN   Filt Wh RESlvr INhib
+ 155  14   1   JFWSMVNG   Filter Wh Sbc MoViNG
+ 155  15   1   JFW2MVNG   Filter Wh 2 MoViNG  
+ 155  16   1   JFW1MVNG   Filter Wh 1 MoViNG  
+ 156   8   1   JSES1INT   SES 1 motor INTerrpt
+ 156   9   8   JWAS2M15   Wfc ceb ASpc 2 -15 v
+ 157   1  12   JMCPLIM    mama MCP LIMit cmded
+ 157  13  12   JMCPCMDD   mama MCP volt CMDeD 
+ 158   9   8   JHS2CDHI   Hrc Serial 2 CD HIgh
+ 159   1   8   JHS2CDLO   Hrc Serial 2 CD LOw 
+ 159   9   8   JHS1CHI    Hrc Serial 1 C HIgh 
+ 160   1   8   JHS1CLO    Hrc Serial 1 C LOw  
+ 160   9  13   JWBLKPRC   Wfc BLcKs to PRoCess
+ 161   6   3   JWFIFPRC   Wfc FIFo PRoCessing 
+ 161   9   8   JMICMDAC   MIe CoMmanDs ACcptd 
+ 162   1   8   JMICMDPC   MIe CoMmanDs ProCssd
+ 162  12   1   JDLAMP     Deuterium LAMP stat 
+ 162  13   1   JTLAMP4    Tungsten LAMP 4 stat
+ 162  14   1   JTLAMP3    Tungsten LAMP 3 stat
+ 162  15   1   JTLAMP2    Tungsten LAMP 2 stat
+ 162  16   1   JTLAMP1    Tungsten LAMP 1 stat
+ 163   3   2   JHRCADCS   HRC A/D Collctn Stat
+ 163   5   2   JWFCADCS   WFC A/D Collctn Stat
+ 163   7   2   JSESADCS   SES A/D Collctn Stat
+ 163  11   2   JCDCMDP    Cal Door CMDed Pos  
+ 163  13  11   JCDSTEPS   Cal Door cmded STEPS
+ 164   8   1   JCDMOTOR   Cal Door slctd MOTOR
+ 164   9   1   JHRCDATA   HRC DATA fifo empty 
+ 164  10   1   JHRCEMPT   HRC addrs fifo EMPTy
+ 164  11   1   JHRCFULL   HRC addrss fifo FULL
+ 164  12   1   JHRCINT    HRC hwed data INTrpt
+ 164  13   1   JWFCDATA   WFC DATA fifo empty 
+ 164  14   1   JWFCEMPT   WFC addrs fifo EMPTy
+ 164  15   1   JWFCFULL   WFC addrss fifo FULL
+ 164  16   1   JWFCINT    WFC hwed data INTrpt
+ 165   1  16   JSLEWCOL   SLEW size COLumn    
+ 166   3   1   JFWSOVR    Fil Wh Sbc mtr OVRrd
+ 166   4   1   JFWSOVH    Fil Wh Sbc mtr OVrHt
+ 166   5   1   JFW2OVR    Filt Wh 2 mtr OVRrid
+ 166   6   1   JFW2OVH    Filt Wh 2 mtr OVrHt 
+ 166   7   1   JFW1OVR    Filt Wh 1 mtr OVRrid
+ 166   8   1   JFW1OVH    Filt Wh 1 mtr OVrHt 
+ 166  10   3   JFW1SPD    Fil Wh 1 cmded SPeeD
+ 166  14   3   JFW1HOLD   FW1 cmded HOLDoff   
+ 167   5   1   JCSENSOR   Cal door SENSOR ena 
+ 167   6   1   JFSENSOR   Fold mech SENSOR ena
+ 167   7   1   JCOINCID   fm/cd COINCIDence   
+ 167   9   8   JIMGDMPD   IMaGes DuMPeD       
+ 168   1   1   JWFCSENA   Wfc corrctr FCS ENAb
+ 168   2   1   JWOUTENA   Wfc cor OUT mtr ENAb
+ 168   3   2   JWFCSIS    Wfc cor FCS I Selctd
+ 168   5   2   JWOUTIS    Wfc cor OUT I Selctd
+ 168   7   2   JWINNIS    Wfc cor INN I Selctd
+ 168   9   1   JWINNENA   Wfc cor INN mtr ENAb
+ 169   1   8   JWTG1P5    Wfc ceb Tim Gen1 +5v
+ 169   9   8   JWTG2P5    Wfc ceb Tim Gen2 +5v
+ 170   1   8   JWAS1P15   Wfc ceb ASpc 1 +15 v
+ 170   9   8   JWAS1M15   Wfc ceb ASpc 1 -15 v
+ 171   1   8   JWAS1P5    Wfc ceb ASpc 1 +5 v 
+ 171   9   8   JWAS1P35   Wfc ceb ASpc 1 +35 v
+ 172   1   8   JWAS2P5    Wfc ceb ASpc 2 +5 v 
+ 172   9   8   JWAS2P35   Wfc ceb ASpc 2 +35 v
+ 173   1   8   JWCBTIMT   Wfc CeB TIMing pwb T
+ 173   9   8   JWASPCT    Wfc ceb ASPC pwb Tmp
+ 174   1   8   JWSWAHI    Wfc Sum Well A HIgh 
+ 174   9   8   JWSWALO    Wfc Sum Well A LOw  
+ 175   3   2   JHINNSPD   Hrc INN cmded SPeeD 
+ 175   5   4   JHINNHLD   Hrc INN cmdd HoLDoff
+ 175  11   2   JHOUTSPD   Hrc OUT cmded SPeeD 
+ 175  13   4   JHOUTHLD   Hrc OUT cmdd HoLDoff
+ 176   3   2   JWFCSSPD   Wfc FCS cmded SPeeD 
+ 176   5   4   JWFCSHLD   Wfc FCS cmdd HoLDoff
+ 176  11   2   JHFCSSPD   Hrc FCS cmded SPeeD 
+ 176  13   4   JHFCSHLD   Hrc FCS cmdd HoLDoff
+ 177   1   8   JWRGABHI   Wfc Reset Gate AB HI
+ 177   9   8   JWS2AHI    Wfc Serial 2 A HIgh 
+ 178   1   8   JWS2ALO    Wfc Serial 2 A LOw  
+ 178   9   8   JWS3AHI    Wfc Serial 3 A HIgh 
+ 179   1   8   JWS3ALO    Wfc Serial 3 A LOw  
+ 179   9   8   JWSWBHI    Wfc Sum Well B HIgh 
+ 180   1   8   JWSWBLO    Wfc Sum Well B LOw  
+ 180   9   8   JWS1ABHI   Wfc Serial 1 AB HIgh
+ 181   1   8   JWS1ABLO   Wfc Serial 1 AB LOw 
+ 181  11   1   JMGLBEXC   Mama GLoB thrs EXCdd
+ 181  12   1   JMGLBERR   Mam GLoBal event ERR
+ 181  13   1   JMCHKSUM   Mama mce CHecKSuM   
+ 181  14   1   JMRAMTST   Mama mce RAM TeST   
+ 181  15   1   JMINEVER   Mama INteg EVent ERr
+ 181  16   1   JMDOGRST   Mama DOG timer ReSeT
+ 182   1   1   JMHVSOFF   Mama HV Supply OFF  
+ 182   2   1   JMSTBY     Mama STandBY mode   
+ 182   3   1   JMBSDOVR   Mam BSD OVeRride dis
+ 182   4   1   JMDCDDIS   Ma DeCoDe asic DISab
+ 182   5   1   JMHIRES    Mama HI RESolution  
+ 182   6   1   JMHVENAB   Mam High Voltag ENAB
+ 182   7   1   JMHIVON    Mama HIgh Voltage ON
+ 182   8   1   JMBSDET    Mam Bright Scene DET
+ 182   9   8   JWLGATCD   Wfc ceb Last GATe CD
+ 183   1   8   JMCMDREJ   Mce CoMmanDs REJcted
+ 183   9   8   JHS3CHI    Hrc Serial 3 C HIgh 
+ 184   1   8   JHS3CLO    Hrc Serial 3 C LOw  
+ 184   9   8   JHP1CDLO   Hrc Parallel 1 CD LO
+ 185   1   8   JHP2CDLO   Hrc Parallel 2 CD LO
+ 185   9  12   JMM2DISC   Mama-2V DISCrim volt
+ 186   5  12   JMM2VDI    Mama -2V Discrim I  
+ 187   1  12   JMCHAMPT   Mama CHarge AMPlif T
+ 187  13  12   JMDECODT   Mama DECODe pwb Tmp 
+ 188   9   8   JWVODAB    Wfcceb Vlt Out Di AB
+ 189   1   8   JHSWBLO    Hrc Sum Well B LOw  
+ 189   9  12   JFLDCMDD   mama FieLD volt CMDD
+ 190   5  12   JTHRCMDD   mama THRshold v CMDD
+ 191   1   1   JWFCSOVR   Wfc cor FCS OVR ovht
+ 191   2   1   JWFCSOVH   Wfc cor FCS OVerHeat
+ 191   3   1   JWOUTOVR   Wfc cor OUT OVR ovht
+ 191   4   1   JWOUTOVH   Wfc cor OUT mtr OVHt
+ 191   5   1   JWINNOVR   Wfc cor INN OVR ovht
+ 191   6   1   JWINNOVH   Wfc cor INN mtr OVHt
+ 191   7   1   JWSHOVR    Wfc SHutter OVeRride
+ 191   8   1   JWSHOVH    W SHutter OVerHeat  
+ 191   9   1   JHFCSOVR   Hrc cor FCS OVR ovht
+ 191  10   1   JHFCSOVH   Hrc cor FCS OVerHeat
+ 191  11   1   JHOUTOVR   Hrc cor OUT OVR ovht
+ 191  12   1   JHOUTOVH   Hrc cor OUT mtr OVHt
+ 191  13   1   JHINNOVR   Hrc cor INN OVR ovht
+ 191  14   1   JHINNOVH   Hrc cor INN mtr OVHt
+ 191  15   1   JHSHOVR    Hrc SHutter OVerRide
+ 191  16   1   JHSHOVH    Hrc SHutter OVerHeat
+ 192   1   8   JNULLIMG   NULL IMaGe counter  
+ 192   9  24   J11SPR60   11th SPaRe 60 sec   
+ 194   1  24   J12SPR60   12th SPaRe 60 sec   
+ 195   9  24   J13SPR60   13th SPaRe 60 sec   
+ 197   1  24   J14SPR60   14th SPaRe 60 sec   
+ 198   9  12   JHRGABLO   Hrc Reset Gate AB LO
+ 199   5  12   JHP1ABHI   Hrc Parallel 1 AB HI
+ 200   1  12   JHP2ABHI   Hrc Parallel 2 AB HI
+ 200  13  12   JHRGCDLO   Hrc Reset Gate CD LO
+ 201   9  12   JHP1CDHI   Hrc Parallel 1 CD HI
+ 202   5  12   JHP2CDHI   Hrc Parallel 2 CD HI
+ 203   1   8   JHP3CDHI   Hrc Parallel 3 CD HI
+ 203   9   8   JHP3CDLO   Hrc Parallel 3 CD LO
+ 204   1   8   JHTGCDHI   Hrc Trans Gate CD HI
+ 204   9   8   JHTGCDLO   Hrc Trans Gate CD LO
+ 205   1  16   JMGLBTHR   Mama GLoBal THResh  
+ 206   1   8   JHCMDREJ   Hrc CMD REJect cntr 
+ 206   9   8   JWCMDREJ   Wfc CMD REJect cntr 
+ 207   1   8   JWS2BHI    Wfc Serial 2 B HIgh 
+ 207   9   8   JWS2BLO    Wfc Serial 2 B LOw  
+ 208   1   8   JWS3BHI    Wfc Serial 3 B HIgh 
+ 208   9   8   JWS3BLO    Wfc Serial 3 B LOw  
+ 209   1   8   JWP1ABLO   Wfc Parallel 1 AB LO
+ 209   9   8   JWP2ABLO   Wfc Parallel 2 AB LO
+ 210   1   8   JWP3ABHI   Wfc Parallel 3 AB HI
+ 210   9   8   JWP3ABLO   Wfc Parallel 3 AB LO
+ 211   1   8   JWTGABHI   Wfc Trans Gate AB HI
+ 211   9   8   JWTGABLO   Wfc Trans Gate AB LO
+ 212   1   8   JWCLK3T    Wfcceb CLocK drv 3 T
+ 212   9   8   JWCK3P15   Wfc ceb ClocK 3 +15v
+ 213   1  16   JTRGTCOL   TaRGeT COLumn coord 
+ 214   1  16   JSLEWROW   SLEW size ROW       
+ 215   1   8   JWCK3M15   Wfc ceb ClocK 3 -15v
+ 215   9   8   JWCK3P5    Wfc ceb ClocK 3 +5 v
+ 216   1   8   JWOFDAB    Wfc OFfset Drain AB 
+ 216   9   8   JHVDDAB    Hrc ceb VDD AB      
+ 217   1   8   JHVODAB    Hrcceb Vlt Out Di AB
+ 217   9   8   JHLGATAB   Hrc ceb Last GATe AB
+ 218   1  12   JMHIBIAS   Mama HIgh BIAS volt 
+ 218  13  12   JMLOBIAS   Mama LOw BIAS voltag
+ 219   9  12   JMP5V      Mama +5V voltage    
+ 220   5  12   JMP5VI     Mama +5V I          
+ 221   1  12   JMMCETMP   Mama MCE TeMP       
+ 221  13  12   JMLVPST    Mama LVPS pwb Temp  
+ 222   9   8   JHLGATCD   Hrc ceb Last GATe CD
+ 223   7  10   JFW2OFST   FW2 commanded OFfSeT
+ 224   1   8   JHS2ABHI   Hrc Serial 2 AB HIgh
+ 224   9  24   J15SPR60   15th SPaRe 60 sec   
+ 226   1   8   JWOFDCD    Wfc OFfset Drain CD 
+ 226   9   8   JWSWDHI    Wfc Sum Well D HIgh 
+ 227   1   8   JWSWDLO    Wfc Sum Well D LOw  
+ 227   9   8   JWRGCDHI   Wfc Reset Gate CD HI
+ 228   1   8   JWS2DHI    Wfc Serial 2 D HIgh 
+ 228   9   8   JWS2DLO    Wfc Serial 2 D LOw  
+ 229   1   8   JWS3DHI    Wfc Serial 3 D HIgh 
+ 229   9   8   JWS3DLO    Wfc Serial 3 D LOw  
+ 230   1   8   JWSWCHI    Wfc Sum Well C HIgh 
+ 230   9   8   JHCLK2T    Hrcceb CLocK drv 2 T
+ 231   1   8   JHCK2P15   Hrc ceb ClocK 2 +15v
+ 231   9   8   JHCK2M15   Hrc ceb ClocK 2 -15v
+ 232   1   8   JHCK2P5    Hrc ceb ClocK 2 +5 v
+ 232   9   8   JWSWCLO    Wfc Sum Well C LOw  
+ 233   1   8   JWS1CDHI   Wfc Serial 1 CD HIgh
+ 233   9   8   JWS1CDLO   Wfc Serial 1 CD LOw 
+ 234   1   8   JWS2CHI    Wfc Serial 2 C HIgh 
+ 234   9   8   JWS2CLO    Wfc Serial 2 C LOw  
+ 235   1   8   JWS3CHI    Wfc Serial 3 C HIgh 
+ 235   9   8   JWS3CLO    Wfc Serial 3 C LOw  
+ 236   1   8   JWP1CDLO   Wfc Parallel 1 CD LO
+ 236   9   8   JWP2CDLO   Wfc Parallel 2 CD LO
+ 237   1   8   JWP3CDHI   Wfc Parallel 3 CD HI
+ 237   9   8   JWP3CDLO   Wfc Parallel 3 CD LO
+ 238   1   8   JWTGCDHI   Wfc Trans Gate CD HI
+ 238   9   8   JWTGCDLO   Wfc Trans Gate CD LO
+ 239   1   8   JWCLK4T    Wfcceb CLocK drv 4 T
+ 239   9   8   JWCK4P15   Wfc ceb ClocK 4 +15v
+ 240   1   8   JWCK4M15   Wfc ceb ClocK 4 -15v
+ 240   9   8   JWCK4P5    Wfc ceb ClocK 4 +5 v
+ 241   1   8   JHTG1P5    Hrc ceb Tim Gen1 +5v
+ 241   9   8   JHTG2P5    Hrc ceb Tim Gen2 +5v
+ 242   1   8   JHAS1P15   Hrc ceb ASpc 1 +15 v
+ 242   9   8   JHAS1M15   Hrc ceb ASpc 1 -15 v
+ 243   2   3   JFW2SPD    Fil Wh 2 cmded SPeeD
+ 243   6   3   JFW2HOLD   FW2 cmded HOLDoff   
+ 243  10   3   JFWSSPD    FW Sbc  cmded SPeeD 
+ 243  14   3   JFWSHOLD   FW Sbc cmded HOLDoff
+ 244   3   2   JWINNSPD   Wfc INN cmded SPeeD 
+ 244   5   4   JWINNHLD   Wfc INN cmdd HoLDoff
+ 244  11   2   JWOUTSPD   Wfc OUT cmded SPeeD 
+ 244  13   4   JWOUTHLD   Wfc OUT cmdd HoLDoff
+ 245   1   8   JHAS1P5    Hrc ceb ASpc 1 +5 v 
+ 245   9   8   JHAS1P35   Hrc ceb ASpc 1 +35 v
+ 246   1   8   JHAS2P15   Hrc ceb ASpc 2 +15 v
+ 246   9   8   JHAS2M15   Hrc ceb ASpc 2 -15 v
+ 247   1   8   JHAS2P5    Hrc ceb ASpc 2 +5 v 
+ 247   9   8   JHAS2P35   Hrc ceb ASpc 2 +35 v
+ 248   1   8   JHCBTIMT   Hrc CeB TIMing pwb T
+ 248   9   8   JHASPCT    Hrc ceb ASPC pwb Tmp
+ 249   1   8   JHSWAHI    Hrc Sum Well A HIgh 
+ 249   9   8   JHSWALO    Hrc Sum Well A LOw  
+ 250   1   8   JHRGABHI   Hrc Reset Gate AB HI
+ 250   9   8   JHS1AHI    Hrc Serial 1 A HIgh 
+ 251   1   8   JHS1ALO    Hrc Serial 1 A LOw  
+ 251   9   8   JHS3AHI    Hrc Serial 3 A HIgh 
+ 252   1   8   JHS3ALO    Hrc Serial 3 A LOw  
+ 252   9   8   JHSWBHI    Hrc Sum Well B HIgh 
+ 253   1   8   JHS2ABLO   Hrc Serial 2 AB LOw 
+ 253   9   8   JHS1BHI    Hrc Serial 1 B HIgh 
+ 254   1   8   JHS1BLO    Hrc Serial 1 B LOw  
+ 254   9   8   JHS3BHI    Hrc Serial 3 B HIgh 
+ 255   1   8   JHS3BLO    Hrc Serial 3 B LOw  
+ 255   9   8   JHP1ABLO   Hrc Parallel 1 AB LO
+ 256   2   3   JCD1SPD    Cal Dr 1 cmded SPeeD
+ 256   6   3   JCD1HOLD   CD1 cmded HOLDoff   
+ 256  10   3   JCD2SPD    Cal Dr 2 cmded SPeeD
+ 256  14   3   JCD2HOLD   CD2 cmded HOLDoff   
+ 257   2   3   JFMSPD     Fold Mec cmded SPeeD
+ 257   6   3   JFMHOLD    Fd Mch cmded HOLDoff
+ 257   9   8   J16SPR60   16th SPaRe 60 sec   
+ 258   1   8   JHP2ABLO   Hrc Parallel 2 AB LO
+ 258   9   8   JHP3ABHI   Hrc Parallel 3 AB HI
+ 259   1   8   JHP3ABLO   Hrc Parallel 3 AB LO
+ 259   9   8   JHTGABHI   Hrc Trans Gate AB HI
+ 260   1   8   JHTGABLO   Hrc Trans Gate AB LO
+ 260   9   8   JHCLK1T    Hrcceb CLocK drv 1 T
+ 261   1   8   JHCK1P15   Hrc ceb ClocK 1 +15v
+ 261   9   8   JHCK1M15   Hrc ceb ClocK 1 -15v
+ 262   1   8   JHCK1P5    Hrc ceb ClocK 1 +5 v

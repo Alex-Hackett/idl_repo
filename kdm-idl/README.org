@@ -1,0 +1,14 @@
+# kdm-idl
+Google Earth API in IDL (part of kdm-idl library)
+
+IDL code by Ken Mankoff. 
+
+A general library for programming. Includes a sub-library that implements most of the Google Earth KML API in IDL.
+
+[[https://i.stack.imgur.com/juhJH.png]]
+
+[[https://i.stack.imgur.com/c3ULX.png]]
+
+[[http://mage-p.org/img/gmf-400y.png]]
+
+[[https://i.stack.imgur.com/OeqyP.png]]

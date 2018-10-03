@@ -1,0 +1,20 @@
+;;; Make a spatial map.
+sizetemp=size(coef)
+nline=sizetemp[0]
+recfitorder=1
+spatmap=fltarr(recfitorder+1,xdim)
+if (nline eq 2) then begin
+  fity=[1,2]
+  for i=0,xdim-1 do begin
+    fitx=fltarr(2)
+    for j=0,obsfitorder do fitx[*]=fitx[*]+reform(coef[j,*])*float(i)^j
+    spatmap[*,i]=poly_fit(fitx,fity,recfitorder,/double)
+  endfor
+endif else begin
+  for i=0,xdim-1 do begin
+    for j=0,obsfitorder do spatmap[0,i]=spatmap[0,i]-coef[j,0]*float(i)^j
+    spatmap[1,i]=1
+  endfor
+endelse
+
+END

@@ -1,0 +1,104 @@
+v1.0b   July       2004 Original version
+v1.1b   October    2004 Minor fixes
+v1.2b   April      2005 New version of commonsynphot.pro (now uses 
+                         commonsynphot.dat) and corresponding changes in 
+                         code
+                        New synphot filter throughputs
+                        Galex and SDSS filters added
+                        New zero points for Tycho-2 (Maíz Apellániz 2005)
+                        New zero points and (landolt,bessell) -> johnson with new 
+                         U throughput, new UBV zero points, and elimination of 
+                         double B throughputs
+                        FILTREF keyword added
+                        Possibility of redefining zero points
+                        Fixed bug in case where min(chi^2) is very large
+v1.2.1b May        2005 Fixed bug for bolcor when reference filter is not 
+                         johnson.v
+                        Fixed bugs for gravity interpolation and for range
+                         caught only in fine grid
+v1.2.2b August     2005 (Never public)
+                        Plot limits issue fixed.
+v1.3b   August     2005 (Never public)
+                        Renaming of launchquicksynphot to gensynphot and of 
+                         quicksynphot to jmasynphot and inclusion in the 
+                         distribution
+                        Use of arbitrary filters
+                        Allow for execution from another directory
+                        Introduction of /LOCALDIR for keyword simplification
+                        Keyword changes from Z, LOWG... to model names
+                        Elimination of HIGHG and WMBASIC
+                        Minor nomenclature changes 
+v2.0.0b  December  2005 (Never public)
+                        Full-code reprogramming to allow for generalizations,
+                         updates, and speed improvements
+                        Use or arbitrary SED models
+                        Inclusion of preliminary SED sample procedures (prokurucz
+                         and prosb99) and required throughput procedures
+                         (bands, vega_stab)
+                        Treatment of incomplete grids
+                        New input data system and use of FITS tables for 
+                         SED and model magnitudes
+                        Changes in text and plot outputs
+                        Consistent treatment of C correction factors
+                        Inclusion of bolometric corrections for cluster models
+                        ACS/SBC filters added to default set
+                        New Johnson, Strömgren, Tycho-2, SDSS, and 2MASS zero
+                         points (Maíz Apellániz 2006, Holberg & Bergeron 2006)
+                        Basic handbook
+v2.0.1b  December  2005 (Never public)
+		        Bug corrected in statplots
+                        Grid test set to zero for fixed parameters
+                        Improved color input case
+                        Expanded and revised handbook
+                        Fixed path issue
+v2.0.2b  December  2005 Tested against v1.2.1b
+                        EXTRA_SP and EXTRA_CONT bugs fixed
+v2.0.3b  January   2006 Fixed zero points for Johnson R and I
+v2.0.4b  January   2006 Fixed bug in calculation of mode     
+v2.0.5b  January   2006 Fixed bug in contour plot drawing when PAR_LIM is used
+                         and round-off errors are present
+                        Informational message included when input_file is not
+                         found
+                        Fixed obscure bug caused by IDL handling of FITS tables
+                         when writing/reading zero-length string vectors.
+v2.1     February  2006 First non-beta version
+                        Minor fix to spectrum plots
+                        Minor fix to path syntax    
+v2.1.1   March     2006 johnson ubvri divided into johnson ubv and cousins ri
+                         to minimize confusion
+v2.1.2   April     2006 Bugs in main_sequence_*.pro fixed
+                        IDL 5.6 compatibility issue solved
+v2.1.3   October   2006 Change of Vega model from Bohlin & Gilliland (2004) to
+			 Bohlin (2007), with the subsequent refinements to 
+                         the zero points for Johnson, Cousins, Strömgren,Tycho, 
+			 and 2MASS.
+		   	Recalculated zero points for B_T and 2MASS.
+                        Redefine ST and AB mag using 3.63079x10^-9 (flam) and 
+                         3.63079x10^-20 (fnu)
+                        Use the SDSS sensitivity curves from:
+                         http://www.sdss.org/dr3/instruments/imager/#filters
+                        Allow > 32000 objects
+                        NO_SAVE option included in CHORIZOS
+  		        ACS nebular filters (non-default) and more processed models
+		         added
+                        Residual colors calculated from full distribution, not
+			 simply from the mode
+v2.1.4   July      2007 Bugs in gensynphot fixed
+v2.2     ????      2006 Use of multicolor indices (Strömgren-like) and 
+                         zero magnitudes as reference
+                        When using zero magnitudes as reference, allow for m_r
+                         in STATPLOTS to be model-based (as opposed to data-based)
+                        Use of flux integrated quantities: ratios, indices, and
+                         equivalent widths
+		        Inclusion of detection limits
+                        Full Bayesian treatment in STATPLOTS
+                        Arbitrary wavelength grids
+                        Complete additional options in CHORIZOS and STATPLOTS
+                        Draw HR diagrams in STATPLOTS
+                        Include JMASYNPHOT as a separate procedure
+                        Gausian peak modelling in STATPLOTS
+		        Complex contour diagrams (horizontal and vertical plots)
+		        Mode calculation in STATPLOTS.
+                        Covering of regions outside grid in contour plots
+	 	        Use FITS tables for throughputs to save space
+                        Spectrum plotting utility

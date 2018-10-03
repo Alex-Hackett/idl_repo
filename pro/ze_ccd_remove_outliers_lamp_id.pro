@@ -1,0 +1,8 @@
+PRO ZE_CCD_REMOVE_OUTLIERS_LAMP_ID,peak_vals,lambda_peak_vals,intens_peak_vals,lambda_closest_id,threshold_id,peak_vals_sel,lambda_peak_vals_sel,intens_peak_vals_sel,lambda_closest_id_sel
+
+keep=WHERE(ABS(lambda_peak_vals-lambda_closest_id) LT threshold_id)
+peak_vals_sel=peak_vals(keep)
+lambda_peak_vals_sel=lambda_peak_vals(keep)
+intens_peak_vals_sel=intens_peak_vals(keep)
+lambda_closest_id_sel=lambda_closest_id(keep)
+END

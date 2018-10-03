@@ -1,0 +1,24 @@
+;derreden (or redden) ascii spectra
+model='410'
+readcol,'/aux/pc20072b/jgroh/espectros/agcar/'+model+'_car.txt',lambda,flux
+
+nlines= (size(lambda))[1]
+
+;scales the flux to 6 kpc
+flux6=flux/36.0
+
+;final redenning
+minusebv=-0.65
+a=3.4
+fm_unred, lambda, flux6, minusebv, flux6dfin, R_V = a
+
+;defines file for writing ;
+vmfile='/aux/pc20072b/jgroh/espectros/agcar/'+model+'_car_ebv65r34.txt'
+openw,1,vmfile     ; open file to write
+
+for k=0., nlines-1 do begin
+printf,1,FORMAT='(E12.6,2x,E12.6)',lambda[k],flux6dfin[k]
+endfor
+close,1
+
+end

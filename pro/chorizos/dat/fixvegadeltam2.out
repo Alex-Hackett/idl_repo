@@ -1,0 +1,24 @@
+Zero-point corrections due to change from Bohlin 04 to Bohlin 06 Vega
+           johnson_u -0.003
+           johnson_b -0.004
+           johnson_v -0.002
+           cousins_r -0.005
+           cousins_i -0.011
+         stromgren_u -0.003
+         stromgren_v -0.003
+         stromgren_b -0.003
+         stromgren_y  0.000
+             tycho_b -0.003
+             tycho_v -0.003
+              sdss_u -0.003
+              sdss_g -0.004
+              sdss_r -0.004
+              sdss_i -0.010
+              sdss_z -0.016
+             2mass_j -0.023
+             2mass_h -0.027
+            2mass_ks -0.029
+Zero-point corrections due to change from Cohen 92 to Bohlin 06 Vega
+             2mass_j -0.005
+             2mass_h -0.012
+            2mass_ks -0.005

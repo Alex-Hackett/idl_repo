@@ -1,0 +1,119 @@
+
+obsdir='/aux/pc20072b/jgroh/espectros/agcar/'
+
+obs03jan=obsdir+'agcar_uves_03jan11n.txt'
+mod2592de=obsdir+'259_2De_narv2_90.txt' ;prolate 4:1 i=90 
+mod2592df=obsdir+'259_2Df_narv2_90.txt' ;oblate 4:1 i=90
+mod259=obsdir+'259_narv2.txt'        ;spherical model
+
+
+
+ZE_READ_SPECTRA_COL_VEC,obs03jan,l03jan,f03jan,nrec03jan
+ZE_READ_SPECTRA_COL_VEC,mod2592de,l2592de,f2592de,nrec2592de
+ZE_READ_SPECTRA_COL_VEC,mod2592df,l2592df,f2592df,nrec2592df
+ZE_READ_SPECTRA_COL_VEC,mod259,l259,f259,nrec259
+
+;shifting by -vsys 
+;f03jan=ZE_SHIFT_SPECTRA_VEL(l03jan,f03jan,-10.)
+
+to=2
+tm=2
+c1=2
+charthickv=1.7
+
+
+x1l=-250.
+x1u=250.
+
+
+window,0,XSIZE=400,YSIZE=400,retain=2
+
+!X.THICK=1.7
+!Y.THICK=1.7
+
+;1st panel
+ymin=0.95
+ymax=1.25
+lambda0=5754.59  ;for [NII]
+;cutting the spectrum around +-300 km/s
+;l03janc1=l03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 300))
+;f03janc1=f03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 300))
+;normalizing interactively
+;line_norm,l03janc1,f03janc1,f03janc1,norm1,xnodes1,ynodes1
+sc=1.3
+plot,ZE_LAMBDA_TO_VEL(l03janc1,lambda0),f03janc1,xstyle=1,ystyle=1,xrange=[x1l,x1u],yrange=[ymin,ymax], $
+ytitle='F/F!Ic',/nodata,charsize=2,XMARGIN=[8,3],charthick=charthickv/1.4;,POSITION=[0.09,0.80,0.97,0.99]
+plots,ZE_LAMBDA_TO_VEL(l03janc1,lambda0),f03janc1,color=fsc_color('black'),noclip=0,clip=[x1l,ymin,x1u,ymax],thick=to
+plots,ZE_LAMBDA_TO_VEL(l259,lambda0),((f259-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=1,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592df,lambda0),((f2592df-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=3,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592de,lambda0),((f2592de-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=2,thick=tm
+xyouts,120,1.22,'[NII] 5755',alignment=0.0,orientation=0,charthick=charthickv
+
+
+window,1,XSIZE=400,YSIZE=400,retain=2
+;2nd panel
+ymin=0.95
+ymax=1.25
+lambda0=8926.63  ;for Fe II
+;cutting the spectrum around +-300 km/s
+;l03janc2=l03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 300))
+;f03janc2=f03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 300))
+;normalizing interactively
+;line_norm,l03janc2,f03janc2,f03janc2,norm2,xnodes2,ynodes2
+sc=0.8
+plot,ZE_LAMBDA_TO_VEL(l03janc2,lambda0),f03jan,xstyle=1,ystyle=1,xrange=[x1l,x1u],yrange=[ymin,ymax], $
+ytitle='F/F!Ic',/nodata,charsize=2,XMARGIN=[8,3],charthick=charthickv/1.4;,POSITION=[0.09,0.80,0.97,0.99]
+plots,ZE_LAMBDA_TO_VEL(l03janc2,lambda0),f03janc2,color=fsc_color('black'),noclip=0,clip=[x1l,ymin,x1u,ymax],thick=to
+plots,ZE_LAMBDA_TO_VEL(l259,lambda0),((f259-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=1,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592df,lambda0),((f2592df-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=3,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592de,lambda0),((f2592de-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=2,thick=tm
+xyouts,120,1.22,'Fe II 8926',alignment=0.0,orientation=0,charthick=charthickv
+
+window,2,XSIZE=400,YSIZE=400,retain=2
+;3rd panel
+x1l=-450.
+x1u=450.
+ymin=-0.20
+ymax=10.25
+lambda0=4861.32  ;for H Beta
+;cutting the spectrum around +-600 km/s
+;l03janc3=l03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 1000))
+;f03janc3=f03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 1000))
+;normalizing interactively
+;line_norm,l03janc3,f03janc3,f03janc3,norm3,xnodes3,ynodes3
+sc=1.0
+plot,ZE_LAMBDA_TO_VEL(l03janc3,lambda0),f03jan,xstyle=1,ystyle=1,xrange=[x1l,x1u],yrange=[ymin,ymax], $
+ytitle='F/F!Ic',/nodata,charsize=2,XMARGIN=[8,3],charthick=charthickv/1.4;,POSITION=[0.09,0.80,0.97,0.99]
+plots,ZE_LAMBDA_TO_VEL(l03janc3,lambda0),f03janc3,color=fsc_color('black'),noclip=0,clip=[x1l,ymin,x1u,ymax],thick=to
+plots,ZE_LAMBDA_TO_VEL(l259,lambda0),((f259-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=1,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592df,lambda0),((f2592df-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=3,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592de,lambda0),((f2592de-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=2,thick=tm
+xyouts,220,9.22,TEXTOIDL('H\beta'),alignment=0.0,orientation=0,charthick=charthickv
+
+
+window,3,XSIZE=400,YSIZE=400,retain=2
+;3rd panel
+x1l=-450.
+x1u=450.
+ymin=-0.00
+ymax=4.3
+lambda0=5875.86  ;for He I
+;cutting the spectrum around +-600 km/s
+;l03janc4=l03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 2000))
+;f03janc4=f03jan(where(abs(ZE_LAMBDA_TO_VEL(l03jan,lambda0)) lt 2000))
+;normalizing interactively
+;line_norm,l03janc4,f03janc4,f03janc4,norm4,xnodes4,ynodes4
+sc=1.0
+plot,ZE_LAMBDA_TO_VEL(l03janc4,lambda0),f03janc4,xstyle=1,ystyle=1,xrange=[x1l,x1u],yrange=[ymin,ymax], $
+ytitle='F/F!Ic',/nodata,charsize=2,XMARGIN=[8,3],charthick=charthickv/1.4;,POSITION=[0.09,0.80,0.97,0.99]
+plots,ZE_LAMBDA_TO_VEL(l03janc4,lambda0),f03janc4,color=fsc_color('black'),noclip=0,clip=[x1l,ymin,x1u,ymax],thick=to
+plots,ZE_LAMBDA_TO_VEL(l259,lambda0),((f259-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=1,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592df,lambda0),((f2592df-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=3,thick=tm
+plots,ZE_LAMBDA_TO_VEL(l2592de,lambda0),((f2592de-1.)*sc)+1.,color=fsc_color('black'), noclip=0,clip=[x1l,ymin,x1u,ymax],linestyle=2,thick=tm
+xyouts,220,4.02,TEXTOIDL('He I'),alignment=0.0,orientation=0,charthick=charthickv
+
+
+
+
+
+END

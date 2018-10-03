@@ -1,0 +1,7 @@
+sb99_old_orig.fits     ; Input (original) models
+sb99_old_d_dddd.fits   ; Output (processed) models
+def_filt_syst.dat      ; Default filter systems
+1 default              ; First  original parameter (log(Age)   ) is variable and uses default scale
+1 default              ; Second original parameter (Metallicity) is variable and uses default scale
+1 default              ; R_5495                                  is variable and uses default scale
+1 default              ; E(4405-5495)                            is variable and uses default scale

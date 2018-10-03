@@ -1,0 +1,10 @@
+.r setparsimimg
+.r simimg
+.r mkmodelplot
+
+imgarr=simimg()
+
+mkmodelplot, imgarr, nplot=3, /baseline
+
+printparsimimg, imgarr
+

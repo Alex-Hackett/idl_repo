@@ -1,0 +1,7 @@
+PRO ZE_EVOL_COMPUTE_CHEMICAL_ABUNDANCE_LAYER_BOUNDARIES,xmr,r,xstruct,ystruct,c12struct,o16struct,ne20struct,si28struct,fe52struct,xrbound1,xxmrbound1,xindexbound1,yrbound1,yxmrbound1,yindexbound1
+
+   ZE_EVOL_COMPUTE_INDIVIDUAL_CHEMICAL_ABUNDANCE_LAYER_BOUNDARIES,xmr,r,xstruct,xrbound1,xxmrbound1,xindexbound1
+   ZE_EVOL_COMPUTE_INDIVIDUAL_CHEMICAL_ABUNDANCE_LAYER_BOUNDARIES,xmr,r,ystruct,yrbound1,yxmrbound1,yindexbound1
+
+
+END

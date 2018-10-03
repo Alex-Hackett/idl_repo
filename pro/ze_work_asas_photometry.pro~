@@ -1,0 +1,86 @@
+asas_cut='/aux/pc20072b/jgroh/espectros/agcar_V_photometry_asas_new_cut2.txt'
+ze_read_asas_photometry_cut,asas_cut,data
+
+;note on ASAS apertures: mag0=2pix, max1=3 pix, 4 pix, 5 pix, and mag4=6pix. Plate scale is 15 arcsec/pix.
+;ASAS magnitude should be used only for V>7.
+;best aperture for AG car is 6pix = 90 arcsec (!)
+
+;select only grade A data
+nrec=(size(data.grade))[1]
+t=fltarr(nrec)
+for i=0, nrec-1 do begin
+if data.grade[i] ne 'A' then begin
+t[i]=i
+endif else begin
+;t[i]=0
+endelse
+endfor
+t=where(t ne 0)
+
+hjd_sela=data.hjd
+mag4_sela=data.mag4
+mag3_sela=data.mag3
+
+;converting from HJD to year fraction
+yr_frac=dblarr(nrec) & month=lonarr(nrec) & day=month & year=day & hour=day & dy=month
+
+for i=0,nrec-1 do begin
+caldat,2450000+data.hjd[i],month1,day1,year1,hour1
+month[i]=month1
+day[i]=day1
+year[i]=year1
+hour[i]=hour1
+dy[i]=ymd2dn(year[i],month[i],day[i])
+yr_frac[i]=year[i]+(dy[i]+hour[i]/24.)/365.
+endfor
+
+
+remove,t,hjd_sela
+remove,t,mag3_sela
+remove,t,mag4_sela
+remove,t,yr_frac
+
+;sorting vectors to increasing HJD date
+nrec_sela=(size(yr_frac))[1]
+hjd_sela2=hjd_sela[SORT(hjd_sela)]
+mag4_sela2=mag4_sela[SORT(hjd_sela)]
+
+;computing average for a given number of days
+npts=50000.
+hjdi=indgen(npts,/DOUBLE)*1. 
+for i=0., npts-1. do begin
+hjdi[i]=min(hjd_sela2)+((hjdi[i])*(max(hjd_sela2)-min(hjd_sela2))/(npts-1.*1.))
+endfor
+linterp,hjd_sela2,mag4_sela2,hjdi,mag4i
+
+sampling_days=hjdi[999]-hjdi[998]
+ave_days=15.
+avepts=ave_days/sampling_days
+mag4_sela2_med=median(mag4i,180)
+linterp,hjdi,mag4_sela2_med,hjd_sela2,mag4_median_fin
+
+;plotting
+window,1
+plot,hjd_sela,mag4_sela,xstyle=9,ystyle=1,yrange=[8.5,5.],psym=2
+plots,hjd_sela2,mag4_sela2,color=255
+plots,hjdi,mag4_sela2_med,color=fsc_color('blue')
+plots,hjd_sela2,mag4_median_fin,color=fsc_color('green'),psym=1
+AXIS,XAXIS=1,XRANGE=[MIN(YR_FRAC),MAX(YR_FRAC)],XSTYLE=1
+
+;output to archive for plotting in XMGRACE
+output='/aux/pc20072b/jgroh/temp/output_asas_mag_agc.txt'
+openw,1,output
+for i=0,nrec_sela -1 do begin
+printf,1,hjd_sela2[i]+50000.,mag4_median_fin[i]
+endfor
+close,1
+
+;output HJD and calendar dates to archive for cheching
+output2='/aux/pc20072b/jgroh/temp/output_asas_mag_agc.txt'
+openw,2,output2
+for i=0,nrec_sela -1 do begin
+printf,2,hjd_sela2[i]+50000.,yr_frac[i],year[i],month[i],day[i],mag4_median_fin[i]
+endfor
+close,2
+
+END

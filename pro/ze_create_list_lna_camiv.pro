@@ -1,0 +1,96 @@
+PRO ZE_CREATE_LIST_LNA_CAMIV,star,angle
+
+
+;requires a normalized flat field image and calibrated lamp spectrum
+
+dir='/Users/jgroh/data/lna/camiv_spectra/09jun06/'
+
+star='irc10420'
+angle='204'
+
+sufix=star+'_'+angle+'_'
+trimsec='[90:287,*]'
+flat='flati'+angle+'n.fits'
+lamp='thor_'+angle+'_0001sp.fits'
+
+;defines list filenames ;
+list=star+'_'+angle+'.txt'
+list_p=star+'_'+angle+'p.txt'
+list_spe=star+'_'+angle+'spe.txt'
+list_sp=star+'_'+angle+'sp.txt'
+list_spd=star+'_'+angle+'spd.txt'
+list_spda=star+'_'+angle+'spda.txt'
+list_pcut=star+'_'+angle+'pcut.txt'
+list_psec=star+'_'+angle+'psec.txt'
+
+
+
+list1=dir+list
+list2=dir+list_p
+list3=dir+list_spe
+list4=dir+list_sp
+list5=dir+list_spd
+list6=dir+list_spda
+list7=dir+list_pcut
+list8=dir+list_psec
+openw,1,list1     ; open file to write
+openw,2,list2
+openw,3,list3     ; open file to write
+openw,4,list4
+openw,5,list5     ; open file to write
+openw,6,list6
+openw,7,list7
+openw,8,list8
+
+;creates list of files to use in IRAF data reduction of Camiv
+
+for i=1, 21 do begin
+printf,1,FORMAT='(A,I4.4,A)',sufix,i,'.fits'
+printf,2,FORMAT='(A,I4.4,A)',sufix,i,'_p.fits'
+printf,3,FORMAT='(A,I4.4,A)',sufix,i,'_pcut.0001.fits'
+printf,4,FORMAT='(A,I4.4,A)',sufix,i,'_sp.fits'
+printf,5,FORMAT='(A,I4.4,A)',sufix,i,'_spd.fits'
+printf,6,FORMAT='(A,I4.4,A)',sufix,i,'_spda.fits'
+printf,7,FORMAT='(A,I4.4,A)',sufix,i,'_pcut.fits'
+printf,8,FORMAT='(A,I4.4,A)',sufix,i,'_p'+trimsec
+
+endfor
+
+close,/all
+
+;generate CL script to be used in IRAF
+script=dir+sufix+'red.cl'
+openw,9,script
+
+;to compute sky image in IRAF
+printf,9,'imcombine '+'@'+list+' output="'+sufix+'sky.fits" combine="median" reject="minmax" nlow=2 nhigh=10
+
+;to subtract sky image from each frame, creating the *_p.fits files
+printf,9,'imarith @'+list+' - '+sufix+'sky.fits @'+list_p
+
+;to divide by a flat field image.
+printf,9,'imarith @'+list_p+' / '+flat+' @'+list_p
+
+;to trim the image, creating new *cut.fits images
+printf,9,'imcopy @'+list_psec+' @'+list_pcut
+
+;to delete the previous *p.fits images to save disc space
+printf,9,'imdel @'+list_p
+
+;to extract automatically with apall
+printf,9,'apall @'+list_pcut
+
+;to rename the extracted spectra
+printf,9,'imrename @'+list_spe+' @'+list_sp
+
+;to calibrate in wavelength using only one detector position
+printf,9,'refspec @'+list_sp+' reference='+lamp
+printf,9,'dispcor @'+list_sp+' @'+list_spd
+
+;to combine all calibrated spectra with ctio.spcombine
+printf,9,'scombine @'+list_spd+' '+sufix+'m'
+
+;to divide combine spectrum by water vapor
+
+close,9
+END

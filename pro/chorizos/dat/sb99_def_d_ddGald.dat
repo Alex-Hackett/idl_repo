@@ -1,0 +1,7 @@
+sb99_def_orig.fits     ; Input (original) models
+sb99_def_d_ddGald.fits ; Output (processed) models
+def_filt_syst.dat      ; Default filter systems
+1 default              ; First  original parameter (log(Age)   ) is variable and uses default scale
+1 default              ; Second original parameter (Metallicity) is variable and uses default scale
+1 2.0+0.1*FINDGEN(41)  ; R_5495                                  is variable and uses Galactic laws (not MC ones)
+1 default              ; E(4405-5495)                            is variable and uses default scale

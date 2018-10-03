@@ -1,0 +1,37 @@
+#title
+STIS Eta Carinae CCD observations
+#items
+filename	c*10	filename
+opt_elem	c*6	optical element
+cenwave		i*2	Central Wavelength
+minwave		r*4	minimum wavelength
+maxwave		r*4	maximum wavelength
+aperture	c*8	aperture
+ra_aper		r*8	right ascension of the aperture
+dec_aper	r*8	declination of the aperture
+pa_aper		r*4	position angle of the aperture
+delta_ra	r*4	distance from eta car (arcsec)
+delta_dec	r*4	distance from eta car (arcsec)
+tdateobs	c*10	date of observation
+texptime	r*4	exposure time (seconds)
+year		r*4	year + fraction of year
+mjd		r*8	Modified Julian Date
+targname	c*20	target name
+rootname	c*9	observation rootname
+spares(50)	l*1	spares
+
+#formats
+opt_elem	a6	opt_,elem
+pa_aper		f8.3
+cenwave		I5	cen,wave
+delta_ra	F6.2	delta,_ra
+delta_dec	F6.2	delta,_dec
+mjd		F8.2
+year		F7.2
+texptime	F7.1	texp,time
+
+
+
+
+
+

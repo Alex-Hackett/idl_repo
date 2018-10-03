@@ -1,0 +1,10 @@
+;PRO ah_make_all_kip, VERBOSE=VERBOSE
+dirs = ['P015z000S0d010','P015z000S0d030','P015z000S0d040','P015z000S0d045','P015z000S0d050']
+FOREACH elem, dirs DO BEGIN
+  ah_genec_kip_diag, elem
+ENDFOREACH
+
+
+
+
+END

@@ -1,0 +1,536 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=latex 2009.11.7)  24 NOV 2011 16:22
+entering extended mode
+ %&-line parsing enabled.
+**/Users/jgroh/temp/latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_0653
+00_066000.tex
+
+(/Users/jgroh/temp/latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_06530
+0_066000.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
+rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
+lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
+ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2008/12/21 v4.2 Page Geometry
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode not detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
+\Gm@bindingoffset=\dimen103
+\Gm@wd@mp=\dimen104
+\Gm@odd@mp=\dimen105
+\Gm@even@mp=\dimen106
+\Gm@dimlist=\toks15
+
+(/usr/local/texlive/2009/texmf-dist/tex/xelatex/xetexconfig/geometry.cfg))
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen107
+\Gin@req@width=\dimen108
+)
+\epsfxsize=\dimen109
+\epsfysize=\dimen110
+)
+No file latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_065300_066000.au
+x.
+\openout1 = `latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_065300_0660
+00.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+*geometry auto-detecting driver*
+*geometry detected driver: dvips*
+-------------------- Geometry parameters
+paper: a4paper
+landscape: --
+twocolumn: --
+twoside: --
+asymmetric: --
+h-parts: 89.62709pt, 0.7\paperwidth , 89.6271pt (default)
+v-parts: 101.40665pt, 0.7\paperheight , 152.11pt (default)
+hmarginratio: 1:1
+vmarginratio: 2:3
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: dvips
+-------------------- Page layout dimensions and switches
+\paperwidth  597.50787pt
+\paperheight 845.04684pt
+\textwidth  418.25368pt
+\textheight 591.5302pt
+\oddsidemargin  17.3571pt
+\evensidemargin 17.3571pt
+\topmargin  -7.86334pt
+\headheight 12.0pt
+\headsep    25.0pt
+\footskip   30.0pt
+\marginparwidth 44.0pt
+\marginparsep   10.0pt
+\columnsep  10.0pt
+\skip\footins  10.8pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065300.eps Gr
+aphic file (type eps)
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065300.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065308.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065308.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065315.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065315.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065323.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065323.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065331.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065331.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065339.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065339.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065347.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065347.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065355.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065355.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065363.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065363.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065371.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065371.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065379.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065379.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065387.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065387.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065395.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065395.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065403.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065403.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065411.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065411.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065419.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065419.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065427.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065427.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065435.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065435.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 12--30
+
+ []
+
+
+LaTeX Warning: Float too large for page by 117.1461pt on input line 30.
+
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065443.eps Gr
+aphic file (type eps)
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065443.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065451.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065451.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065459.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065459.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065467.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065467.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065475.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065475.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065483.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065483.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065491.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065491.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065499.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065499.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065507.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065507.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065515.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065515.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065523.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065523.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065531.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065531.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065539.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065539.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065547.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065547.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065555.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065555.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065563.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065563.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065571.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065571.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065579.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065579.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 32--50
+
+ []
+
+
+LaTeX Warning: Float too large for page by 117.1461pt on input line 50.
+
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065587.eps Gr
+aphic file (type eps)
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065587.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065595.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065595.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065603.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065603.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065611.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065611.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065619.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065619.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065627.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065627.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065635.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065635.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065643.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065643.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065651.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065651.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065659.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065659.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065667.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065667.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065675.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065675.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065683.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065683.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065691.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065691.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065699.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065699.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065707.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065707.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065715.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065715.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065723.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065723.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 52--70
+
+ []
+
+
+LaTeX Warning: Float too large for page by 117.1461pt on input line 70.
+
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065731.eps Gr
+aphic file (type eps)
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065731.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065739.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065739.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065747.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065747.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065755.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065755.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065763.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065763.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065771.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065771.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065779.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065779.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065787.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065787.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065795.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065795.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065803.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065803.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065811.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065811.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065819.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065819.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065827.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065827.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065835.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065835.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065843.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065843.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065851.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065851.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065859.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065859.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065867.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065867.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 72--90
+
+ []
+
+
+LaTeX Warning: Float too large for page by 117.1461pt on input line 90.
+
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065875.eps Gr
+aphic file (type eps)
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065875.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065883.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065883.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065891.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065891.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065899.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065899.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065907.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065907.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065915.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065915.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065923.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065923.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065931.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065931.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065939.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065939.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065947.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065947.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065955.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065955.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065963.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065963.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065971.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065971.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065979.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065979.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065987.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065987.eps>
+File: /Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065995.eps Gr
+aphic file (type eps)
+
+</Users/jgroh/temp/img_mod43_groh_cut_v4_vstream_halpha_d023_065995.eps>
+
+LaTeX Warning: Float too large for page by 102.6461pt on input line 108.
+
+[1
+
+] [2] [3] [4] [5] [6]
+(./latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_065300_066000.aux) ) 
+Here is how much of TeX's memory you used:
+ 1108 strings out of 493849
+ 23841 string characters out of 3149230
+ 82536 words of memory out of 3000000
+ 4346 multiletter control sequences out of 15000+200000
+ 4107 words of font info for 16 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 32i,4n,21p,330b,268s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on latex_figure_img_mod43_groh_cut_v4_vstream_halpha_d023_065300
+_066000.dvi (6 pages, 29728 bytes).

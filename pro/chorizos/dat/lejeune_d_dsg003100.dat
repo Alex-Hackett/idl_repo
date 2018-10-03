@@ -1,0 +1,8 @@
+lejeune_orig.fits          ; Input (original) models
+lejeune_d_dsg003100.fits   ; Output (processed) models
+def_filt_syst.dat          ; Default filter systems
+1 default                  ; First  original parameter (Temperature     ) is variable and uses default scale
+0 supergiant_kurucz(v1)    ; Second original parameter (log(Gravity)    ) is fixed    and corresponds to supergiants
+0 0.0                      ; Third  original parameter (log(Metallicity)) is fixed    and equal to 0.0      
+0 3.1                      ; R_5495                                       is fixed    and equal to 3.1
+0 0.0                      ; E(4405-5495)                                 is fixed    and equal to 0.0      

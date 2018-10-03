@@ -1,0 +1,192 @@
+!EXCEPT = 0
+dirin = '/aux/pc244a/jgroh/temp/'
+filein = dirin+'picture6.png'
+dirout = dirin
+
+image = READ_IMAGE(filein) & s1 = SIZE(image)
+
+xsize0 = s1(2) & ysize0 = s1(3)
+
+WINDOW, 0, XSIZE=xsize0, YSIZE=ysize0, RETAIN=2 & WSET, 0
+TVIMAGE, image, /KEEP
+
+
+; RE-SCALING OF THE IMAGE
+; =======================
+answ = 'y'
+WHILE ((answ EQ 'y') OR (answ EQ 'Y')) DO BEGIN
+
+	READ, answ, PROMPT='Re-scale the image? (y/n): ', FORMAT='(A1)'
+
+	IF ((answ EQ 'y') OR (answ EQ 'Y')) THEN BEGIN
+
+		READ, scale_factor, PROMPT='What is the scaling factor? ', FORMAT='(F4.2)'
+		xsize = xsize0 * scale_factor & ysize = ysize0 * scale_factor
+		WDELETE, 0
+		WINDOW, 0, XSIZE=xsize, YSIZE=ysize, RETAIN=2 & WSET, 0
+		TVIMAGE, image, /KEEP
+
+	ENDIF ELSE BEGIN
+
+		GOTO, skip_rescale
+
+	ENDELSE
+
+ENDWHILE
+skip_rescale:
+
+
+; MAPPING THE COORDINATES
+; ==========================
+contador = 0
+!MOUSE.BUTTON = 1
+DEVICE, CURSOR_STANDARD = 40
+WHILE (!MOUSE.BUTTON NE 4) DO BEGIN
+
+	CASE contador OF
+
+		0: BEGIN
+			PRINT, '*******************************************************'
+			PRINT, 'PLACE THE CURSOR AT THE X0 VALUE AND PRESS LEFT BUTTON'
+			PRINT, '*******************************************************'
+			CURSOR, x0dev, a, /DEVICE, /DOWN
+			READ, x0dat, PROMPT='-> DATA VALUE FOR THIS POINT: ', FORMAT='(F4.2)'
+			PRINT, ''
+		END
+
+		1: BEGIN
+			PRINT, '*******************************************************'
+			PRINT, 'PLACE THE CURSOR AT THE X1 VALUE AND PRESS LEFT BUTTON'
+			PRINT, '*******************************************************'
+			CURSOR, x1dev, b, /DEVICE, /DOWN
+			READ, x1dat, PROMPT='-> DATA VALUE FOR THIS POINT: ', FORMAT='(F4.2)'
+			PRINT, ''
+		END
+
+		2: BEGIN
+			PRINT, '*******************************************************'
+			PRINT, 'PLACE THE CURSOR AT THE Y0 VALUE AND PRESS LEFT BUTTON'
+			PRINT, '*******************************************************'
+			CURSOR, c, y0dev, /DEVICE, /DOWN
+			READ, y0dat, PROMPT='-> DATA VALUE FOR THIS POINT: ', FORMAT='(F4.2)'
+			PRINT, ''
+		END
+
+		3: BEGIN
+			PRINT, '*******************************************************'
+			PRINT, 'PLACE THE CURSOR AT THE Y1 VALUE AND PRESS LEFT BUTTON'
+			PRINT, '*******************************************************'
+			CURSOR, d, y1dev, /DEVICE, /DOWN
+			READ, y1dat, PROMPT='-> DATA VALUE FOR THIS POINT: ', FORMAT='(F4.2)'
+			PRINT, ''
+		END
+
+		4: GOTO, map_exit
+
+	ENDCASE
+
+	contador = contador + 1
+
+ENDWHILE
+map_exit:
+xdev = [x0dev, x1dev] & xdat = [x0dat, x1dat] & x_func = LINFIT(xdev, xdat)
+ydev = [y0dev, y1dev] & ydat = [y0dat, y1dat] & y_func = LINFIT(ydev, ydat)
+
+
+; ACQUISITION OF THE POINTS
+; =========================
+answer = 'n'
+redo:
+IF ((answer EQ 'y') OR (answer EQ 'Y')) THEN BEGIN
+
+	TVIMAGE, image, /KEEP
+
+ENDIF
+x = DBLARR(1000) & y = x
+a = FINDGEN(17)*(!PI*2/16)
+USERSYM, COS(a), SIN(a), /FILL
+i = 0
+!MOUSE.BUTTON = 1
+PRINT, '++++++++++++++++++++++++++++++++++++++++++++++'
+PRINT, '    YOU MAY START THE ACQUISITION OF DATA.
+PRINT, 'IN THE LAST POINT, PRESS RIGHT BUTTON TO EXIT.'
+PRINT, '++++++++++++++++++++++++++++++++++++++++++++++'
+DEVICE, CURSOR_STANDARD = 40
+WHILE (!MOUSE.BUTTON NE 4) DO BEGIN
+
+	CURSOR, xa, ya, /DEVICE, /DOWN
+	PLOTS, xa, ya, PSYM=8, SYMSIZE=1.5, COLOR=FSC_COLOR("RED", !D.TABLE_SIZE-0), /DEVICE
+	x[i] = xa & y[i] = ya
+	i = i + 1
+
+ENDWHILE
+answer = ''
+PRINT, ''
+READ, answer, PROMPT='RE-DO THE ACQUISITION? (y/n) ', FORMAT='(A1)'
+PRINT, ''
+
+IF ((answer EQ 'y') OR (answer EQ 'Y')) THEN BEGIN
+
+	GOTO, redo
+
+ENDIF ELSE BEGIN
+
+	GOTO, acq_exit
+
+ENDELSE
+acq_exit:
+x = x(WHERE(x NE 0)) & y = y(WHERE(y NE 0))
+
+IF N_ELEMENTS(x) EQ 1 THEN BEGIN
+
+	PRINT, '************************************'
+	PRINT, '       NUMBER OF ELEMENTS < 2.      '
+	question = ''
+	READ, question, PROMPT='DO YOU STILL WANT TO SAVE THESE DATA? (y/n)', FORMAT='(A1)'
+	PRINT, '************************************'
+	PRINT, ''
+	IF ((question EQ 'y') OR (question EQ 'Y')) THEN BEGIN
+
+		GOTO, save
+
+	ENDIF ELSE BEGIN
+
+		GOTO, dontsave
+
+	ENDELSE
+
+ENDIF
+
+
+; WRITING OF THE ACQUIRED DATA TO FILE
+; ====================================
+save:
+fileout = 'teste.txt'
+READ, fileout, PROMPT='TYPE THE NAME OF THE OUTPUT FILE: ', FORMAT='(A1000)'
+OPENW, lun, dirout+STRCOMPRESS(fileout,/REMOVE), /GET_LUN
+FOR j=0, N_ELEMENTS(x)-1 DO BEGIN
+
+	PRINTF, lun, FORMAT='(F6.2,1X,F6.2)', (x_func[0] + x_func[1] * x[j]), (y_func[0] + y_func[1] * y[j])
+
+ENDFOR
+CLOSE, lun & FREE_LUN, lun
+
+dontsave:
+exit = ''
+PRINT, ''
+READ, exit, PROMPT='EXIT THE PROGRAM? (y/n) ', FORMAT='(A1)'
+PRINT, ''
+
+IF ((exit EQ 'n') OR (exit EQ 'N')) THEN BEGIN
+
+	answer = 'y' & GOTO, redo
+
+ENDIF ELSE BEGIN
+
+	GOTO, theend
+
+ENDELSE
+theend:
+
+
+WDELETE, 0 & END

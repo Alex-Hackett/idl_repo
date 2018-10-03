@@ -1,0 +1,7 @@
+fits_read, "/home/groh/espectros/hd108639.fits", data
+
+x=findgen(n_elements(data))
+
+plot, x, data
+
+end

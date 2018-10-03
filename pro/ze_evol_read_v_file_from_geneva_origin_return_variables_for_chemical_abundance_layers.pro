@@ -1,0 +1,28 @@
+PRO ZE_EVOL_READ_V_FILE_FROM_GENEVA_ORIGIN_RETURN_VARIABLES_FOR_CHEMICAL_ABUNDANCE_LAYERS,modeldir,model_name,timestep,mtot,j,xmr,r,lr,xstruct,ystruct,c12struct,o16struct,ne20struct,si28struct,fe52struct
+
+modelstr=model_name
+timestepstr=string(timestep)
+
+vfile=modeldir+'/'+model_name+'.v'+strcompress(string(timestep, format='(I07)')) 
+print,vfile
+ZE_EVOL_READ_V_FILE_FROM_GENEVA_ORIGIN2010,modeldir,model_name,timestep,data_vfile,header_vfile,modnb,age,mtot,nbshell,deltat,/compress
+
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'j',data_vfile,j,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'xmr',data_vfile,xmr,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'eps',data_vfile,eps,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'epsy',data_vfile,epsy,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'epsc',data_vfile,epsc,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'epsCO',data_vfile,epsco,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'epsONe',data_vfile,epsone,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'r',data_vfile,r,index_varnamex_vfile1,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'lr',data_vfile,lr,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'X',data_vfile,xstruct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'Y',data_vfile,ystruct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'C12',data_vfile,c12struct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'N14',data_vfile,n14struct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'O16',data_vfile,o16struct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'Ne20',data_vfile,ne20struct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'Si28',data_vfile,si28struct,index_varnamex_vfile,return_valx
+ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'Fe52',data_vfile,fe52struct,index_varnamex_vfile,return_valx
+
+END

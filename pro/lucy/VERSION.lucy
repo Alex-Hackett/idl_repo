@@ -1,0 +1,17 @@
+UAVersion = '1.3'  ;  2 May 2003
+; 2 May 2003            E.B. Stobie
+; Added blink feature, changed handling of color
+;
+; 5 March 2001           E.B. Stobie
+; changed the load file widget to select each file using Dialog_Pickfile.
+; changed display of raw and resultant images to use same z1 and z2 from
+; zscale.  User can set values of z1 and z2.
+;
+; 25 September 1998      E.B. Stobie
+; updated widget code (deleted xpdmenu), 
+; added feature to scale data by exposure time when BUNIT present
+; and equal to 'COUNTS/SEC' or 'CPS', fixed bug in nondamped 
+; deconvolution when output image is larger than input image
+
+; 30 September 1997      E.B. Stobie
+; Lucy assigned version 1.0

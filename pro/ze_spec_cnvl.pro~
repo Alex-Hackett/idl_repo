@@ -1,0 +1,7 @@
+PROCEDURE ZE_SPEC_CNVL,lambda,flux,res,lambda_val,fluxcnvl
+
+near = Min(Abs(lambda-lambda_val), index)
+dl=lambda[index]-lambda[index-1]
+fluxcnvl=cnvlgauss(flux,fwhm=res/dl)
+
+END

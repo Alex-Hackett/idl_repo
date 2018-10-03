@@ -1,0 +1,11 @@
+FUNCTION ZE_LAMBDA_TO_VEL,lambda,lambda0
+
+
+vel=299792.458 * ((lambda-lambda0)/lambda0)
+print,lambda
+print,lambda0
+print,lambda-lambda0
+print,vel
+return,vel
+
+END

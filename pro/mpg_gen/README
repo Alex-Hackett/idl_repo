@@ -1,0 +1,55 @@
+xmpeg.prj
+---------
+This IDL project reads a sequence of images and creates an MPEG1 or MPEG2 movie.
+
+Files
+-----
+xmpeg.pro provides the gui controls.
+xmpeg_event.pro provides the event processing
+mpg.pro is the main processing file  
+
+Parameters
+----------
+prefix		string (required)	A string specifying the prefix of the images to read included the path,
+					for example "/home/data/images/Image"
+
+suffix		string(required) 	A string specifying the suffix of the images to read, for example "jpg"
+
+n_start		integer(required)	An integer specifying the first image in the sequence
+
+n_end		integer(required)	An integer specifying the last image in the sequence
+
+digits		integer(required)	An integer specifying the number of digits of the number field in the sequence,
+					for example image00001.jpg would require digits=5
+
+xsize		integer(optional)	An integer specifying the x size of the image		
+
+ysize		integer(optional)	An integer specifying the y size of the image		
+
+format		integer(optional)	An integer with values  0 for MPEG1 and 1 for MPEG2. Default is MPEG1
+
+frame_rate	integer(optional)	Allowed values are	
+					1 = 23.976 frames/sec: NTSC encapsulated film rate
+					2 = 24 frames/sec: standard film rate
+					3 = 25 frames/sec: PAL video frame rate
+					4 = 29.97 frames/sec: NTSC video frame rate
+					5 = 30 frames/sec: NTSC drop frame video rate (the default)
+					6 = 50 frames/sec: double frame rate/progressive PAL
+					7 = 59.94 frames/sec: double frame rate NTSC
+					8 = 60 frames/sec: double frame rate NTSC
+
+mpeg_file	string(optional)	A string specifying the output MPEG file (default outfile.mpg)
+
+tmp_dir		string(optional)	A string specifying temporary directory to use for the temporary image files	
+
+USAGE
+-----
+
+After unzipping and untaring the files in xmpeg.tar.gz run IDL 
+
+%module load idl
+%idlde
+
+Open the Project xmpeg.prj
+From the Project menu select Compile -> All Files
+run xmpeg in the IDL prompt

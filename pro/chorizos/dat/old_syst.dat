@@ -1,0 +1,8 @@
+;             0      1        2       3       4       5
+bessell       u      bw       b       v       r       i
+3             +0.000 +0.000   +0.000  +0.000  +0.000  +0.000
+landolt       u      b2       b3      v        
+3             +0.000 +0.000   +0.000  +0.000  
+stromgren_old u
+0             +0.000
+; Note that the old Bessell R and I is Johnson, not Cousins

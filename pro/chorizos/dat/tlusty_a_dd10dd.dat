@@ -1,0 +1,8 @@
+tlusty_orig.fits          ; Input (original) models
+tlusty_a_dd10dd.fits      ; Output (processed) models
+acs_tycho_ground_syst.dat ; Default filter systems
+1 default                 ; First  original parameter (Temperature     ) is variable and uses default scale
+1 default                 ; Second original parameter (log(Gravity)    ) is variable and uses default scale
+0 1.0                     ; Third  original parameter (Metallicity     ) is fixed    and equal to 1.0      
+1 default                 ; R_5495                                       is variable and uses default scale
+1 default                 ; E(4405-5495)                                 is variable and uses default scale
