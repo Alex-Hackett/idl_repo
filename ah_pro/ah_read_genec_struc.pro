@@ -5,13 +5,19 @@
 ; ordered hash structure that is keyed by the age of the model, in years, and 
 ; the hash values are ordered hashes that contain the data
 ;-
-PRO ah_read_genec_struc, modelname, MDDIR = mddir
+PRO ah_read_genec_struc, modelname, MDDIR = mddir, sampling
 
+IF N_ELEMENTS(sampling) EQ 0 THEN BEGIN
+  sampling = 1000.
+  mg = STRTRIM('Defaulting to Sampling ' + STRING(sampling) + ' Files')
+  PRINT, mg
+ENDIF
 IF KEYWORD_SET(mddir) THEN BEGIN
   ;We got passed the whole dir, so
   ;Make the right strucfiles
-  strucFiles = FILE_SEARCH(modelname, '*Struc*')
+  strucFiles = FILE_SEARCH(STRTRIM(modelname + '/'), '*Struc*')
   ;Pull the model name from the dir str for naming the .sav
+  modeldir = STRTRIM(modelname + '/', 2)
   modelname = STRMID(modelname, 52)
   ;Cheeky goto is a nice lazy way to skip the next bit
   ;without needing an else statment (Take that python!)
@@ -28,7 +34,7 @@ savfiledir = '/cphys/ugrad/2015-16/JF/AHACKETT/IDLWorkspace/Default/IDL_saves/ne
 IF FILE_TEST(savfiledir, /DIRECTORY) EQ 0 THEN BEGIN
   FILE_MKDIR, savfiledir
 ENDIF
-savfile = STRTRIM(savfildir + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
+savfile = STRTRIM(savfiledir + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
 
 ;If the .sav file already exists, just skip it
 IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
@@ -95,7 +101,8 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
   PRINT, 'READING STRUC FILES IN' + modeldir
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-  FOREACH elem, strucFiles, index DO BEGIN
+  strucFilesCut = strucFiles[ROUND(cgScaleVector(LINDGEN(ROUND(sampling)),0,N_ELEMENTS(strucFiles) - 1))]
+  FOREACH elem, strucFilesCut, index DO BEGIN
     AH_EVOL_READ_STRUCT_FILE_FROM_GENEVA_ORIGIN2010_V2, elem,data_struct_file,header_structfile,modnb,age,mtot,nbshell,deltat,ncolumns,logteff,compress=compress
     
     ;Read vars from struct file
@@ -138,15 +145,17 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
     X_He4Data = X_He4Data + ORDEREDHASH(age, X_He4)
     muData = muData + ORDEREDHASH(age, mu)
     epsilonData = epsilonData + ORDEREDHASH(age, epsilon)
-    logpradData = logpradData + ORDEREDHASH(age)
-    logpgasData = logpgasData + ORDEREDHASH(age)
-    prad_over_ptotData = prad_over_ptotData + ORDEREDHASH(age)
-    pgas_over_ptotData = pgas_over_ptotData + ORDEREDHASH(age)
-    logpturbData = logpturbData + ORDEREDHASH(age)
-    leddData = leddData + ORDEREDHASH(age)
-    gammafull_radData = gammafull_radData + ORDEREDHASH(age)
-    gammafull_totData = gammafull_totData + ORDEREDHASH(age)
-    nablaradData = nablaradData + ORDEREDHASH(age)
+    logpradData = logpradData + ORDEREDHASH(age, logprad)
+    logpgasData = logpgasData + ORDEREDHASH(age, logpgas)
+    prad_over_ptotData = prad_over_ptotData + ORDEREDHASH(age, prad_over_ptot)
+    pgas_over_ptotData = pgas_over_ptotData + ORDEREDHASH(age, pgas_over_ptot)
+    logpturbData = logpturbData + ORDEREDHASH(age, logpturb)
+    leddData = leddData + ORDEREDHASH(age, ledd)
+    gammafull_radData = gammafull_radData + ORDEREDHASH(age, gammafull_rad)
+    gammafull_totData = gammafull_totData + ORDEREDHASH(age, gammafull_tot)
+    nablaradData = nablaradData + ORDEREDHASH(age, nablarad)
+    loopgood = STRTRIM('StrucData File ' + STRING(elem)  + ' Sucessfully Read', 2)
+    PRINT, loopgood
     ;#######################################################
   ENDFOREACH
   
