@@ -72,9 +72,9 @@ FOREACH masslist, MintData, time DO BEGIN
     
     energy_gen = epsilonData[time]
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = ALOG10(collapseAge - time)), [czs], /OVERPLOT, /SYM_FILLED, $
-      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE)
+      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, XRANGE = [9,0])
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(energy_gen GT 1d5)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(energy_gen GT 1d5)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
-      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red', MAGNITUDE = energy_gen, RGB_TABLE = 3)
+      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red', MAGNITUDE = energy_gen, RGB_TABLE = 3, xrange = [9,0])
       oldtime = time
   ENDIF
 ENDFOREACH

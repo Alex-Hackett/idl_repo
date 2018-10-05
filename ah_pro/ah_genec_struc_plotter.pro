@@ -6,17 +6,25 @@ PRO ah_genec_struc_plotter_event, event
   COMPILE_OPT hidden
 
   ; Test for button event to end application and running the plotting script
-
     widget_control,event.TOP,get_uvalue=BUTTON_UVALUE
-    themodel = event.value
-    ah_kippenhahn_plotter, themodel, 0.08, /TOSAVE
+    IF event.value EQ 'Click to Save' THEN BEGIN
+      to_save_var = 1
+    ENDIF ELSE BEGIN
+      themodel = event.value
+      IF ISA(to_save_var) EQ 1 THEN BEGIN
+        ah_kippenhahn_plotter, themodel, 0.08, /TOSAVE
+      ENDIF ELSE BEGIN
+        ah_kippenhahn_plotter, themodel, 0.08, /TOSAVE
+      ENDELSE
+      
+    ENDELSE
+
 
 
 END
 
 ; Create GUI
 PRO ah_genec_struc_plotter
-
   ;Find the model dirs
   modelsdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_models/'
   ;Check if they exist
@@ -38,7 +46,7 @@ PRO ah_genec_struc_plotter
   topLevelBase = WIDGET_BASE(/COLUMN)
   wText = WIDGET_TEXT(topLevelBase, VALUE="GENEC Plotter", $
     /ALL_EVENTS)
-  modelSelectButtons = CW_BGROUP(topLevelBase, goodModels, BUTTON_UVALUE=goodModels, /COLUMN, $
+  modelSelectButtons = CW_BGROUP(topLevelBase, [goodModels,'Click to Save'], BUTTON_UVALUE=[goodModels,'Click to Save'], /COLUMN, $
   LABEL_TOP='Select a Model')
   ; Display the GUI.
   WIDGET_CONTROL, topLevelBase, /REALIZE
