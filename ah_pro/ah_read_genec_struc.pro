@@ -4,11 +4,24 @@
 ; data file data from a GENEC output into an
 ; ordered hash structure that is keyed by the age of the model, in years, and 
 ; the hash values are ordered hashes that contain the data
+; The proc also finds and reads in the relevant .wg file in order to plot quantities such as
+; the eddington parameter, effective temperature with time and abundances, for example
+; 
+; Struc vars are named with the key from the strucData file, wg vars are named with the standard
+; GENEC .wg convections, with wg_ in front of the var to prevent namespace conflicts
 ;-
-PRO ah_read_genec_struc, modelname, MDDIR = mddir, sampling
-
+PRO ah_read_genec_struc, modelname, MDDIR = mddir, sampling, OVERWRITE=overwrite
+IF 1 eq 1 THEN BEGIN
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!WARNING, WILL OVERWRITE EXISTING .SAV FILES!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
+ENDIF
 IF N_ELEMENTS(sampling) EQ 0 THEN BEGIN
-  sampling = 1000.
+  sampling = 2000.
   mg = STRTRIM('Defaulting to Sampling ' + STRING(sampling) + ' Files')
   PRINT, mg
 ENDIF
@@ -16,6 +29,7 @@ IF KEYWORD_SET(mddir) THEN BEGIN
   ;We got passed the whole dir, so
   ;Make the right strucfiles
   strucFiles = FILE_SEARCH(STRTRIM(modelname + '/'), '*Struc*')
+  wgFile = FILE_SEARCH(STRTRIM(modelname + '/'), '*.wg')
   ;Pull the model name from the dir str for naming the .sav
   modeldir = STRTRIM(modelname + '/', 2)
   modelname = STRMID(modelname, 52)
@@ -27,34 +41,36 @@ ENDIF
 modelname = STRING(modelname)
 modeldir = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/geneva_models/' + STRING(modelname) + '/', 2)
 strucFiles = FILE_SEARCH(modeldir, '*Struc*')
+wgFile = FILE_SEARCH(modeldir, '*.wg')
 
 nodirmake:
 
-savfiledir = '/cphys/ugrad/2015-16/JF/AHACKETT/IDLWorkspace/Default/IDL_saves/new_saves/'
+savfiledir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/IDL_genec_struc_saves/'
 IF FILE_TEST(savfiledir, /DIRECTORY) EQ 0 THEN BEGIN
   FILE_MKDIR, savfiledir
 ENDIF
 savfile = STRTRIM(savfiledir + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
 
 ;If the .sav file already exists, just skip it
-IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
-  savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Skipping==============', 2)
-  PRINT, '======================================================================================='
-  PRINT, '======================================================================================='
-  PRINT, '======================================================================================='
-  PRINT, savemesg
-  PRINT, '======================================================================================='
-  PRINT, '======================================================================================='
-  PRINT, '======================================================================================='
+IF (1 eq 1) EQ 0 THEN BEGIN
+  IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
+    savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Skipping==============', 2)
+    PRINT, '======================================================================================='
+    PRINT, '======================================================================================='
+    PRINT, '======================================================================================='
+    PRINT, savemesg
+    PRINT, '======================================================================================='
+    PRINT, '======================================================================================='
+    PRINT, '======================================================================================='
+  ENDIF
 ENDIF
-
 
 IF FILE_TEST(savfile) EQ 0 THEN BEGIN
 
   ;If the dir doesn't actually contain any struc files, it was probably
   ;a typo, so just warn and bail out
   
-  IF FILE_TEST(STRTRIM(modeldir+'*Struc*',2)) EQ 0 THEN BEGIN
+  IF (FILE_TEST(STRTRIM(modeldir+'*Struc*',2)) OR FILE_TEST(STRTRIM(modeldir+'*.wg',2)))  EQ 0 THEN BEGIN
     baddir = STRTRIM('==========='+modeldir + ' is a bad Dir' + '==============')
     PRINT, '========================================================================================================='
     PRINT, '========================================================================================================='
@@ -94,8 +110,54 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
   gammafull_totData = ORDEREDHASH()
   nablaradData = ORDEREDHASH()
   
-  ;###################################################
+  ;#################################################################
   
+  
+  ;#################################################################
+  ;Read in the wg data
+  IF N_ELEMENTS(wgFile) GT 1 THEN BEGIN
+    multimesg = STRTRIM('Multiple .wg Files Found, Using the First One')
+    PRINT, multimesg
+    wgFile = wgFile[0]
+  ENDIF
+  wgfilefoundmesg = STRTRIM('Reading in .wg file: ' + wgFile, 2)
+  PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  PRINT, wgfilefoundmesg
+  PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  ;Read the wg file
+  AH_READ_WG_FILE_FOR_HASHED_STRUCT,wgfile,data_wgfile,data_wgfile_cut,reload=reload,binary=binary
+  ;read the wg vars
+  ZE_EVOL_COMPUTE_QUANTITIES_FROM_WGFILE,data_wgfile_cut,wg_rstar,wg_logg,wg_vesc,wg_vinf,wg_eta_star,wg_Bmin,wg_Jdot,wg_logg_rphot,wg_rphot,wg_beq,wg_beta,wg_ekin
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'nm',data_wgfile_cut,wg_nm,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u1',data_wgfile_cut,wg_u1,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u2',data_wgfile_cut,wg_u2,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'xtt',data_wgfile_cut,wg_xtt,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'xl',data_wgfile_cut,wg_xl,index_varnamey_wgfile,return_valy
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u5',data_wgfile_cut,wg_u5,return_valz    ;X surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u7',data_wgfile_cut,wg_u7,return_valz    ;Y surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u8',data_wgfile_cut,wg_u8,return_valz    ;C surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u10',data_wgfile_cut,wg_u10,return_valz  ; N surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u12',data_wgfile_cut,wg_u12,return_valz   ; O surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u6',data_wgfile_cut,wg_u6,return_valz   ; Ne surface
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'rhoc',data_wgfile_cut,wg_rhoc,return_valz   ;
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'tc',data_wgfile_cut,wg_tc,return_valz   ;
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u15',data_wgfile_cut,wg_u15,return_valz    ;X center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u17',data_wgfile_cut,wg_u17,return_valz    ;Y center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u18',data_wgfile_cut,wg_u18,return_valz    ;C center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u20',data_wgfile_cut,wg_u20,return_valz    ;N center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u22',data_wgfile_cut,wg_u22,return_valz    ;O center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'u16',data_wgfile_cut,wg_u16,return_valz    ;Ne20 center
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'qmnc',data_wgfile_cut,wg_qmnc,return_valz    ;mass convective core
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'vequa',data_wgfile_cut,wg_vequa,return_valz    ;equatorial velocity
+
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'xmdot',data_wgfile_cut,wg_xmdot,return_valz
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'xte',data_wgfile_cut,wg_xte,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'eddesm',data_wgfile_cut,wg_eddesm,index_varnamex_wgfile,return_valx
+  ZE_EVOL_OBTAIN_VARIABLE_FROM_WGFILE_CUT,'rapom2',data_wgfile_cut,wg_rapom2,index_varnamex_wgfile,return_valx
+  
+  ;##############################################################################################
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   PRINT, 'READING STRUC FILES IN' + modeldir
@@ -154,8 +216,8 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
     gammafull_radData = gammafull_radData + ORDEREDHASH(age, gammafull_rad)
     gammafull_totData = gammafull_totData + ORDEREDHASH(age, gammafull_tot)
     nablaradData = nablaradData + ORDEREDHASH(age, nablarad)
-    loopgood = STRTRIM('StrucData File ' + STRING(elem)  + ' Sucessfully Read', 2)
-    PRINT, loopgood
+    ;loopgood = STRTRIM('StrucData File ' + STRING(elem)  + ' Sucessfully Read', 2)
+    ;PRINT, loopgood
     ;#######################################################
   ENDFOREACH
   
