@@ -12,9 +12,9 @@ PRO ah_genec_struc_plotter_event, event
     ENDIF ELSE BEGIN
       themodel = event.value
       IF ISA(to_save_var) EQ 1 THEN BEGIN
-        ah_kippenhahn_plotter, themodel, 0.08, /TOSAVE
+        ah_kippenhahn_plotter, themodel, 0.08
       ENDIF ELSE BEGIN
-        ah_kippenhahn_plotter, themodel, 0.08, /TOSAVE
+        ah_kippenhahn_plotter, themodel, 0.08
       ENDELSE
       
     ENDELSE
@@ -37,7 +37,7 @@ PRO ah_genec_struc_plotter
   goodModels = []
   FOREACH modeldir, all_models DO BEGIN
     ;Filter out just the ones that contain stuct and .wg files
-    IF (FILE_TEST(STRTRIM(modeldir+'/'+'*Struc*',2)) AND FILE_TEST(STRTRIM(modeldir+'/'+'*.wg',2))) THEN BEGIN
+    IF (FILE_TEST(STRTRIM(modeldir+'/'+'*Struc*',2)) AND FILE_TEST(STRTRIM(modeldir+'/'+'*.wg*',2))) THEN BEGIN
       goodModels = [goodModels, STRMID(modeldir, 52)] 
     ENDIF
   ENDFOREACH
@@ -46,7 +46,7 @@ PRO ah_genec_struc_plotter
   topLevelBase = WIDGET_BASE(/COLUMN)
   wText = WIDGET_TEXT(topLevelBase, VALUE="GENEC Plotter", $
     /ALL_EVENTS)
-  modelSelectButtons = CW_BGROUP(topLevelBase, [goodModels,'Click to Save'], BUTTON_UVALUE=[goodModels,'Click to Save'], /COLUMN, $
+  modelSelectButtons = CW_BGROUP(topLevelBase, goodModels, BUTTON_UVALUE=goodModels, /COLUMN, $
   LABEL_TOP='Select a Model')
   ; Display the GUI.
   WIDGET_CONTROL, topLevelBase, /REALIZE

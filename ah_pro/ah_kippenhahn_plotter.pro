@@ -12,7 +12,7 @@
 
 PRO ah_kippenhahn_plotter, themodel, timeskip, savefiledir=savefiledir, TOSAVE = tosave
 IF N_ELEMENTS(timeskip) EQ 0 THEN BEGIN
-  timeskip = 1d4
+  timeskip = 0.01
   timeskipstr = STRTRIM('No Timeskip Supplied, Defaulting to ' + STRING(timeskip) + ' yrs', 2)
 ENDIF
 themodel = STRING(themodel)
@@ -67,22 +67,40 @@ FOREACH masslist, MintData, time DO BEGIN
   
   ;Check if the timesteps is as big as desired
   IF (ALOG10(collapseAge - time) LE 1d10) AND (ABS(ALOG10(collapseAge - time) - ALOG10(collapseAge - oldtime)) GT timeskip) THEN BEGIN
+    ;Are we done here?
+    IF ALOG10(collapseAge - time) LE 0 THEN GOTO, donePlot
     ;Work out the actual convective zones
     czs = masslist[WHERE((nablaradData[time] - nabla_adData[time]) GT 0)] / 2d33
     
-    energy_gen = epsilonData[time]
+    ;energy_gen = epsilonData[time]
+    cvs = cvData[time]
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = ALOG10(collapseAge - time)), [czs], /OVERPLOT, /SYM_FILLED, $
-      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, XRANGE = [9,0])
-    p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(energy_gen GT 1d5)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(energy_gen GT 1d5)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
-      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red', MAGNITUDE = energy_gen, RGB_TABLE = 3, xrange = [9,0])
+      XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
+       NAME = 'Unstable Against Convection', LAYOUT = [1,2,1], SYMBOL = 'o', SYM_SIZE = 0.4)
+     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(cvs EQ cvs)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(cvs EQ cvs)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
+         XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red',$
+          MAGNITUDE = cvs, RGB_TABLE = 3, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,2,1], SYMBOL = 'o', SYM_SIZE = 0.4)
+    ;p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(energy_gen GT 1d5)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(energy_gen GT 1d5)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
+    ;  XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red',$
+    ;   MAGNITUDE = energy_gen, RGB_TABLE = 3, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,2,1], SYMBOL = 'o', SYM_SIZE = 0.4)
       oldtime = time
   ENDIF
 ENDFOREACH
+donePlot:
+;c = COLORBAR(TARGET = p[-1], TITLE = 'Log Intensity of Nuclear Energy Generation (erg/g/s)')
+c = COLORBAR(TARGET = p[-1], TITLE = 'Log $C_{v}$ (erg/K)')
+p2 = PLOT(ALOG10(collapseAge - wg_u1), wg_eddesm, COLOR = 'black', /CURRENT, LAYOUT = [1,2,2], TITLE = 'Eddington Parameter as a Function of Age', $
+  XTITLE = 'Log Time to Collapse', YTITLE = 'Eddington Parameter', XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0])
 
-c = COLORBAR(TARGET = p[-1], TITLE = 'Log Intensity of Nuclear Energy Generation (erg/g/s)')
 
 IF KEYWORD_SET(tosave) THEN BEGIN
-plotname = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/Kippenhahn_Plots/newframeworkplots/'+STRING(modelname) + 'Kip_Eng_Gen_Plot.pdf')
+  imagedir = '/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/Kip_Plus_Edd/'
+plotname = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/Kip_Plus_Edd/'+STRING(modelname) + 'Kip_Eng_Gen_Edd_Plot.pdf')
+IF FILE_TEST(imagedir, /DIRECTORY) EQ 0 THEN BEGIN
+  FILE_MKDIR, imagedir
+  imagedirmes = STRTRIM('New Plot Dir ' + imagedir + 'Created', 2)
+  PRINT, imagedirmes
+ENDIF
 sucess_mesg = STRTRIM('GRAPHIC GENNED!' + ' Saving as: ' + plotname,2)
 PRINT, sucess_mesg
 p[-1].Save, plotname, /BITMAP

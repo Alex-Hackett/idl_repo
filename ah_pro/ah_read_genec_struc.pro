@@ -11,15 +11,7 @@
 ; GENEC .wg convections, with wg_ in front of the var to prevent namespace conflicts
 ;-
 PRO ah_read_genec_struc, modelname, MDDIR = mddir, sampling, OVERWRITE=overwrite
-IF 1 eq 1 THEN BEGIN
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!WARNING, WILL OVERWRITE EXISTING .SAV FILES!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-  PRINT, '----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------'
-ENDIF
+
 IF N_ELEMENTS(sampling) EQ 0 THEN BEGIN
   sampling = 2000.
   mg = STRTRIM('Defaulting to Sampling ' + STRING(sampling) + ' Files')
