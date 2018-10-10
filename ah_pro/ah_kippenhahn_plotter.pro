@@ -77,7 +77,7 @@ FOREACH masslist, MintData, time DO BEGIN
     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = ALOG10(collapseAge - time)), [czs], /OVERPLOT, /SYM_FILLED, $
       XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
        NAME = 'Unstable Against Convection', LAYOUT = [1,2,1], SYMBOL = 'o', SYM_SIZE = 0.4)
-     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(cvs EQ cvs)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(cvs EQ cvs)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
+     p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /OVERPLOT, /SYM_FILLED, $
          XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = KTITLE, SYM_COLOR='red',$
           MAGNITUDE = cvs, RGB_TABLE = 3, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,2,1], SYMBOL = 'o', SYM_SIZE = 0.4)
     ;p.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist[WHERE(energy_gen GT 1d5)]), VALUE = ALOG10(collapseAge - time)), [masslist[WHERE(energy_gen GT 1d5)]] / 2d33, /OVERPLOT, /SYM_FILLED, $
