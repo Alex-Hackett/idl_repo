@@ -7,7 +7,7 @@ PRO ZE_EVOL_READ_WG_FILE_FROM_GENEVA_ORIGIN2010_V2,wgfile,data_wgfile,data_wgfil
 ;saves as .sav binary file to save readout time
 ;option to rewrite it in case a .sav is found (e.g. if model is still running and you wish to update)
 ;v3 implements BINARY keyword, where one can read files from the binary version of the code and choose between PRIMARY and SECONDARY
-tempdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_models/P015_d010_d030_d050_compare'
+tempdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/newtemp/'
 modelsufix=STRMID(wgfile,strpos(wgfile,'/',/REVERSE_SEARCH) +1 , strpos(wgfile,'.wg',/REVERSE_SEARCH) - strpos(wgfile,'/',/REVERSE_SEARCH) -1 )
 savedfile=tempdir+'/'+modelsufix+'.sav'
 

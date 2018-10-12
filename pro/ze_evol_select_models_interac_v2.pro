@@ -102,7 +102,7 @@ pro ze_evol_select_models_interac_v2_event,event
     end
     'xtime_spent': begin
       ;WORK HERE
-      xarray=alog10(u160[n_elements(u160)-1]-u160)
+      xarray=alog10(u160[n_elements(u1_60)-1]-u160)
       IF N_elements(xnodes) gt 0 THEN xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
       info.xreverse = 0
       info.xtitle=TEXTOIDL('Age (yr)')
@@ -138,7 +138,7 @@ pro ze_evol_select_models_interac_v2_event,event
     end
     'xnsurf': begin
       xarray=u1060
-      IF N_elements(xnodes) gt 0 THEN xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
+      IF N_elements(xnodes) gt 0 THEN _xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
       info.xreverse = 0
       info.xtitle=TEXTOIDL('N_{surface}')
       ze_line_plot_unzoom,info,xarray,yarray
@@ -180,7 +180,7 @@ pro ze_evol_select_models_interac_v2_event,event
     end
     'xlogg*': begin
       xarray=logg60
-      IF N_elements(xnodes) gt 0 THEN xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
+      IF N_elements(xnodes) gt 0 THEN x_nodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
       info.xreverse = 0
       info.xtitle=TEXTOIDL('log g_* (cm^2/s)')
       ze_line_plot_unzoom,info,xarray,yarray
@@ -217,7 +217,7 @@ pro ze_evol_select_models_interac_v2_event,event
       xarray=tc60
       IF N_elements(xnodes) gt 0 THEN xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
       info.xreverse = 0
-      info.xtitle=TEXTOIDL('Log T_{center} (K)')
+      info.xtitle=TEXTOIDL('Log T_{cente_r} (K)')
       ze_line_plot_unzoom,info,xarray,yarray
     end
     'xhydcen': begin
@@ -256,7 +256,7 @@ pro ze_evol_select_models_interac_v2_event,event
       ze_line_plot_unzoom,info,xarray,yarray
     end
     'xqmnc': begin
-      xarray=qmnc60
+      xarray=qmnc60_
       IF N_elements(ynodes) gt 0 THEN xnodes=xarray[nodes_timestep] & IF N_elements(xfin_nodes) gt 0 THEN xfin_nodes=xarray[fin_nodes_timestep] & IF N_elements(xrun_nodes) gt 0 THEN xrun_nodes=xarray[run_nodes_timestep]
       info.xreverse = 0
       info.xtitle=TEXTOIDL('Mass fraction of convective core')
@@ -377,7 +377,7 @@ pro ze_evol_select_models_interac_v2_event,event
       yarray=rstar60
       IF N_elements(ynodes) gt 0 THEN ynodes=yarray[nodes_timestep] & IF N_elements(yfin_nodes) gt 0 THEN yfin_nodes=yarray[fin_nodes_timestep] & IF N_elements(yrun_nodes) gt 0 THEN yrun_nodes=yarray[run_nodes_timestep]
       info.ytitle=TEXTOIDL('R_* (Rsun)')
-      ze_line_plot_unzoom,info,xarray,yarray
+      ze_line_plot_unzoom,info,xarray,ya_rray
     end
     'yvrotvcrit': begin
       yarray=rapom260
@@ -487,7 +487,7 @@ pro ze_evol_select_models_interac_v2_event,event
             ZE_EVOL_WRITE_INPUT_TO_CMFGEN_VADAT_FORMAT,j,u160[j],u260[j],xte60[j],xtt60[j],xl60[j],rstar60[j],logg60[j],xmdot60[j],vinf60[j],beta60[i],$
               u560[j],u760[j],u860[j],u1060[j],u1260[j],u660[j],evol_vadat_file,modelstr,popscl=1;,zscale=1,zonzsun=0.428571 ;LMC ; zonzsun=0.142857 ;SMC
           endfor
-
+_
           ; spawn,'scp /Users/jgroh/temp/EVOL_VADAT_grid_'+modelstr+'* jgrohdec@obslogin2.unige.ch:/home/evol/jgrohdec/cmfgen_models/grid_'+modelstr+'/all_VADAT',/sh,result
         end
         'Write.DIRNAMES': begin

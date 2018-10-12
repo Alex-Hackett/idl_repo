@@ -5,7 +5,7 @@ PRO ZE_CMFGEN_COMPUTE_NUMBER_H_IONIZING_PHOTONS,obs,nphot_hyd,nphot_hei,nphot_he
 ;cross checked with CMFGEN against model '/Users/jgroh/ze_models/etacar_john/eta_companion_r5/obs/obs_fin'
 ;input is name of obs file with full path
 
-!P.Background = fsc_color('white')
+;!P.Background = fsc_color('white')
 C=299792000.
 
 IF KEYWORD_SET(skip_obsread) THEN print,'Skip reading obs file and using input from EDDFACTOR output' ELSE BEGIN
