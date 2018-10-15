@@ -52,7 +52,7 @@ PRO ZE_EVOL_PLOT_XY_GENERAL_EPS_V2,x,y,xtitle,ytitle,label,$
   close,/all
   !P.MULTI=0
 
-  if n_elements(tempdir) EQ 0 THEN tempdir='/Users/jgroh/temp' eLSE tempdir=tempdir
+  if n_elements(tempdir) EQ 0 THEN tempdir='/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/newtemp/' eLSE tempdir=tempdir
 
   if n_elements(xthick) eq 0 then xthick=12
   if n_elements(ythick) eq 0 then ythick=12

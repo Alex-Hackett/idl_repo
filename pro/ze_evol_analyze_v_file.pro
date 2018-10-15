@@ -1,9 +1,9 @@
 ;PRO ZE_EVOL_ANALYZE_V_FILE
 ;general routine for loading, plotting and analyzing a .v file from the Geneva Stellar Evolution Code Origin2010 
 
-modeldir='/Users/jgroh/evol_models/Z0004/P020zm4S4'
-model_name='P020zm4S4'
-timestep=12511
+modeldir='/home/AHACKETT_Project/_PopIIIProject/geneva_models/P015z000S0d040/'
+model_name='P015z000S0d040'
+timestep=0021801
 
 ;modeldir='/Users/jgroh/evol_models/Z014/P010z14S4nomagbreaking'
 ;model_name='P010z14S4'

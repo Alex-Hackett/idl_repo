@@ -59,17 +59,24 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
   P3 = LIST()
   P4 = LIST()
   P5 = LIST()
+  P0.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'HRD')
+  P1.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'Central Conditions')
+  P2.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'CoreMass with X Frac')
+  P3.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'CoreMass with Time')
+  P4.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'Eddington Parameter with X Frac')
+  P5.ADD, WINDOW(BUFFER = buffervar, DIMENSIONS=GET_SCREEN_SIZE(), NAME = 'Log g with Time')
+  
   bgcol = 'white'
-  P0.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
-  P1.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
-  P2.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
-  P3.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
-  P4.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
-  P5.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
- 
+;  P0.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+;  P1.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+;  P2.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+;  P3.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+;  P4.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+;  P5.ADD, PLOT([0,0], [0,0], BUFFER = buffervar, BACKGROUND_COLOR=cgColor(bgcol))
+; 
   FOREACH _savFileName_, _savFileList_, _index_ DO BEGIN
     cols = ORDEREDHASH(!COLOR)
-    colgen = ROUND(RANDOMU(SYSTIME(/UTC, /SECONDS)) * 150)
+    colgen = ROUND(RANDOMU(SYSTIME(/UTC, /SECONDS)) * 145)
     colorFactor = (cols.Keys())[colgen]
 
     modelname = STRMID(_savFileName_, STRPOS(_savFileName_, '_', /REVERSE_SEARCH) + 1, 14)
@@ -131,46 +138,46 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
     HRDName = STRTRIM(STRING(modelname), 2)
     P0.ADD, PLOT(TeffArray, LogLsunArray, XRANGE = [MAX(TeffArray), MIN(TeffArray)], $
       XTITLE = 'Log $T_{eff}$', YTITLE = 'Log L / $L_{\odot}$', TITLE = HRDTITLE, $
-      OVERPLOT = P0[-1], NAME = HRDName, COLOR = colorFactor, BUFFER = buffervar)
+      OVERPLOT = P0[-1], NAME = HRDName, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5)
 
     ;Plot1, Central Conditions
     CPLOTTITLE = STRTRIM('Plot of Central Conditions', 2)
     CPLOTNAME = STRTRIM(STRING(modelname), 2)
       P1.ADD, PLOT(RhoccArray, TcArray, XTITLE = 'Log $\rho _{c}$ ($g/cm^{3}$)', $
-      YTITLE = 'Log $T_{c}$ ($K$)', TITLE = CPLOTTITLE, OVERPLOT = P1[-1], NAME = CPLOTNAME, COLOR = colorFactor, BUFFER = buffervar)
+      YTITLE = 'Log $T_{c}$ ($K$)', TITLE = CPLOTTITLE, OVERPLOT = P1[-1], NAME = CPLOTNAME, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5)
 
       ;Plot2, Coremass with X frac
       COREXTITLE = STRTRIM('Plot of Convective Core Mass Fraction with Central X Abundance', 2)
     COREXNAME = STRTRIM(STRING(modelname), 2)
     P2.ADD, PLOT(CentralXArray, ConvCoreMassFracArray, XTITLE = 'X Central Mass Fraction', $
       YTITLE = 'Convective Core Mass Fraction', TITLE = COREXTITLE, OVERPLOT = P2[-1], $
-      NAME = COREXNAME, COLOR = colorFactor, BUFFER = buffervar)
+      NAME = COREXNAME, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5, XRANGE = [MAX(CentralXArray), MIN(CentralXArray)])
 
     ;Plot3, Coremass with Time
     CORETTITLE = STRTRIM('Plot of Convective Core Mass Fraction with Age', 2)
     CORETNAME = STRTRIM(STRING(modelname), 2)
     P3.ADD, PLOT(AgeArray, ConvCoreMassFracArray, XTITLE = 'Age (yrs)', $
       YTITLE = 'Convective Core Mass Fraction', TITLE = CORETTITLE, OVERPLOT = P3[-1], $
-      NAME = CORETNAME, COLOR = colorFactor, BUFFER = buffervar)
+      NAME = CORETNAME, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5)
 
     ;Plot4, EddPar with X frac
     EDDXTITLE = STRTRIM('Plot of Eddington Parameter at Surface with Central X Abundance', 2)
     EDDXNAME = STRTRIM(STRING(modelname), 2)
     P4.ADD, PLOT(CentralXArray, EddParArray, XTITLE = 'X Central Mass Fraction', $
       YTITLE = 'Surface Eddington Parameter', TITLE = EDDXTITLE, OVERPLOT = P4[-1], $
-      NAME = EDDXNAME, COLOR = colorFactor, BUFFER = buffervar)
+      NAME = EDDXNAME, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5, XRANGE = [MAX(CentralXArray), MIN(CentralXArray)])
     ;Plot5, Logg with Time
     LOGGTITLE = STRTRIM('Plot of Log g with Age', 2)
     LOGGNAME = STRTRIM(STRING(modelname), 2)
     P5.ADD, PLOT(AgeArray, LoggArray, XTITLE = 'Age (yrs)', $
-      YTITLE = 'Log g ($cm/s^{2}$)', TITLE = LOGGTITLE, OVERPLOT = P5[-1], NAME = LOGGNAME, COLOR = colorFactor, BUFFER = buffervar)
+      YTITLE = 'Log g ($cm/s^{2}$)', TITLE = LOGGTITLE, OVERPLOT = P5[-1], NAME = LOGGNAME, COLOR = colorFactor, BUFFER = buffervar, THICK = 1.5)
 
     ;Plotting Completed
   ENDFOREACH
 
   ;Construct Legends
   screenDims = GET_SCREEN_SIZE()
-  screenDims = [630,500]
+  screenDims = [screenDims[0],ScreenDims[1] - 75]
   leg0 = LEGEND(TARGET = P0[1:*], SHADOW = 0, POSITION=screenDims, /DEVICE, /AUTO_TEXT_COLOR)
   leg1 = LEGEND(TARGET = P1[1:*], SHADOW = 0, POSITION=screenDims, /DEVICE, /AUTO_TEXT_COLOR)
   leg2 = LEGEND(TARGET = P2[1:*], SHADOW = 0, POSITION=screenDims, /DEVICE, /AUTO_TEXT_COLOR)
@@ -179,7 +186,7 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
   leg5 = LEGEND(TARGET = P5[1:*], SHADOW = 0, POSITION=screenDims, /DEVICE, /AUTO_TEXT_COLOR)
 
   IF KEYWORD_SET(tosave) THEN BEGIN
-    saveImageDir = '/home/AHACKETT_Project/_PopIIIProject/IDL_GENERAL_COMPARISON_PLOTS/'
+    saveImageDir = '/home/AHACKETT_Project/_PopIIIProject/IDL_GENERAL_COMPARISON_PLOTS_NEW/'
     IF FILE_TEST(saveImageDir, /DIRECTORY) EQ 0 THEN BEGIN
       FILE_MKDIR, saveImageDir
       dircreatemes = STRTRIM('Image Dir ' + STRING(saveImageDir) + ' Created', 2)
@@ -187,6 +194,7 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
     ENDIF
 
     ;Generate Filenames
+    PGENFILENAME = STRTRIM(saveImageDir + 'Comparison_Plots.pdf', 2)
     P0fileName = STRTRIM(saveImageDir + 'Comparison' + '_HRD.pdf', 2)
     P1fileName = STRTRIM(saveImageDir + 'Comparison' + '_Central_conds.pdf', 2)
     P2fileName = STRTRIM(saveImageDir + 'Comparison' + '_coremass_x_frac.pdf', 2)
@@ -205,23 +213,42 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
 
     PRINT, 'SAVING IMAGES'
 
-    P0S.SAVE, P0fileName, /BITMAP
-    p0smes = STRTRIM('IMAGE SAVED AS ' + STRING(P0fileName), 2)
+;    P0S.SAVE, P0fileName, /BITMAP
+;    p0smes = STRTRIM('IMAGE SAVED AS ' + STRING(P0fileName), 2)
+;    PRINT, p0smes
+;    P1S.SAVE, P1fileName, /BITMAP
+;    p1smes = STRTRIM('IMAGE SAVED AS ' + STRING(P1fileName), 2)
+;    PRINT, p1smes
+;    P2S.SAVE, P2fileName, /BITMAP
+;    p2smes = STRTRIM('IMAGE SAVED AS ' + STRING(P2fileName), 2)
+;    PRINT, p2smes
+;    P3S.SAVE, P3fileName, /BITMAP
+;    p3smes = STRTRIM('IMAGE SAVED AS ' + STRING(P3fileName), 2)
+;    PRINT, p3smes
+;    P4S.SAVE, P4fileName, /BITMAP
+;    p4smes = STRTRIM('IMAGE SAVED AS ' + STRING(P4fileName), 2)
+;    PRINT, p4smes
+;    P5S.SAVE, P5fileName, /BITMAP
+;    p5smes = STRTRIM('IMAGE SAVED AS ' + STRING(P5fileName), 2)
+;    PRINT, p5smes
+
+    P0S.SAVE, PGENFILENAME, /BITMAP, /APPEND
+    p0smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p0smes
-    P1S.SAVE, P1fileName, /BITMAP
-    p1smes = STRTRIM('IMAGE SAVED AS ' + STRING(P1fileName), 2)
+    P1S.SAVE, PGENFILENAME, /BITMAP, /APPEND
+    p1smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p1smes
-    P2S.SAVE, P2fileName, /BITMAP
-    p2smes = STRTRIM('IMAGE SAVED AS ' + STRING(P2fileName), 2)
+    P2S.SAVE, PGENFILENAME, /BITMAP, /APPEND
+    p2smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p2smes
-    P3S.SAVE, P3fileName, /BITMAP
-    p3smes = STRTRIM('IMAGE SAVED AS ' + STRING(P3fileName), 2)
+    P3S.SAVE, PGENFILENAME, /BITMAP, /APPEND
+    p3smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p3smes
-    P4S.SAVE, P4fileName, /BITMAP
-    p4smes = STRTRIM('IMAGE SAVED AS ' + STRING(P4fileName), 2)
+    P4S.SAVE, PGENFILENAME, /BITMAP, /APPEND
+    p4smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p4smes
-    P5S.SAVE, P5fileName, /BITMAP
-    p5smes = STRTRIM('IMAGE SAVED AS ' + STRING(P5fileName), 2)
+    P5S.SAVE, PGENFILENAME, /BITMAP, /APPEND, /CLOSE
+    p5smes = STRTRIM('IMAGE SAVED AS ' + STRING(PGENFILENAME), 2)
     PRINT, p5smes
   
     PRINT, 'ALL IMAGES SAVED'
