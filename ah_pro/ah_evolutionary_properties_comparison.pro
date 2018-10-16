@@ -194,7 +194,7 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
     ENDIF
 
     ;Generate Filenames
-    PGENFILENAME = STRTRIM(saveImageDir + 'Comparison_Plots.pdf', 2)
+    PGENFILENAME = STRTRIM(saveImageDir + 'Comparison_Plots_NEWEST.pdf', 2)
     P0fileName = STRTRIM(saveImageDir + 'Comparison' + '_HRD.pdf', 2)
     P1fileName = STRTRIM(saveImageDir + 'Comparison' + '_Central_conds.pdf', 2)
     P2fileName = STRTRIM(saveImageDir + 'Comparison' + '_coremass_x_frac.pdf', 2)

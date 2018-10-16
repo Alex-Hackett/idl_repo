@@ -24,7 +24,7 @@ IF KEYWORD_SET(mddir) THEN BEGIN
   wgFile = FILE_SEARCH(STRTRIM(modelname + '/'), '*.wg')
   ;Pull the model name from the dir str for naming the .sav
   modeldir = STRTRIM(modelname + '/', 2)
-  modelname = STRMID(modelname, 52)
+  modelname = STRMID(modelname, 13, /REVERSE_OFFSET)
   ;Cheeky goto is a nice lazy way to skip the next bit
   ;without needing an else statment (Take that python!)
   GOTO, nodirmake
@@ -44,7 +44,7 @@ ENDIF
 savfile = STRTRIM(savfiledir + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
 
 ;If the .sav file already exists, just skip it
-IF (1 eq 1) EQ 0 THEN BEGIN
+  PRINT, savfile
   IF FILE_TEST(STRING(savfile)) EQ 1 THEN BEGIN
     savemesg = STRTRIM('==============.sav File ' + savfile + ' Found, Skipping==============', 2)
     PRINT, '======================================================================================='
@@ -55,7 +55,6 @@ IF (1 eq 1) EQ 0 THEN BEGIN
     PRINT, '======================================================================================='
     PRINT, '======================================================================================='
   ENDIF
-ENDIF
 
 IF FILE_TEST(savfile) EQ 0 THEN BEGIN
 
