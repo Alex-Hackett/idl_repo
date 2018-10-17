@@ -8,7 +8,7 @@ PRO ah_track_energy_generation_profiles, model, tracker, AGETRACK=agetrack, $
    ;##FILE I/O STUFF##
    ;##################
    
-   savtobeloaded = ah_load_savs(model, /STRUC, /VFILE)
+   savtobeloaded = ah_load_savs(model, /STRUC, /VFILE, /XDRIVE)
    RESTORE, savtobeloaded[0]
    RESTORE, savtobeloaded[1]
    

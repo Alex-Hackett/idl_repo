@@ -18,12 +18,12 @@
 ; pass a huge list of vars through the proc call, or to have
 ; to set up a common block *shudders*
 ;-
-FUNCTION ah_load_savs, model, STRUC=struc, VFILE=vfile, SAVEFILEDIR=savefiledir
+FUNCTION ah_load_savs, model, STRUC=struc, VFILE=vfile, XDRIVE=xdrive
   
   ;Find the 'overdir', the dir that holds the savefile dirs
-  IF N_ELEMENTS(savefiledir) EQ 0 THEN BEGIN
+  IF KEYWORD_SET(xdrive) EQ 0 THEN BEGIN
     savefileoverdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/'
-  ENDIF ELSE savefileoverdir = savefiledir
+  ENDIF ELSE savefileoverdir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/'
   
   ;Find the individual savefile dirs
   IF KEYWORD_SET(struc) THEN BEGIN

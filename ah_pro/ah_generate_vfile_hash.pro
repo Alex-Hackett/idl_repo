@@ -31,6 +31,7 @@ PRO ah_generate_vfile_hash, modelname, MDDIR = mddir, sampling
   nodirmake:
 
   savfiledir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/IDL_genec_vfile_saves/'
+  savfiledir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/IDL_genec_vfile_saves/'
   IF FILE_TEST(savfiledir, /DIRECTORY) EQ 0 THEN BEGIN
     FILE_MKDIR, savfiledir
   ENDIF
