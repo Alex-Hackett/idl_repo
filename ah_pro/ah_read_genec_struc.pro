@@ -72,7 +72,7 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
   ENDIF
   
   ;###################################################
-  ;Set up the ordered hashes for reading each var into
+  ;Set up the ordered hashes for reading eachah_gen_all_vFiles_sav var into
   ;###################################################
   shellNumData = ORDEREDHASH()
   logrData = ORDEREDHASH()
@@ -113,7 +113,7 @@ IF FILE_TEST(savfile) EQ 0 THEN BEGIN
   ENDIF
   wgfilefoundmesg = STRTRIM('Reading in .wg file: ' + wgFile, 2)
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-  PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  PRINT, '++++++++++++++++++++++++++++++++++++ah_gen_all_vFiles_sav+++++++++++++++++++++++++++++++++++++++++++++++++++++'
   PRINT, wgfilefoundmesg
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'

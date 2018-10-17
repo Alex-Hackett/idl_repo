@@ -7,7 +7,7 @@ PRO ah_compute_ionizing_photons,modelname,i_age,nphot_hyd,nphot_hei,nphot_he2,lu
 
   !P.Background = fsc_color('white')
   C=299792000.
-
+  ;modelname = 'P020z000S0d030'
   ;FILE I/O STUFF
   
   ;Check if the Strucsave file for the model exists
@@ -52,16 +52,17 @@ PRO ah_compute_ionizing_photons,modelname,i_age,nphot_hyd,nphot_hei,nphot_he2,lu
     i_age = wg_u1[FINDEL(0.5,wg_u15)]
     bbagemes = STRTRIM('#######################' + 'Producing a Blackbody Spectrum at the Closest Input Age: ' + STRING(wg_u1[FINDEL(i_age, wg_u1)]) + '#######################', 2)
     PRINT, bbagemes
-    ;Produce a wavelength range from 0 to 10,000 Angstrom
-    wavelengthRange = FINDGEN(10000)
+    ;Produce a wavelength range from 50 to 850000 Angstrom
+    wavelengthRange = FINDGEN(300000)
+    wavelengthRange = cgScaleVector(wavelengthRange, 50, 850000)
     ;Find the bb temp (teff) at the closest timestep
     bbTeff = 10^wg_xte[FINDEL(i_age, wg_u1)]
     bbtempmes = STRTRIM('Effective Temperature:                    ' + STRING(bbTeff) + 'K', 2)
     ;produce the bb with wavelength in A and flux in erg/cm^2/s/A
     producedBB = PLANCK(wavelengthRange, bbTeff)
-    producedBBJy = producedBB ;In Jy
-    fobs = producedBBJy
-  lobs = wavelengthRange 
+    producedBBJy = ALOG10(producedBB) ;In Jy
+    fobs = REVERSE(producedBBJy)
+  lobs = REVERSE(wavelengthRange)
   obs_freq=C/lobs*1D-05
   ;get's freqeuncy in units of 10^15 Hz
   nfreq=n_elements(obs_freq)
@@ -106,5 +107,4 @@ PRO ah_compute_ionizing_photons,modelname,i_age,nphot_hyd,nphot_hei,nphot_he2,lu
 
   print, 'Luminosity shortward of        ',lobs[index_edge_he2],'A is:   ',lum_he2
   print, 'Log(#) of photons shortward of ',lobs[index_edge_he2],'A is:   ',nphot_he2
-
 END

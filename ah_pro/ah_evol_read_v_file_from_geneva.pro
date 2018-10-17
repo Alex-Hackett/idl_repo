@@ -17,7 +17,7 @@ PRO AH_EVOL_READ_V_FILE_FROM_GENEVA,vfilename, data_vfile,header_vfile,modnb,age
   vfile = STRING(vfilename)
 
   ;print,'Reading the following .v file:  ', vfile
-  header1=strarr(12)
+  header1=''
   header_vfile=''
   IF STRMID(vfile, 2, /REVERSE_OFFSET) EQ '.gz' THEN BEGIN
     gzipTracker = 1

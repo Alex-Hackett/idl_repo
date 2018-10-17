@@ -18,14 +18,14 @@ PRO ah_generate_vfile_hash, modelname, MDDIR = mddir, sampling
     ;wgFile = FILE_SEARCH(STRTRIM(modelname + '/'), '*.wg')
     ;Pull the model name from the dir str for naming the .sav
     modeldir = STRTRIM(modelname + '/', 2)
-    modelname = STRMID(modelname, 52)
+    modelname = STRMID(modelname, 13, /REVERSE_OFFSET)
     ;Cheeky goto is a nice lazy way to skip the next bit
     ;without needing an else statment (Take that python!)
     GOTO, nodirmake
   ENDIF
-
+  defaultvfiledir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/GENEC_MODELS/'
   modelname = STRING(modelname)
-  modeldir = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/geneva_models/' + STRING(modelname) + '/', 2)
+  modeldir = STRTRIM(defaultvfiledir + STRING(modelname) + '/', 2)
   vFiles = FILE_SEARCH(modeldir, '*.v*')
 
   nodirmake:
@@ -98,9 +98,9 @@ PRO ah_generate_vfile_hash, modelname, MDDIR = mddir, sampling
     PRINT, 'READING .V FILES IN' + modeldir
     PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     PRINT, '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-    vFilesCut = vFiles;[ROUND(cgScaleVector(LINDGEN(ROUND(sampling)),0,N_ELEMENTS(vFiles) - 1))]
-    FOREACH elem, vFilesCut, index DO BEGIN
-      AH_EVOL_READ_V_FILE_FROM_GENEVA, elem, data_vfile,header_vfile,modnb,age,mtot,nbshell,deltat
+    vFilesCut = vFiles[ROUND(cgScaleVector(LINDGEN(ROUND(sampling)),0,N_ELEMENTS(vFiles) - 1))]
+    FOREACH element, vFilesCut, index DO BEGIN
+      AH_EVOL_READ_V_FILE_FROM_GENEVA, element, data_vfile,header_vfile,modnb,v_age,mtot,nbshell,deltat
       
       ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'j',data_vfile,v_j,index_varnamex_vfile,return_valx
       ZE_EVOL_OBTAIN_VARIABLE_FROM_V_FILE,'xmr',data_vfile,v_xmr,index_varnamex_vfile,return_valx
@@ -131,32 +131,32 @@ PRO ah_generate_vfile_hash, modelname, MDDIR = mddir, sampling
       ;################################################
       ;Read all the vars into appropriate hashes
       
-      v_jData = v_jData + ORDEREDHASH(age, v_j)
-      v_xmrData = v_xmrData + ORDEREDHASH(age, v_xmr)
-      v_pData =v_pData + ORDEREDHASH(age, v_p)
-      v_tData =v_tData + ORDEREDHASH(age, v_t)
-      v_rData =v_rData+ ORDEREDHASH(age, v_r)
-      v_lrData =v_lrData+ ORDEREDHASH(age, v_lr)
-      v_XData =v_XData+ ORDEREDHASH(age, v_X)
-      v_YData =v_YData+ ORDEREDHASH(age, v_Y)
-      v_C12Data =v_C12Data+ ORDEREDHASH(age, v_C12)
-      v_O16Data =v_O16Data+ ORDEREDHASH(age, v_O16)
-      v_epsData =v_epsData+ ORDEREDHASH(age, v_eps)
-      v_epsyData =v_epsyData+ ORDEREDHASH(age, v_epsy)
-      v_epscData =v_epscData+ ORDEREDHASH(age, v_epsc)
-      v_epsnuData =v_epsnuData+ ORDEREDHASH(age, v_epsnu)
-      v_eps3aData =v_eps3aData+ ORDEREDHASH(age, v_eps3a)
-      v_epsCOData =v_epsCOData+ ORDEREDHASH(age, v_epsCO)
-      v_epsONedata =v_epsONedata+ ORDEREDHASH(age, v_epsONe)
-      v_egravData =v_egravData+ ORDEREDHASH(age, v_egrav)
-      v_Ne20Data =v_Ne20Data+ ORDEREDHASH(age, v_Ne20)
-      v_Ne22Data =v_Ne22Data+ ORDEREDHASH(age, v_Ne22)
-      v_HPData =v_HPData+ ORDEREDHASH(age, v_HP)
-      v_gData =v_gData+ ORDEREDHASH(age, v_g)
-      v_Si28Data =v_Si28Data+ ORDEREDHASH(age, v_Si28)
-      v_Fe52Data =v_Fe52Data+ ORDEREDHASH(age, v_Fe52)
-      v_Ni56Data =v_Ni56Data+ ORDEREDHASH(age, v_Ni56)
-      loopgood = STRTRIM('.v File ' + STRING(elem)  + ' Sucessfully Read', 2)
+      v_jData = v_jData + ORDEREDHASH(v_age, v_j)
+      v_xmrData = v_xmrData + ORDEREDHASH(v_age, v_xmr)
+      v_pData = v_pData + ORDEREDHASH(v_age, v_p)
+      v_tData = v_tData + ORDEREDHASH(v_age, v_t)
+      v_rData = v_rData + ORDEREDHASH(v_age, v_r)
+      v_lrData = v_lrData + ORDEREDHASH(v_age, v_lr)
+      v_XData = v_XData + ORDEREDHASH(v_age, v_X)
+      v_YData = v_YData + ORDEREDHASH(v_age, v_Y)
+      v_C12Data = v_C12Data + ORDEREDHASH(v_age, v_C12)
+      v_O16Data = v_O16Data + ORDEREDHASH(v_age, v_O16)
+      v_epsData = v_epsData + ORDEREDHASH(v_age, v_eps)
+      v_epsyData = v_epsyData + ORDEREDHASH(v_age, v_epsy)
+      v_epscData = v_epscData + ORDEREDHASH(v_age, v_epsc)
+      v_epsnuData = v_epsnuData + ORDEREDHASH(v_age, v_epsnu)
+      v_eps3aData = v_eps3aData + ORDEREDHASH(v_age, v_eps3a)
+      v_epsCOData = v_epsCOData + ORDEREDHASH(v_age, v_epsCO)
+      v_epsONedata = v_epsONedata + ORDEREDHASH(v_age, v_epsONe)
+      v_egravData = v_egravData + ORDEREDHASH(v_age, v_egrav)
+      v_Ne20Data = v_Ne20Data + ORDEREDHASH(v_age, v_Ne20)
+      v_Ne22Data = v_Ne22Data + ORDEREDHASH(v_age, v_Ne22)
+      v_HPData = v_HPData + ORDEREDHASH(v_age, v_HP)
+      v_gData = v_gData + ORDEREDHASH(v_age, v_g)
+      v_Si28Data = v_Si28Data + ORDEREDHASH(v_age, v_Si28)
+      v_Fe52Data = v_Fe52Data + ORDEREDHASH(v_age, v_Fe52)
+      v_Ni56Data = v_Ni56Data + ORDEREDHASH(v_age, v_Ni56)
+      loopgood = STRTRIM('.v File ' + STRING(element)  + ' Sucessfully Read', 2)
       PRINT, loopgood
       ;#######################################################
     ENDFOREACH
