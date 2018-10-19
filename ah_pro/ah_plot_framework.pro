@@ -11,15 +11,24 @@
 ;-
 
 PRO ah_plot_framework, themodel, timeskip, savefiledir=savefiledir, TOSAVE = tosave
+
+  IF KEYWORD_SET(tosave) THEN BEGIN
+    buffervar = 1
+    PRINT, 'Sending to Offscreen Buffer'
+  ENDIF ELSE BEGIN
+    buffervar = 0
+    PRINT, 'Sending to Screen'
+  ENDELSE
+  
   IF N_ELEMENTS(timeskip) EQ 0 THEN BEGIN
-    timeskip = 0.01
+    timeskip = 0.1
     timeskipstr = STRTRIM('No Timeskip Supplied, Defaulting to ' + STRING(timeskip) + ' yrs', 2)
   ENDIF
   themodel = STRING(themodel)
   modelname = themodel
 
   IF N_ELEMENTS(savefiledir) EQ 0 THEN BEGIN
-    savefiledir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/IDL_genec_struc_saves/'
+    savefiledir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/IDL_genec_struc_saves/'
     defdirmes = STRTRIM('Using Default Sav File Dir: ' + savefiledir , 2)
   ENDIF
 
@@ -74,7 +83,7 @@ PRO ah_plot_framework, themodel, timeskip, savefiledir=savefiledir, TOSAVE = tos
   energy_genLims = [!VALUES.D_INFINITY, 0]
   eddFacLims = [!VALUES.D_INFINITY, 0]
   windows = WINDOW(WINDOW_TITLE="Structure Plots", $
-    DIMENSIONS=GET_SCREEN_SIZE())
+    DIMENSIONS=GET_SCREEN_SIZE(), BUFFER = buffervar)
   FOREACH masslist, MintData, time DO BEGIN
 
     ;Check if the timesteps is as big as desired
@@ -101,39 +110,39 @@ PRO ah_plot_framework, themodel, timeskip, savefiledir=savefiledir, TOSAVE = tos
       IF (N_ELEMENTS(p0) AND N_ELEMENTS(p1) AND N_ELEMENTS(p2) AND N_ELEMENTS(p3)) NE 0 THEN BEGIN
       p0.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = ALOG10(collapseAge - time)), [czs], /SYM_FILLED, $
         XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = czsTitle, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
-        NAME = 'Unstable Against Convection', LAYOUT = [1,5,1], SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, OVERPLOT = p0[-1])
+        NAME = 'Unstable Against Convection', LAYOUT = [1,5,1], SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, OVERPLOT = p0[-1], BUFFER = buffervar)
         
       p1.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
         XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = eddMassTitle, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
-        LAYOUT = [1,5,2], SYMBOL = 'o', SYM_SIZE = 0.4, MAGNITUDE = eddFac, RGB_TABLE = 11, /CURRENT, OVERPLOT = p1[-1])
+        LAYOUT = [1,5,2], SYMBOL = 'o', SYM_SIZE = 0.4, MAGNITUDE = eddFac, RGB_TABLE = 11, /CURRENT, OVERPLOT = p1[-1], BUFFER = buffervar)
         
       p2.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
         XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = pradTitle, SYM_COLOR='red',$
         MAGNITUDE = prad, RGB_TABLE = 11, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,5,3], SYMBOL = 'o', SYM_SIZE = 0.4,$
-           /CURRENT, OVERPLOT = p2[-1])
+           /CURRENT, OVERPLOT = p2[-1], BUFFER = buffervar)
         
       p3.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
         XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = enGenTitle, SYM_COLOR='red',$
          MAGNITUDE = energy_gen, RGB_TABLE = 3, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,5,4],$
-           SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, OVERPLOT = p3[-1])
+           SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, OVERPLOT = p3[-1], BUFFER = buffervar)
       ENDIF ELSE BEGIN
         p0.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(czs), VALUE = ALOG10(collapseAge - time)), [czs], /SYM_FILLED, $
           XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = czsTitle, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
-          NAME = 'Unstable Against Convection', LAYOUT = [1,5,1], SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT)
+          NAME = 'Unstable Against Convection', LAYOUT = [1,5,1], SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, BUFFER = buffervar)
 
         p1.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
           XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = eddMassTitle, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0],$
-          LAYOUT = [1,5,2], SYMBOL = 'o', SYM_SIZE = 0.4, MAGNITUDE = eddFac, RGB_TABLE = 11, /CURRENT)
+          LAYOUT = [1,5,2], SYMBOL = 'o', SYM_SIZE = 0.4, MAGNITUDE = eddFac, RGB_TABLE = 11, /CURRENT, BUFFER = buffervar)
 
         p2.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
           XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = pradTitle, SYM_COLOR='red',$
           MAGNITUDE = prad, RGB_TABLE = 11, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,5,3], SYMBOL = 'o', SYM_SIZE = 0.4,$
-          /CURRENT)
+          /CURRENT, BUFFER = buffervar)
 
         p3.add, SCATTERPLOT(MAKE_ARRAY(N_ELEMENTS(masslist), VALUE = ALOG10(collapseAge - time)), [masslist] / 2d33, /SYM_FILLED, $
           XTITLE = 'Log Time to Collapse', YTITLE = 'Mass Coordinate ($M_{\odot}$)', TITLE = enGenTitle, SYM_COLOR='red',$
           MAGNITUDE = energy_gen, RGB_TABLE = 3, XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], LAYOUT = [1,5,4],$
-          SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT)
+          SYMBOL = 'o', SYM_SIZE = 0.4, /CURRENT, BUFFER = buffervar)
       ENDELSE
       
       
@@ -151,11 +160,11 @@ PRO ah_plot_framework, themodel, timeskip, savefiledir=savefiledir, TOSAVE = tos
   
   
     p4 = PLOT(ALOG10(collapseAge - wg_u1), wg_eddesm, COLOR = 'black', /CURRENT, LAYOUT = [1,5,5], TITLE = 'Eddington Parameter as a Function of Age', $
-    XTITLE = 'Log Time to Collapse', YTITLE = 'Eddington Parameter', XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0])
+    XTITLE = 'Log Time to Collapse', YTITLE = 'Eddington Parameter', XRANGE = [ALOG10(collapseAge - (MintData.Keys())[0]),0], BUFFER = buffervar)
 
 
   IF KEYWORD_SET(tosave) THEN BEGIN
-    imagedir = '/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/full_frame_plots/'
+    imagedir = '/home/AHACKETT_Project/_PopIIIProject/IDL_Plots/TESTStructure_Plots/'
     plotname = STRTRIM(imagedir + STRING(modelname) + 'frame_plot.pdf')
     IF FILE_TEST(imagedir, /DIRECTORY) EQ 0 THEN BEGIN
       FILE_MKDIR, imagedir

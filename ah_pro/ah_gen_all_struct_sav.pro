@@ -8,7 +8,7 @@
 PRO ah_gen_all_struct_sav, modelsdir
 
 defaultdir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/GENEC_MODELS/'
-defaultdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_models/'
+;defaultdir = '/home/AHACKETT_Project/_PopIIIProject/geneva_models/'
 IF N_ELEMENTS(modelsdir) EQ 0 THEN BEGIN
   PRINT, STRTRIM('No GENEC Models Dir Specified, Defaulting to ' + defaultdir, 2)
   modelsdir = defaultdir

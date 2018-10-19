@@ -37,7 +37,8 @@ wgFile = FILE_SEARCH(modeldir, '*.wg')
 
 nodirmake:
 
-savfiledir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/IDL_genec_struc_saves/'
+;savfiledir = '/home/AHACKETT_Project/_PopIIIProject/geneva_model_data/IDL_genec_struc_saves/'
+savfiledir = '/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/IDL_genec_struc_saves/'
 IF FILE_TEST(savfiledir, /DIRECTORY) EQ 0 THEN BEGIN
   FILE_MKDIR, savfiledir
 ENDIF
