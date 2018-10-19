@@ -5,7 +5,7 @@
 ; of different masses and convective overshooting parameters
 ;
 ;-
-PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__savefile_dir_
+PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__savefile_dir_, WGREAD=wgread
 
   ;##########################
   ;##########################
@@ -24,8 +24,12 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
   ENDIF
 
   ;Find all the .Sav Files
-
-  _savFileList_ = FILE_SEARCH(__savefile_dir_, '*.sav')
+  IF KEYWORD_SET(wgread) EQ 0 THEN BEGIN
+    _savFileList_ = FILE_SEARCH(__savefile_dir_, '*.sav')
+  ENDIF ELSE BEGIN
+    _saveFileList = FILE_SEARCH(__savefile_dir_, '*.wg')
+  ENDELSE
+  
 
   ;Step up plotting arrays
 
@@ -78,7 +82,7 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
     cols = ORDEREDHASH(!COLOR)
     colgen = ROUND(RANDOMU(SYSTIME(/UTC, /SECONDS)) * 145)
     colorFactor = (cols.Keys())[colgen]
-
+    IF KEYWORD_SET(wgread) THEN BEGIN
     modelname = STRMID(_savFileName_, STRPOS(_savFileName_, '_', /REVERSE_SEARCH) + 1, 14)
     ;_savefile_ = STRTRIM(__savefile_dir_ + 'Hashed_StrucData_' + STRING(modelname)+'.sav',2)
     _savefile_ = _savFileName_
@@ -102,7 +106,11 @@ PRO ah_evolutionary_properties_comparison, TOSAVE=tosave, __savefile_dir_=__save
       PRINT, 'Not a Vaild .sav For Reading, Skipping'
       CONTINUE
     ENDIF
-
+    ENDIF
+    
+    IF KEYWORD_SET(wgread) THEN BEGIN
+      
+    ENDIF
     ;####################
     ;####################
     ;###ArrayGenStuff####
