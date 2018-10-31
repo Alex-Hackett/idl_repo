@@ -25,7 +25,7 @@ FOREACH model, all_models DO BEGIN
   ;Set the /MDDIR keyword since we're
   ;passing the full dir to ah_read_genec_struc
   ;When it would usually expect just a model name (e.g. P015z000S0d010)
-  ah_read_genec_struc, model, /MDDIR
+  ah_read_genec_strucv1, model, /MDDIR
   
   TOC
 ENDFOREACH
