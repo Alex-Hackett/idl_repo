@@ -9,7 +9,7 @@
 ;-
 FUNCTION ah_count_ionizing_photons_blackbody, model, modelTracker, file_to_print, XFRAC = xfrac, output
   ;Read in the sav files for the given model
-  modelsav = ah_load_savs(model, /STRUC, /XDRIVE)
+  modelsav = AH_LOAD_SAVS(model, /STRUC, /XDRIVE)
   RESTORE, modelsav
   LumSun = 3.839d33
   ;Determine the closest age for which we

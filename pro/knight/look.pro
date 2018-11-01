@@ -3394,7 +3394,14 @@ PRO look,input,help=help,verbose = verbose,noload = noload $
          ,usermean = usermean, usermedian = usermedian $
          ,units = units $
          ,dim3marks = dim3marks,dim4marks = dim4marks,dim5marks = dim5marks $
-         ,dim6marks = dim6marks,dim7marks = dim7marks $
+         ,dim6hi alex, please have a look — i decided to inlcude a fig from eoin’s paper (only the primary is shown), but I think this is clearer. it also shows BPASS models, which I think are important to be mentioned.
+
+
+       irc_alexhackett_figs.pdf
+       875.8 KB
+
+
+marks = dim6marks,dim7marks = dim7marks $
          ,viewers = viewers
 COMMON look,images,catalog,index
 COMMON look_common,thisimage,zoomimage,fullimage,ws,all,zoom
@@ -3595,7 +3602,14 @@ tmp = {look_pdmenu,flags:0,name:''}
 optmenu = [ $
             {look_pdmenu,1,'Options menu'} $
             ,{look_pdmenu,1,'blink compare'} $
-            ,{look_pdmenu,0,'blink to screen'} $
+            ,{lhi alex, please have a look — i decided to inlcude a fig from eoin’s paper (only the primary is shown), but I think this is clearer. it also shows BPASS models, which I think are important to be mentioned.
+
+
+          irc_alexhackett_figs.pdf
+          875.8 KB
+
+
+ook_pdmenu,0,'blink to screen'} $
             ,{look_pdmenu,2,'blink to window'} $
             ,{look_pdmenu,1,'catalog'} $
             ,{look_pdmenu,0,'cat to screen'} $
