@@ -18,6 +18,9 @@ modsubHeIILum = LIST()
 modsubHeIINPhot = LIST()
 
 FOREACH selectedModel, modelList[2:*] DO BEGIN
+  PRINT, '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+  PRINT, '+++++COMPUTING MODEL: ', selectedModel, '+++++++++++++++'
+  PRINT, '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   out = AH_COUNT_IONIZING_PHOTONS_BLACKBODY(selectedModel, xfracs, /XFRAC)
   mods.ADD, out[0]
   modAges.ADD, out[1]
@@ -58,5 +61,5 @@ P5 = BARPLOT(xvals, ALOG10(modsubHeIILum.TOARRAY()), INDEX = 2, NBARS = 3, FILL_
 leg1 = LEGEND(TARGET = [P3, P4, P5], SHADOW = 0, POSITION = [0.005,1])
 p3savename = STRTRIM('/home/AHACKETT_Project/_PopIIIProject/groh_hard_drive/AHACKETT/IDL_Plots/IONIZATION_PLOTS/group/' + 'luminosity_' + STRING(ROUND((1-xfracs) * 100)) + 'percent_xfrac.pdf', 2)
 P3.SAVE, p3savename, /BITMAP
-IF KEYWORD_SET(nobuffer) THEN WINDOWDELETEALL
+;IF KEYWORD_SET(nobuffer) THEN WINDOWDELETEALL
 END

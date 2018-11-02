@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+ xmlns:gx="http://www.google.com/kml/ext/2.2"
+ xmlns:atom="http://www.w3.org/2005/Atom"
+>
+<Document id="docID">
+<visibility>1</visibility>
+<open>0</open>
+<Snippet maxLines="0"></Snippet>
+<Placemark id="placeID">
+<name>PlaceMark</name>
+<visibility>1</visibility>
+<open>0</open>
+<description><![CDATA[Balloon contents...]]></description>
+<styleUrl>#stylemap</styleUrl>
+<Snippet maxLines="2">       0</Snippet>
+<Polygon id="polyID">
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<outerBoundaryIs>
+<LinearRing id="ringID">
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<altitudeMode>relativeToGround</altitudeMode>
+<coordinates>-0.500000,-0.500000 -0.500000,0.500000 0.500000,0.500000 0.500000,-0.500000 -0.500000,-0.500000</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+</Polygon>
+</Placemark>
+<Style id="normal">
+<LineStyle id="ID">
+<color>ffffffff</color>
+<width>3.00000</width>
+</LineStyle>
+<PolyStyle id="ID">
+<color>00ffffff</color>
+<fill>1</fill>
+<outline>1</outline>
+</PolyStyle>
+</Style>
+<Style id="highlight">
+<LineStyle id="ID">
+<color>ff00ff00</color>
+<width>3.00000</width>
+</LineStyle>
+<PolyStyle id="ID">
+<color>66ffffff</color>
+<fill>1</fill>
+<outline>1</outline>
+</PolyStyle>
+</Style>
+<StyleMap id="stylemap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normal</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlight</styleUrl>
+</Pair>
+</StyleMap>
+</Document>
+</kml>

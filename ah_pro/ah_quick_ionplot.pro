@@ -1,3 +1,4 @@
+PRO ah_quick_ionplot
 ah_ionization_sum, 1.0
 ah_ionization_sum, 0.9
 ah_ionization_sum, 0.8

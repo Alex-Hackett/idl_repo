@@ -24,29 +24,30 @@ FUNCTION ah_count_ionizing_photons_blackbody, model, modelTracker, file_to_print
   
   
   Teff = 10d^(wg_xte[WHERE(wg_age_arr EQ selected_age)])
-  Lum = 10d^(wg_xl[WHERE(wg_age_arr EQ selected_age)]) * LumSun
+  Lum = 10d^(wg_xl[WHERE(wg_age_arr EQ selected_age)])
+  Lum = Lum * LumSun
   ;determine the blackbody
-  fluxes = PLANCK(wvls, Teff[0]) * !DPI
-  lumCorr = (Lum / INT_TABULATED(wvls, fluxes))
+  fluxes = PLANCK(wvls, Teff[0])  * !DPI
+  lumCorr = (Lum / INT_TABULATED(wvls, fluxes, /DOUBLE))
   fluxes = fluxes * lumCorr[0]
   
   ;Determine the total luminosity (sanity check) in erg/s
-  totLum = INT_TABULATED(wvls, fluxes)
+  totLum = INT_TABULATED(wvls, fluxes, /DOUBLE)
   
   ;Cutoff wavelength for H ionization
   HI = 911.267d
   ;Cutoff wavelength for HeI ionizatoin
   HeI = 504.259d
   ;Cutoff wavelength for HeII ionization
-  HeII = 227.8377d
+  HeII = 227.8377d 
   
-  subHILum = INT_TABULATED(wvls[WHERE(wvls LE HI)], fluxes[WHERE(wvls LE HI)])
-  subHeILum = INT_TABULATED(wvls[WHERE(wvls LE HeI)], fluxes[WHERE(wvls LE HeI)])
-  subHeIILum = INT_TABULATED(wvls[WHERE(wvls LE HeII)], fluxes[WHERE(wvls LE HeII)])
+  subHILum = INT_TABULATED(wvls[WHERE(wvls LE HI)], fluxes[WHERE(wvls LE HI)], /DOUBLE)
+  subHeILum = INT_TABULATED(wvls[WHERE(wvls LE HeI)], fluxes[WHERE(wvls LE HeI)], /DOUBLE)
+  subHeIILum = INT_TABULATED(wvls[WHERE(wvls LE HeII)], fluxes[WHERE(wvls LE HeII)], /DOUBLE)
   
-  subHINPhot = INT_TABULATED(wvls[WHERE(wvls LE HI)], fluxes[WHERE(wvls LE HI)] / wvls[WHERE(wvls LE HI)])
-  subHeINPhot = INT_TABULATED(wvls[WHERE(wvls LE HeI)], fluxes[WHERE(wvls LE HeI)] / wvls[WHERE(wvls LE HeI)])
-  subHeIINPhot = INT_TABULATED(wvls[WHERE(wvls LE HeII)], fluxes[WHERE(wvls LE HeII)] / wvls[WHERE(wvls LE HeII)])
+  subHINPhot = INT_TABULATED(wvls[WHERE(wvls LE HI)], fluxes[WHERE(wvls LE HI)] / wvls[WHERE(wvls LE HI)], /DOUBLE)
+  subHeINPhot = INT_TABULATED(wvls[WHERE(wvls LE HeI)], fluxes[WHERE(wvls LE HeI)] / wvls[WHERE(wvls LE HeI)], /DOUBLE)
+  subHeIINPhot = INT_TABULATED(wvls[WHERE(wvls LE HeII)], fluxes[WHERE(wvls LE HeII)] / wvls[WHERE(wvls LE HeII)], /DOUBLE)
   
   PRINT, 'Model Luminosity: ', Lum, ' erg/s'
   PRINT, 'Total Calculated Luminosity: ', totLum, ' erg/s'
